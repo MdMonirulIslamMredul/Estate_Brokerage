@@ -1,0 +1,4 @@
+[29-Sep-2024 21:12:33 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/ajitgtfj/ajgroup.com.bd/config/database.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/ajitgtfj/ajgroup.com.bd/config/database.php on line 18

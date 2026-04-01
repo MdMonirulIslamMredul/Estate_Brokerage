@@ -1,0 +1,106 @@
+header{
+    width:70%;
+    margin:auto;
+}
+
+#topnav #mainlogo {
+    width: 200px !important;
+    height: 100px !important;
+}
+
+#topnav .navigation-menu>li>a {
+    color:white !important;
+}
+#topnav .buy-button>li {
+    line-height: 1.5;
+    color:white;
+}
+/* #topnav .buy-button>li>a:first-child:hover {
+   background-color: red !important;
+} */
+
+#topnav .buy-button>li>div>a {
+   font-weight: bold;
+    color:white;
+}
+
+
+
+.features .feature-icon .hexagon {
+    /* color: transparent !important; */
+    fill: #1D8D42 !important;
+    height: 102px;
+    width: 102px;
+}
+
+
+@media only screen and (min-width:1290px) and (max-width:1662px){
+    #topnav{
+        width:90%;
+    }
+    #topnav .navigation-menu>li>a {
+        font-size:18px !important;
+    }
+
+}
+@media only screen and (min-width:992px) and (max-width:1289px){
+    #topnav{
+        width:90%;
+    }
+    #topnav .navigation-menu>li>a {
+        font-size:14px !important;
+        padding-bottom: 0;
+        min-height: 0;
+    }
+    #topnav #mainlogo{
+        width: 100px;
+        height: 102px;
+    }
+    #topnav .buy-button>li:nth-child(2){
+        display: none;
+    }
+
+
+}
+@media only screen and (min-width:576px) and (max-width:768px){
+    #topnav #mainlogo{
+        width: 100px;
+        height: 102px;
+    }
+    #topnav .buy-button>li:nth-child(3){
+        margin-right:10px;
+    }
+
+}
+@media only screen and (min-width:375px) and (max-width:575px){
+    #topnav #mainlogo{
+        width: 177px !important;
+        height: 75px !important;
+    }
+    #topnav{
+        top:0px
+    }
+
+}
+
+
+ @media (max-width: 991px){
+
+    #topnav {
+        padding-bottom: 12px !important;
+    }
+    header {
+        width:100%;
+    }
+    #topnav .navigation-menu>li>a {
+        color:black !important;
+    }
+    #topnav .buy-button>li:nth-child(3){
+        margin-right:10px;
+
+    }
+
+
+}
+
+

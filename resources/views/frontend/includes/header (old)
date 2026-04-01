@@ -1,0 +1,185 @@
+@php
+    $links = App\Models\WebsiteLink::latest()->first();
+@endphp
+<style>
+    @media only screen and (max-width: 600px) {
+        .mobile_loggo {
+            width: 184px !important;
+            height: 50px !important;
+
+        }
+</style>
+<header id="topnav" class="defaultscroll sticky" style="background: rgba(23, 168, 76, 0.80);">
+    <div class="container-fluid py-2">
+        <a class="logo" href="{{ url('/') }}">
+            <span class="logo-light-mode" style="padding:7px 0px 7px">
+                <img src="{{ asset(App\Models\Logo::first()->frontend_logo_image) }}" class="l-dark mobile_loggo"
+                    id="mainlogo" alt="" style="margin-left: 10px ">
+                <img src="{{ asset(App\Models\Logo::first()->frontend_logo_image) }}" class="l-light" id="mainlogo"
+                    alt="" style="margin-left: 10px ">
+            </span>
+            <img src="{{ asset(App\Models\Logo::first()->frontend_logo_image) }}" class="logo-dark-mode" id="mainlogo"
+                alt="" style="margin-left: 10px ">
+        </a>
+
+        <div class="menu-extras">
+            <div class="menu-item">
+                <a class="navbar-toggle" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
+                    aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation" id="isToggle"
+                    onclick="toggleMenu()">
+                    <div class="lines">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <ul class="buy-button list-inline mb-0">
+
+            <li class="list-inline-item ps-1" style="position: fixed;
+            margin-left: -150px;">
+                <div class="phone-number text-center" style="margin-right:20px">
+                    <b>Hot Line</b> <br><a href="tel:{{ $links->phone }}" class="">{{ $links->phone }}</a><br><a
+                        href="tel:{{ $links->phone_2 }}" class="">{{ $links->phone_2 }}
+                </div>
+            </li>
+
+            <li class="list-inline-item ps-1 mb-0">
+                <div class="p-0 mb-0 mt-0" style="margin-right:-12px">
+                    <a href="{{ $links->facebook }}" class="fs-6 p-0 border"
+                        style="height:23px;display: block;color:#2D9A4A;background:white;border-radius: 0px 0px 0px 5px;margin-top:4px"><i
+                            class="bi bi-facebook"></i></a>
+                    <a href="{{ $links->youtube }}" class="fs-6 p-0 border"
+                        style="height:23px;display: block;color:#2D9A4A;background:white;border-radius: 0px 0px 0px 5px;margin-top:4px"><i
+                            class="bi bi-youtube"></i></a>
+                    <a href="{{ $links->linkedIn }}" class="fs-6 p-0 border"
+                        style="height:23px;display: block;color:#2D9A4A;background:white;border-radius: 0px 0px 0px 5px;margin-top:4px"><i
+                            class="bi bi-linkedin"></i></a>
+                </div>
+            </li>
+
+        </ul>
+
+
+        <div id="navigation" class="mt-3">
+            <ul class="navigation-menu nav-light">
+                <li class="has-submenu parent-menu-item">
+                    <a href="{{ url('/') }}"><i class="bi bi-house-door"></i></a>
+                </li>
+                <li class="has-submenu parent-menu-item">
+                    <a href="{{ route('about.details') }}">About</a>
+                </li>
+
+                /* <li class="has-submenu parent-parent-menu-item">
+                    <a href="javascript:void(0)">Corporate</a><span class="menu-arrow"></span>
+                    <ul class="submenu">
+                        <li><a href="{{ route('about.details') }}" class="sub-menu-item">Company Profile</a></li>
+                        <li><a href="{{ route('mission.vission') }}" class="sub-menu-item">Mission & Vission</a></li>
+                        <li><a href="{{ route('team.members') }}" class="sub-menu-item">Meet The Team</a></li>
+                        <li><a href="{{ route('career.opportunity') }}" class="sub-menu-item">Career Opportunity</a>
+                        </li>
+                        <li><a href="{{ route('social.response') }}" class="sub-menu-item">Social Responsibility</a>
+                        </li>
+                        <li><a href="{{ route('our.certification') }}" class="sub-menu-item">Certification</a></li>
+                        <li><a href="{{ route('client.review') }}" class="sub-menu-item">Testimonials</a></li>
+                    </ul>
+                </li> */
+
+                /* <li class="has-submenu parent-parent-menu-item">
+                    <a href="javascript:void(0)">Business</a><span class="menu-arrow"></span>
+                    <ul class="submenu">
+                        @php
+                            $business = App\Models\Business::orderBy('id', 'DESC')->get();
+                        @endphp
+                        @foreach ($business as $item)
+                            <li><a href="{{ route('business.item.details', $item->id) }}"
+                                    class="sub-menu-item">{{ $item->title_english }}</a></li>
+                        @endforeach
+
+
+                        {{-- <li class="has-submenu parent-menu-item"><a href="javascript:void(0)"> AJAgro</a><span class="submenu-arrow"></span>
+                            <ul class="submenu">
+                                <li><a href="{{ route('agro.pattern.one') }}" class="sub-menu-item">Design 1</a></li>
+                                <li><a href="{{ route('agro.pattern.two') }}" class="sub-menu-item">Design 2</a></li>
+                            </ul>
+                        </li>   --}}
+
+                        {{-- <li class="has-submenu parent-menu-item"><a href="javascript:void(0)"> AJ IT </a><span class="submenu-arrow"></span>
+                            <ul class="submenu">
+                                @foreach ($itservice as $item)
+                                <li><a href="{{ url('/itservice/id',$item->id) }}" class="sub-menu-item">{{ $item->it_service_name_eng }}</a></li>
+                                @endforeach
+
+                            </ul>
+                        </li>  --}}
+                        {{-- <li><a href="#" class="sub-menu-item">AT Corporation</a></li>
+                        <li><a href="#" class="sub-menu-item">AJtour $ Travels</a></li>                         --}}
+
+                    </ul>
+                </li> */
+
+                <li class="has-submenu parent-parent-menu-item">
+                    <a href="javascript:void(0)">Project</a><span class="menu-arrow"></span>
+                    <ul class="submenu">
+                        <li><a href="{{ route('frontend.ongoing.project') }}" class="sub-menu-item">Ongoing </a></li>
+                        <li><a href="{{ route('frontend.upcomming.project') }}" class="sub-menu-item">Upcomming </a>
+                        </li>
+                        <li><a href="{{ route('frontend.completed.project') }}" class="sub-menu-item">Completed </a>
+                        </li>
+                    </ul>
+                </li>
+
+
+
+                <li class="has-submenu parent-parent-menu-item">
+                    <a href="javascript:void(0)">Media</a><span class="menu-arrow"></span>
+                    <ul class="submenu">
+                        <li class="has-submenu parent-menu-item"><a href="{{ route('all.news.list') }}">News</a>
+                        </li>
+                        <li class="has-submenu parent-menu-item"><a href="{{ route('frontend.events') }}">Events </a>
+                        <li class="has-submenu parent-menu-item"><a href="{{ route('front.video.gallery') }}">
+                                Coverage </a>
+                        <li class="has-submenu parent-menu-item"><a href="{{ route('front.image.gallery') }}"> Image
+                                Gallery </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="has-submenu parent-parent-menu-item">
+                    <a href="javascript:void(0)">Services</a><span class="menu-arrow"></span>
+                    <ul class="submenu">
+
+                        @php
+                            $services = App\Models\Service::orderBy('id', 'DESC')->get();
+                        @endphp
+                        @foreach ($services as $item)
+                            <li><a href="{{ route('service.item.details', $item->id) }}"
+                                    class="sub-menu-item">{{ $item->title_english }}</a></li>
+                        @endforeach
+
+                    </ul>
+                </li>
+
+                <li><a href="{{ route('contact.us') }}" class="sub-menu-item">Contact</a></li>
+
+
+                @auth
+                    @if (Auth::user()->role === 'admin')
+                        <li><a href="{{ route('dashboard') }}" class="sub-menu-item">Dashboard</a></li>
+                    @elseif (Auth::user()->role === 'user')
+                        <li><a href="{{ route('agent.dashboard') }}" class="sub-menu-item">Dashboard</a></li>
+                    @endif
+                @endauth
+
+            </ul>
+        </div>
+        {{-- <div>
+            <a href=""><i class="bi bi-facebook"></i></a>
+            <a href=""><i class="bi bi-youtube"></i></a>
+            <a href=""><i class="bi bi-linkedin"></i></a>
+        </div> --}}
+    </div>
+
+</header>
