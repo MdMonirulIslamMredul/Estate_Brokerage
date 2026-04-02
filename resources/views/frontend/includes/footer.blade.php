@@ -8,7 +8,7 @@
     :root {
         --footer-primary: #0f172a;
         --footer-secondary: #1e293b;
-        --footer-accent: #f59e0b;
+        --footer-accent: #b20101;
         --footer-bg: #0f172a;
         --footer-text: #f5f5f5;
         --footer-text-muted: #cbd5e1;
@@ -30,13 +30,13 @@
         display: grid;
         grid-template-columns: 2fr 1fr 1fr 1fr;
         gap: 3rem;
-        margin-bottom: 3rem;
+        /* margin-bottom: 3rem; */
     }
 
     .footer-brand {
         display: flex;
         flex-direction: column;
-        gap: 1.5rem;
+        /* gap: 1.5rem; */
     }
 
     .footer-logo {
@@ -61,12 +61,14 @@
 
     .footer-widget {
         margin-bottom: 0;
+        padding: 20px;
     }
 
-    .footer-widget-title {
-        font-size: 0.9rem;
-        font-weight: 700;
-        color: white;
+    .footer-widget-title,
+    .footer-widget-title h5 {
+        font-size: 0.9rem !important;
+        font-weight: 900 !important;
+        color: #8f0000;
         margin-bottom: 1.5rem;
         text-transform: uppercase;
         letter-spacing: 0.5px;
@@ -246,12 +248,18 @@
                 </div>
                 <p class="footer-description">{{ $footer->footer_details_eng }}</p>
                 <div>
-                    <h6 style="color: white; margin-bottom: 1rem; font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">Follow Us</h6>
+                    <h6
+                        style="color: white; margin-bottom: 1rem; font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">
+                        Follow Us</h6>
                     <ul class="footer-socials">
-                        <li><a href="{{ $links->facebook }}" target="_blank" title="Facebook"><i class="bi bi-facebook"></i></a></li>
-                        <li><a href="{{ $links->instagram }}" target="_blank" title="Instagram"><i class="bi bi-instagram"></i></a></li>
-                        <li><a href="{{ $links->youtube }}" target="_blank" title="YouTube"><i class="bi bi-youtube"></i></a></li>
-                        <li><a href="{{ $links->linkedIn }}" target="_blank" title="LinkedIn"><i class="bi bi-linkedin"></i></a></li>
+                        <li><a href="{{ $links->facebook }}" target="_blank" title="Facebook"><i
+                                    class="bi bi-facebook"></i></a></li>
+                        <li><a href="{{ $links->instagram }}" target="_blank" title="Instagram"><i
+                                    class="bi bi-instagram"></i></a></li>
+                        <li><a href="{{ $links->youtube }}" target="_blank" title="YouTube"><i
+                                    class="bi bi-youtube"></i></a></li>
+                        <li><a href="{{ $links->linkedIn }}" target="_blank" title="LinkedIn"><i
+                                    class="bi bi-linkedin"></i></a></li>
                     </ul>
                 </div>
             </div>
@@ -272,8 +280,8 @@
             <div class="footer-widget">
                 <h5 class="footer-widget-title">Services</h5>
                 <ul>
-                    <li><a href="#">Find Builders</a></li>
-                    <li><a href="#">Rent Your Property</a></li>
+                    <li><a href="{{ route('all.builders') }}">Find Builders</a></li>
+                    <li><a href="{{ route('rent.property.request') }}">Rent Your Property</a></li>
                     <li><a href="#">ROI Calculator</a></li>
                     <li><a href="#">EMI Calculator</a></li>
                     <li><a href="#">Unit Converter</a></li>

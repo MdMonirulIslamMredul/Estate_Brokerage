@@ -73,6 +73,7 @@ require __DIR__ . '/auth.php';
 // frontend all route start=================================================
 Route::controller(HomeController::class)->group(function () {
     Route::get('/', 'tech_web_home_index')->name('webview.home.index');
+    Route::get('/builders', 'tech_web_all_builders')->name('all.builders');
     Route::get('/about/details', 'tech_web_about_details')->name('about.details');
     Route::get('/owner/details/more', 'tech_web_about_owner_details')->name('owner.details');
     Route::get('/project/details/{id}', 'tech_web_completed_project_details')->name('completed.project.details');
@@ -100,6 +101,9 @@ Route::controller(HomeController::class)->group(function () {
     Route::get('/our/certification', 'tech_web_our_certification')->name('our.certification');
     Route::get('/our/certification', 'tech_web_our_certification')->name('our.certification');
     Route::get('/certificate/details/{id}', 'tech_web_certificate_details')->name('certificate.details');
+    Route::get('/emi-calculator', 'tech_web_emi_calculator')->name('emi.calculator');
+    Route::get('/roi-calculator', 'tech_web_roi_calculator')->name('roi.calculator');
+    Route::get('/unit-converter', 'tech_web_unit_converter')->name('unit.converter');
 
     // blogs/new methods
     Route::get('/all/news/list', 'tech_web_all_blogs_list')->name('all.news.list');
@@ -130,6 +134,8 @@ Route::controller(FServiceController::class)->group(function () {
 Route::controller(FcontactusController::class)->group(function () {
     Route::get('/contact/us', 'tech_web_contact_us')->name('contact.us');
     Route::post('/contactdata/store', [ContactController::class, 'tech_web_contactdata_store'])->name('contactdata.store');
+    Route::get('/rent-your-property', 'tech_web_rent_property')->name('rent.property.request');
+    Route::post('/rent-your-property', 'tech_web_rent_property_store')->name('rent.property.submit');
 });
 Route::post('/cv/submit', [HomeController::class, 'tech_web_career_opportunity_store']);
 Route::controller(F_EventController::class)->group(function () {

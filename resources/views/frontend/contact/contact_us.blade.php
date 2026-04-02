@@ -11,11 +11,12 @@
 
     <style>
         :root {
-            --brand: #f08121;
-            --brand-deep: #d86d15;
+            --brand: #b20101;
+            --brand-deep: #8f0000;
             --ink: #16202b;
             --muted: #6c7480;
             --panel-bg: #fff9f3;
+
         }
 
         .contact-hero {
@@ -86,6 +87,7 @@
             font-weight: 800;
             margin-bottom: 12px;
             letter-spacing: -0.03em;
+            color: var(--brand)
         }
 
         .contact-intro p {

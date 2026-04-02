@@ -628,27 +628,771 @@
             margin-top: 12px;
         }
 
-        /* ===== SPONSOR SECTION ===== */
-        .sponsor-card {
-            background: white;
-            border-radius: 12px;
-            box-shadow: var(--shadow-md);
-            padding: 32px;
+        /* ===== VIDEO SHOWCASE ===== */
+        .video-showcase-section {
+            position: relative;
+            overflow: hidden;
+            padding: 96px 0;
+            background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+        }
+
+        .video-showcase-section::before,
+        .video-showcase-section::after {
+            content: '';
+            position: absolute;
+            pointer-events: none;
+            border-radius: 999px;
+        }
+
+        .video-showcase-section::before {
+            width: 280px;
+            height: 280px;
+            top: -90px;
+            left: -90px;
+            background: rgba(178, 1, 1, 0.05);
+            filter: blur(4px);
+        }
+
+        .video-showcase-section::after {
+            width: 220px;
+            height: 220px;
+            right: -70px;
+            bottom: -60px;
+            background: rgba(178, 1, 1, 0.06);
+            filter: blur(8px);
+        }
+
+        .video-showcase-section .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .video-showcase-header {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 24px;
+            margin-bottom: 36px;
+        }
+
+        .video-showcase-copy {
+            max-width: 760px;
+        }
+
+        .video-showcase-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 0.48rem 1rem;
+            border-radius: 999px;
+            background: rgba(178, 1, 1, 0.14);
+            border: 1px solid rgba(178, 1, 1, 0.28);
+            color: #ff8f8f;
+            font-size: 0.86rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        .video-showcase-copy h1 {
+            margin: 0 0 0.7rem;
+            color: var(--dark-color);
+            font-size: clamp(2.1rem, 3.8vw, 3.5rem);
+            line-height: 1.05;
+            font-weight: 800;
+        }
+
+        .video-showcase-copy p {
+            margin: 0;
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        .video-showcase-meta {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+
+        .video-showcase-stat {
+            min-width: 140px;
+            padding: 1rem 1.1rem;
+            border-radius: 18px;
+            background: #ffffff;
+            border: 1px solid rgba(178, 1, 1, 0.1);
+            box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
             text-align: center;
-            transition: all 0.3s ease;
-            border: 1px solid var(--border-color);
         }
 
-        .sponsor-card:hover {
-            transform: translateY(-8px);
-            box-shadow: var(--shadow-lg);
+        .video-showcase-stat strong {
+            display: block;
+            color: var(--primary-color);
+            font-size: 1.4rem;
+            font-weight: 800;
+            line-height: 1.1;
         }
 
-        .sponsor-card img {
-            max-width: 120px;
-            height: 120px;
-            object-fit: cover;
-            border-radius: 12px;
+        .video-showcase-stat span {
+            display: block;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-top: 0.3rem;
+        }
+
+        .video-showcase-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 22px;
+        }
+
+        .video-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 24px;
+            background: #ffffff;
+            border: 1px solid rgba(178, 1, 1, 0.08);
+            box-shadow: 0 18px 44px rgba(15, 23, 42, 0.08);
+            transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
+        }
+
+        .video-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(178, 1, 1, 0.22);
+            box-shadow: 0 24px 52px rgba(15, 23, 42, 0.12);
+        }
+
+        .video-card-featured {
+            grid-column: span 2;
+        }
+
+        .video-media {
+            position: relative;
+            background: #081120;
+        }
+
+        .video-media iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+            display: block;
+        }
+
+        .video-media .ratio {
+            --bs-aspect-ratio: 56.25%;
+        }
+
+        .video-overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: flex-end;
+            justify-content: flex-start;
+            padding: 16px;
+            background: linear-gradient(180deg, rgba(8, 17, 32, 0.06) 0%, rgba(8, 17, 32, 0.56) 100%);
+            pointer-events: none;
+        }
+
+        .video-play-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 0.6rem 0.9rem;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            color: #ffffff;
+            font-size: 0.84rem;
+            font-weight: 700;
+            letter-spacing: 0.03em;
+            backdrop-filter: blur(6px);
+        }
+
+        .video-card-body {
+            padding: 1.1rem 1.15rem 1.2rem;
+            background: #ffffff;
+        }
+
+        .video-card-meta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 0.8rem;
+        }
+
+        .video-meta-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 0.42rem 0.7rem;
+            border-radius: 999px;
+            background: rgba(178, 1, 1, 0.14);
+            border: 1px solid rgba(178, 1, 1, 0.26);
+            color: var(--primary-color);
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+
+        .video-meta-chip-soft {
+            background: rgba(15, 23, 42, 0.04);
+            border-color: rgba(15, 23, 42, 0.06);
+            color: var(--secondary-color);
+        }
+
+        .video-card-body h5 {
+            color: var(--dark-color);
+            font-size: 1.35rem;
+            font-weight: 800;
+            line-height: 1.25;
+            margin-bottom: 0.55rem;
+        }
+
+        .video-card-body p {
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin: 0;
+        }
+
+        .video-empty-state {
+            grid-column: 1 / -1;
+            padding: 2rem;
+            text-align: center;
+            color: var(--text-muted);
+            border-radius: 20px;
+            border: 1px dashed rgba(178, 1, 1, 0.18);
+            background: #ffffff;
+        }
+
+        /* ===== WHY CHOOSE SECTION ===== */
+        .why-choose-section {
+            position: relative;
+            overflow: hidden;
+            padding: 96px 0;
+            background: linear-gradient(180deg, #ffffff 0%, #fbfbfd 100%);
+        }
+
+        .why-choose-section::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 50% 0%, rgba(178, 1, 1, 0.06), transparent 34%);
+            pointer-events: none;
+        }
+
+        .why-choose-section .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .why-choose-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 24px;
+            margin-bottom: 36px;
+        }
+
+        .why-choose-copy {
+            max-width: 780px;
+        }
+
+        .why-choose-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 0.48rem 1rem;
+            border-radius: 999px;
+            background: rgba(178, 1, 1, 0.12);
+            border: 1px solid rgba(178, 1, 1, 0.18);
+            color: var(--primary-color);
+            font-size: 0.86rem;
+            font-weight: 800;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        .why-choose-copy h1 {
+            margin: 0 0 0.7rem;
+            color: var(--dark-color);
+            font-size: clamp(2.1rem, 3.8vw, 3.45rem);
+            line-height: 1.05;
+            font-weight: 800;
+        }
+
+        .why-choose-copy p {
+            margin: 0;
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            line-height: 1.7;
+            max-width: 680px;
+        }
+
+        .why-choose-cta {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            flex-shrink: 0;
+            padding: 0.95rem 1.45rem;
+            border-radius: 999px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, #7d0000 100%);
+            color: #ffffff;
+            font-weight: 800;
+            text-decoration: none;
+            box-shadow: 0 18px 34px rgba(178, 1, 1, 0.22);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .why-choose-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 22px 40px rgba(178, 1, 1, 0.28);
+            color: #ffffff;
+        }
+
+        .why-choose-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 24px;
+        }
+
+        .why-choose-card {
+            position: relative;
+            background: #ffffff;
+            border-radius: 22px;
+            padding: 28px 26px 26px;
+            border: 1px solid rgba(15, 23, 42, 0.08);
+            border-top: 4px solid var(--primary-color);
+            box-shadow: 0 14px 30px rgba(15, 23, 42, 0.08);
+            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+        }
+
+        .why-choose-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 22px;
+            background: linear-gradient(180deg, rgba(178, 1, 1, 0.02), transparent 40%);
+            pointer-events: none;
+        }
+
+        .why-choose-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(178, 1, 1, 0.18);
+            box-shadow: 0 22px 44px rgba(15, 23, 42, 0.12);
+        }
+
+        .why-choose-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 16px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(178, 1, 1, 0.08);
+            color: var(--primary-color);
+            font-size: 1.35rem;
+            margin-bottom: 1.1rem;
+        }
+
+        .why-choose-card h3 {
+            margin: 0 0 0.55rem;
+            color: var(--dark-color);
+            font-size: 1.25rem;
+            font-weight: 800;
+            line-height: 1.25;
+        }
+
+        .why-choose-card p {
+            margin: 0;
+            color: var(--text-muted);
+            line-height: 1.7;
+            font-size: 0.98rem;
+        }
+
+        @media (max-width: 1024px) {
+            .why-choose-header {
+                flex-direction: column;
+            }
+
+            .why-choose-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .why-choose-section {
+                padding: 72px 0;
+            }
+
+            .why-choose-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .why-choose-card {
+                padding: 22px 20px 20px;
+                border-radius: 18px;
+            }
+
+            .why-choose-card h3 {
+                font-size: 1.15rem;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .video-showcase-header {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .video-card-featured {
+                grid-column: span 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .video-showcase-section {
+                padding: 72px 0;
+            }
+
+            .video-showcase-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .video-showcase-stat {
+                min-width: 0;
+                flex: 1 1 140px;
+            }
+
+            .video-card-body h5 {
+                font-size: 1.15rem;
+            }
+        }
+
+        /* ===== BUILDER PARTNERS SECTION ===== */
+        .partners-section {
+            position: relative;
+            overflow: hidden;
+            padding: 96px 0 88px;
+            background: radial-gradient(circle at top left, rgba(178, 1, 1, 0.16), transparent 34%), linear-gradient(180deg, #0b1120 0%, #101a2c 100%);
+        }
+
+        .partners-section::before,
+        .partners-section::after {
+            content: '';
+            position: absolute;
+            border-radius: 999px;
+            pointer-events: none;
+        }
+
+        .partners-section::before {
+            width: 260px;
+            height: 260px;
+            right: -90px;
+            top: -70px;
+            background: rgba(178, 1, 1, 0.12);
+            filter: blur(10px);
+        }
+
+        .partners-section::after {
+            width: 180px;
+            height: 180px;
+            left: -60px;
+            bottom: -50px;
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .partners-section .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .partners-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 24px;
+            margin-bottom: 34px;
+        }
+
+        .partners-copy {
+            max-width: 760px;
+        }
+
+        .partners-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 0.5rem 1rem;
+            border-radius: 999px;
+            background: rgba(178, 1, 1, 0.14);
+            border: 1px solid rgba(178, 1, 1, 0.28);
+            color: #ff8f8f;
+            font-size: 0.86rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        .partners-copy h1 {
+            color: #ffffff;
+            font-size: clamp(2.1rem, 3.7vw, 3.4rem);
+            line-height: 1.05;
+            font-weight: 800;
+            margin: 0 0 0.7rem;
+        }
+
+        .partners-copy p {
+            margin: 0;
+            color: rgba(226, 232, 240, 0.78);
+            font-size: 1.06rem;
+            line-height: 1.7;
+        }
+
+        .partners-cta {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            flex-shrink: 0;
+            padding: 0.95rem 1.5rem;
+            border-radius: 999px;
+            color: #ffffff;
+            background: linear-gradient(135deg, var(--primary-color) 0%, #7d0000 100%);
+            font-weight: 800;
+            font-size: 1rem;
+            text-decoration: none;
+            box-shadow: 0 18px 34px rgba(178, 1, 1, 0.24);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .partners-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 22px 40px rgba(178, 1, 1, 0.3);
+            color: #ffffff;
+        }
+
+        .partners-carousel {
+            position: relative;
+            padding: 0 62px;
+        }
+
+        .partners-carousel-track {
+            overflow: hidden;
+            border-radius: 28px;
+        }
+
+        #buildersCarousel {
+            display: flex;
+            gap: 18px;
+            padding: 2px;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            will-change: transform;
+        }
+
+        .builder-slide {
+            flex-shrink: 0;
+            width: calc(25% - 13.5px);
+        }
+
+        .builder-card {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 224px;
+            padding: 22px;
+            overflow: hidden;
+            border-radius: 24px;
+            background: linear-gradient(180deg, #263149 0%, #1a2438 100%);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.24);
+            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+        }
+
+        .builder-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.08), transparent 38%), radial-gradient(circle at 80% 80%, rgba(178, 1, 1, 0.16), transparent 32%);
+        }
+
+        .builder-card-body {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            text-align: center;
+        }
+
+        .builder-logo-wrap {
+            width: 100%;
+            min-height: 140px;
+            padding: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(8px);
+        }
+
+        .builder-logo-wrap img {
+            max-width: 82%;
+            max-height: 100px;
+            object-fit: contain;
+            filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.3));
+        }
+
+        .builder-label {
+            color: rgba(255, 255, 255, 0.84);
+            font-size: 0.95rem;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+        }
+
+        .builder-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(178, 1, 1, 0.42);
+            box-shadow: 0 24px 48px rgba(0, 0, 0, 0.3);
+        }
+
+        .builder-card:hover .builder-logo-wrap {
+            background: rgba(255, 255, 255, 0.09);
+        }
+
+        .builders-empty-state {
+            display: none;
+            margin-top: 1.5rem;
+            text-align: center;
+            color: rgba(226, 232, 240, 0.8);
+            font-weight: 600;
+        }
+
+        .builders-empty-state.is-visible {
+            display: block;
+        }
+
+        .partners-carousel-controls {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+        }
+
+        .partners-nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            border: none;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.35rem;
+            color: #ffffff;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            box-shadow: 0 14px 30px rgba(178, 1, 1, 0.25);
+            pointer-events: auto;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .partners-nav-btn:hover {
+            transform: translateY(-50%) scale(1.08);
+            box-shadow: 0 18px 36px rgba(178, 1, 1, 0.3);
+        }
+
+        .partners-nav-left {
+            left: 0;
+        }
+
+        .partners-nav-right {
+            right: 0;
+        }
+
+        .partners-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 2.25rem;
+            flex-wrap: wrap;
+        }
+
+        .partner-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 999px;
+            border: none;
+            background: rgba(255, 255, 255, 0.18);
+            padding: 0;
+            transition: all 0.25s ease;
+        }
+
+        .partner-dot:hover,
+        .partner-dot:focus {
+            transform: scale(1.2);
+            outline: none;
+        }
+
+        .partner-dot.is-active {
+            background: var(--primary-color);
+            transform: scale(1.35);
+            box-shadow: 0 0 0 6px rgba(178, 1, 1, 0.14);
+        }
+
+        @media (max-width: 1024px) {
+            .partners-header {
+                flex-direction: column;
+            }
+
+            .builder-slide {
+                width: calc(50% - 9px);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .partners-section {
+                padding: 76px 0 72px;
+            }
+
+            .partners-carousel {
+                padding: 0 44px;
+            }
+
+            .builder-slide {
+                width: 100%;
+            }
+
+            .builder-card {
+                min-height: 200px;
+                padding: 18px;
+            }
+
+            .builder-logo-wrap {
+                min-height: 124px;
+                padding: 18px;
+            }
+
+            .partners-nav-btn {
+                width: 42px;
+                height: 42px;
+                font-size: 1.15rem;
+            }
         }
 
         /* ===== CONTACT BUTTONS ===== */
@@ -1061,8 +1805,7 @@
                         $categoryCount = $projects->where('project_category_id', $categoryItem->id)->count();
                     @endphp
 
-                    <a class="zone-card"
-                        href="{{ route('all.project.list', ['category' => $categoryItem->slug]) }}"
+                    <a class="zone-card" href="{{ route('all.project.list', ['category' => $categoryItem->slug]) }}"
                         @if ($categoryImage) style="background-image: linear-gradient(135deg, rgba(15, 23, 42, 0.407), rgba(15, 23, 42, 0.197)), url('{{ $categoryImage }}');" @endif>
                         <span class="zone-icon"><i class="{{ $iconClass }}"></i></span>
                         <h4>{{ $categoryItem->name }}</h4>
@@ -2261,132 +3004,561 @@
     {{-- various projects end --}}
 
 
-    <section class="section">
+
+
+
+    <div class="container-fluid partners-section">
         <div class="container">
-            <div class="row justify-content-center mb-5">
-                <div class="col-12">
-                    <div class="section-title text-center">
-                        <span class="text-uppercase fw-semibold"
-                            style="font-size: 12px; letter-spacing: 2px; color: var(--secondary-color);">Media</span>
-                        <h1>Video Gallery</h1>
-                        <div class="divider"></div>
-                        <p class="my-4 mx-auto" style="text-align:center; max-width:700px; color: var(--text-muted);">
-                            Explore our curated collection of property walkthroughs, project updates, and client
-                            testimonials.</p>
+            <div class="partners-header">
+                <div class="partners-copy">
+                    <div class="partners-badge">
+                        <i class="fa-regular fa-circle-check"></i>
+                        Verified Builders
+                    </div>
+                    <h1>Trusted Builder Partners</h1>
+                    <p>Connect directly with Bangladesh's top real estate developers</p>
+                </div>
+
+                <a href="{{ route('all.builders') }}" class="partners-cta">
+                    View All Builders
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+            </div>
+
+            <div class="partners-carousel">
+                <div class="partners-carousel-track">
+                    <div id="buildersCarousel">
+                        @foreach ($sponsors as $item)
+                            <div class="builder-slide">
+                                <article class="builder-card">
+                                    <div class="builder-card-body">
+                                        <div class="builder-logo-wrap">
+                                            <img src="{{ asset($item->image ?? null) }}" class="img-fluid"
+                                                alt="builder_logo">
+                                        </div>
+                                        <div class="builder-label">
+                                            {{ $item->title_english ?? 'Builder Partner' }}
+                                        </div>
+                                    </div>
+                                </article>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+
+                <div class="partners-carousel-controls">
+                    <button type="button" class="partners-nav-btn partners-nav-left" aria-label="Previous builders"
+                        onclick="prevBuilderSlide()">
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </button>
+                    <button type="button" class="partners-nav-btn partners-nav-right" aria-label="Next builders"
+                        onclick="nextBuilderSlide()">
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div id="buildersEmptyState" class="builders-empty-state">
+                No builder partners available right now.
+            </div>
+
+            <div class="partners-indicators" id="buildersIndicators"></div>
+        </div>
+    </div><!--end container-fluid-->
+
+    <script>
+        let buildersCurrentGroup = 0;
+        let buildersSlidesPerView = 4;
+        let buildersTotalSlides = 0;
+        let buildersTotalGroups = 1;
+        let buildersAutoPlayTimer = null;
+
+        function getBuilderSlidesPerView() {
+            if (window.innerWidth <= 768) {
+                return 1;
+            }
+
+            if (window.innerWidth <= 1024) {
+                return 2;
+            }
+
+            return 4;
+        }
+
+        function getBuilderSlides() {
+            return Array.from(document.querySelectorAll('.builder-slide'));
+        }
+
+        function refreshBuilderCarouselState() {
+            const preferredSlidesPerView = getBuilderSlidesPerView();
+            buildersTotalSlides = getBuilderSlides().length;
+
+            if (buildersTotalSlides > 1 && buildersTotalSlides <= preferredSlidesPerView) {
+                buildersSlidesPerView = 1;
+            } else {
+                buildersSlidesPerView = preferredSlidesPerView;
+            }
+
+            buildersTotalGroups = Math.max(1, Math.ceil(buildersTotalSlides / buildersSlidesPerView));
+        }
+
+        function toggleBuildersEmptyState() {
+            const emptyState = document.getElementById('buildersEmptyState');
+
+            if (!emptyState) {
+                return;
+            }
+
+            emptyState.classList.toggle('is-visible', buildersTotalSlides === 0);
+        }
+
+        function createBuilderIndicators() {
+            const container = document.getElementById('buildersIndicators');
+
+            if (!container) {
+                return;
+            }
+
+            container.innerHTML = '';
+
+            if (buildersTotalSlides === 0 || buildersTotalGroups <= 1) {
+                return;
+            }
+
+            for (let i = 0; i < buildersTotalGroups; i++) {
+                const dot = document.createElement('button');
+                dot.type = 'button';
+                dot.className = 'partner-dot';
+                dot.setAttribute('aria-label', `Go to builder group ${i + 1}`);
+                dot.onclick = () => {
+                    clearTimeout(buildersAutoPlayTimer);
+                    buildersCurrentGroup = i;
+                    showBuilderSlide(buildersCurrentGroup);
+                    startBuilderAutoPlay();
+                };
+                container.appendChild(dot);
+            }
+        }
+
+        function rebuildBuildersCarouselUi() {
+            refreshBuilderCarouselState();
+            buildersCurrentGroup = Math.min(buildersCurrentGroup, buildersTotalGroups - 1);
+            toggleBuildersEmptyState();
+            createBuilderIndicators();
+        }
+
+        function showBuilderSlide(groupIndex) {
+            const carousel = document.getElementById('buildersCarousel');
+
+            if (!carousel) {
+                return;
+            }
+
+            refreshBuilderCarouselState();
+
+            if (buildersTotalSlides === 0) {
+                carousel.style.transform = 'translateX(0%)';
+                updateBuilderIndicators();
+                return;
+            }
+
+            if (groupIndex >= buildersTotalGroups) {
+                buildersCurrentGroup = 0;
+            } else if (groupIndex < 0) {
+                buildersCurrentGroup = buildersTotalGroups - 1;
+            } else {
+                buildersCurrentGroup = groupIndex;
+            }
+
+            const offset = -buildersCurrentGroup * 100;
+            carousel.style.transform = `translateX(${offset}%)`;
+
+            updateBuilderIndicators();
+        }
+
+        function nextBuilderSlide() {
+            if (buildersTotalSlides === 0) {
+                return;
+            }
+
+            clearTimeout(buildersAutoPlayTimer);
+            buildersCurrentGroup++;
+            showBuilderSlide(buildersCurrentGroup);
+            startBuilderAutoPlay();
+        }
+
+        function prevBuilderSlide() {
+            if (buildersTotalSlides === 0) {
+                return;
+            }
+
+            clearTimeout(buildersAutoPlayTimer);
+            buildersCurrentGroup--;
+            showBuilderSlide(buildersCurrentGroup);
+            startBuilderAutoPlay();
+        }
+
+        function updateBuilderIndicators() {
+            const dots = document.querySelectorAll('#buildersIndicators .partner-dot');
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('is-active', index === buildersCurrentGroup);
+            });
+        }
+
+        function startBuilderAutoPlay() {
+            clearTimeout(buildersAutoPlayTimer);
+
+            if (buildersTotalSlides === 0 || buildersTotalGroups <= 1) {
+                return;
+            }
+
+            buildersAutoPlayTimer = setTimeout(() => {
+                buildersCurrentGroup++;
+                showBuilderSlide(buildersCurrentGroup);
+                startBuilderAutoPlay();
+            }, 4500);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            rebuildBuildersCarouselUi();
+            showBuilderSlide(0);
+            startBuilderAutoPlay();
+
+            const container = document.querySelector('.partners-carousel');
+
+            if (container) {
+                container.addEventListener('mouseenter', () => {
+                    clearTimeout(buildersAutoPlayTimer);
+                });
+
+                container.addEventListener('mouseleave', () => {
+                    startBuilderAutoPlay();
+                });
+            }
+
+            const slides = document.querySelectorAll('.builder-slide');
+            slides.forEach(slide => {
+                const card = slide.querySelector('.builder-card');
+
+                slide.addEventListener('mouseenter', () => {
+                    if (card) {
+                        card.style.transform = 'translateY(-6px)';
+                    }
+                });
+
+                slide.addEventListener('mouseleave', () => {
+                    if (card) {
+                        card.style.transform = 'translateY(0)';
+                    }
+                });
+            });
+
+            window.addEventListener('resize', () => {
+                rebuildBuildersCarouselUi();
+                showBuilderSlide(buildersCurrentGroup);
+                startBuilderAutoPlay();
+            });
+        });
+    </script>
+
+
+    <section class="video-showcase-section"
+        style="background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%); padding: 100px 0;">
+        <div class="container">
+            <div class="video-showcase-header"
+                style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 60px; flex-wrap: wrap; gap: 40px;">
+                <div class="video-showcase-copy" style="flex: 1; min-width: 300px;">
+                    <div class="video-showcase-badge"
+                        style="display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; background: rgba(178, 1, 1, 0.1); border-radius: 50px; margin-bottom: 20px; color: var(--primary-color); font-weight: 600; font-size: 0.9rem;">
+                        <i class="fa-regular fa-circle-play"></i>
+                        Video Showcase
+                    </div>
+                    <h1
+                        style="font-size: 2.8rem; font-weight: 800; color: var(--dark-color); margin-bottom: 15px; line-height: 1.2;">
+                        Video Gallery</h1>
+                    <div
+                        style="width: 60px; height: 4px; background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%); margin-bottom: 20px; border-radius: 2px;">
+                    </div>
+                    <p style="font-size: 1.05rem; color: var(--text-muted); line-height: 1.7; max-width: 500px;">
+                        Explore our curated collection of property walkthroughs, project updates, construction progress,
+                        and satisfied client testimonials.</p>
+                </div>
+
+                <div class="video-showcase-meta" style="display: flex; gap: 30px;">
+                    <div class="video-showcase-stat" style="text-align: center;">
+                        <div style="font-size: 2.5rem; font-weight: 900; color: var(--primary-color); line-height: 1;">
+                            {{ $video_gallery->count() }}</div>
+                        <span
+                            style="color: var(--text-muted); font-weight: 600; font-size: 0.95rem; display: block; margin-top: 5px;">Videos</span>
+                    </div>
+                    <div style="width: 1px; background: #e2e8f0;"></div>
+                    <div class="video-showcase-stat" style="text-align: center;">
+                        <div style="font-size: 2.5rem; font-weight: 900; color: var(--primary-color); line-height: 1;">
+                            HD</div>
+                        <span
+                            style="color: var(--text-muted); font-weight: 600; font-size: 0.95rem; display: block; margin-top: 5px;">Quality</span>
                     </div>
                 </div>
             </div>
 
-            <div class="row g-4">
-                @foreach ($video_gallery as $item)
-                    <div class="col-lg-6 col-md-6 col-12">
-                        <div class="card border-0 shadow-sm overflow-hidden">
+            <div class="video-showcase-grid"
+                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 28px;">
+                @forelse ($video_gallery as $item)
+                    <article class="video-card"
+                        style="background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 15px rgba(15, 23, 42, 0.08); transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1); border-left: 4px solid var(--primary-color);">
+                        <div class="video-media" style="position: relative; overflow: hidden; background: #000;">
                             <div class="ratio ratio-16x9">
                                 <iframe src="https://www.youtube.com/embed/{{ $item->video_link }}"
                                     title="{{ $item->title_english ?? ($item->title ?? 'Video') }}"
                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                                     allowfullscreen loading="lazy"></iframe>
                             </div>
-                            <div class="card-body">
-                                <h5 class="mb-0">{{ $item->title_english ?? ($item->title ?? 'Video') }}</h5>
-                                @if (!empty($item->short_text_eng))
-                                    <p class="mb-0 text-muted small">
-                                        {{ \Illuminate\Support\Str::limit(strip_tags($item->short_text_eng), 120) }}
-                                    </p>
-                                @endif
+                            <div class="video-overlay"
+                                style="position: absolute; inset: 0; background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.3) 100%); opacity: 0; transition: opacity 0.3s ease;">
                             </div>
                         </div>
-                    </div><!--end col-->
-                @endforeach
-            </div><!--end row-->
-        </div><!--end container-->
+
+                        <div class="video-card-body" style="padding: 24px;">
+                            <div class="video-card-meta"
+                                style="display: flex; gap: 10px; margin-bottom: 12px; flex-wrap: wrap;">
+                                <span class="video-meta-chip"
+                                    style="display: inline-flex; align-items: center; padding: 6px 12px; background: rgba(178, 1, 1, 0.15); color: var(--primary-color); border-radius: 20px; font-size: 0.8rem; font-weight: 600;">📹
+                                    Project Story</span>
+                                @if ($loop->first)
+                                    <span class="video-meta-chip video-meta-chip-soft"
+                                        style="display: inline-flex; align-items: center; padding: 6px 12px; background: rgba(34, 197, 94, 0.15); color: #16a34a; border-radius: 20px; font-size: 0.8rem; font-weight: 600;">⭐
+                                        Featured</span>
+                                @endif
+                            </div>
+
+                            <h5
+                                style="font-size: 1.3rem; font-weight: 700; color: var(--dark-color); margin-bottom: 10px; line-height: 1.4;">
+                                {{ $item->title_english ?? ($item->title ?? 'Video') }}</h5>
+
+                            @if (!empty($item->short_text_eng))
+                                <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; margin: 0;">
+                                    {{ \Illuminate\Support\Str::limit(strip_tags($item->short_text_eng), 120) }}</p>
+                            @endif
+                        </div>
+                    </article>
+                @empty
+                    <div class="video-empty-state"
+                        style="grid-column: 1 / -1; text-align: center; padding: 60px 20px; color: var(--text-muted); font-weight: 600; font-size: 1.1rem;">
+                        No videos available right now.
+                    </div>
+                @endforelse
+            </div>
+        </div>
+
+        <style>
+            @media (max-width: 768px) {
+                .video-showcase-header {
+                    flex-direction: column !important;
+                }
+
+                .video-showcase-grid {
+                    grid-template-columns: 1fr !important;
+                }
+            }
+
+            .video-card:hover {
+                transform: translateY(-8px);
+                box-shadow: 0 16px 40px rgba(15, 23, 42, 0.15);
+            }
+
+            .video-card:hover .video-overlay {
+                opacity: 1 !important;
+            }
+        </style>
     </section><!--end section-->
 
 
 
-    <div class="container-fluid py-100" style="background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 100%);">
-        <div class="row justify-content-center mb-5">
-            <div class="col">
-                <div class="section-title">
-                    <h3>Our Partners</h3>
-                </div>
-            </div><!--end col-->
-        </div><!--end row-->
-
-        <div class="container">
-            <div class="row g-4 mt-0">
-                @foreach ($sponsors as $item)
-                    <div class="col-lg-3 col-md-6 col-12">
-                        <div class="sponsor-card">
-                            <img src="{{ asset($item->image ?? null) }}" class="img-fluid" alt="partner_logo">
-                        </div>
-                    </div><!--end col-->
-                @endforeach
-            </div><!--end row-->
-        </div><!--end container-->
-    </div><!--end container-fluid-->
 
     {{-- Faq start --}}
-    <div class="container-fluid py-100">
-        <div class="row justify-content-center mb-5">
-            <div class="col">
-                <div class="section-title text-center">
-                    <span class="text-uppercase fw-semibold"
-                        style="font-size: 12px; letter-spacing: 2px; color: var(--secondary-color);">Help &
-                        Support</span>
-                    <h1 style="color: var(--dark-color); font-size: 2.5rem; font-weight: 700; margin-top: 10px;">
-                        Frequently Asked Questions</h1>
-                    <div
-                        style="width: 60px; height: 4px; background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%); margin: 20px auto; border-radius: 2px;">
-                    </div>
-                    <p class="my-4 mx-auto"
-                        style="text-align: center; max-width: 600px; color: var(--text-muted); line-height: 1.8;">Dive
-                        into our FAQ section to find answers to common inquiries about AJ Group, our projects, and
-                        services.</p>
-                </div>
-            </div><!--end col-->
-        </div><!--end row-->
-
+    <div class="container-fluid py-80" style="background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);">
         <div class="container">
-            <div class="col-12 col-lg-10 mx-auto">
+            <div style="max-width: 800px; margin: 0 auto 50px; text-align: center;">
+                <span class="text-uppercase fw-semibold"
+                    style="font-size: 12px; letter-spacing: 2px; color: var(--secondary-color); display: block; margin-bottom: 15px;">Help
+                    & Support</span>
+                <h1
+                    style="color: var(--dark-color); font-size: 2.8rem; font-weight: 800; margin-bottom: 18px; line-height: 1.2;">
+                    Frequently Asked Questions</h1>
+                <div
+                    style="width: 60px; height: 4px; background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%); margin: 0 auto 20px; border-radius: 2px;">
+                </div>
+                <p style="color: var(--text-muted); line-height: 1.8; font-size: 1.05rem;">Get answers to common
+                    questions about our services, properties, and how we can help you find your perfect real estate
+                    solution.</p>
+            </div>
+
+            <div style="max-width: 900px; margin: 0 auto;">
                 <div id="faqAccordion" class="accordion"
-                    style="border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+                    style="border-radius: 12px; overflow: hidden; background: white; box-shadow: 0 8px 24px rgba(15, 23, 42, 0.1);">
                     @foreach ($faqs as $index => $faq)
-                        <div class="accordion-item" style="border: none; border-bottom: 1px solid rgba(0,0,0,0.05);">
-                            <h2 class="accordion-header" id="heading{{ $index }}">
+                        <div class="accordion-item" style="border: none; border-bottom: 1px solid #e2e8f0;">
+                            <h2 class="accordion-header" id="heading{{ $index }}" style="margin: 0;">
                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#collapse{{ $index }}" aria-expanded="false"
                                     aria-controls="collapse{{ $index }}"
-                                    style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); color: var(--dark-color); font-weight: 600; border: none; padding: 20px 30px; font-size: 1.1rem;">
-                                    <i class="mdi mdi-help-circle-outline me-3"
-                                        style="color: var(--primary-color); font-size: 1.3rem;"></i>
-                                    {{ $faq->faq_question }}
+                                    style="background: white; color: var(--dark-color); font-weight: 600; border: none; padding: 22px 28px; font-size: 1.05rem; transition: all 0.3s ease; display: flex; align-items: center; width: 100%;">
+                                    <i class="mdi mdi-circle-medium me-3"
+                                        style="color: var(--primary-color); font-size: 0.8rem; flex-shrink: 0;"></i>
+                                    <span style="text-align: left; flex: 1;">{{ $faq->faq_question }}</span>
+                                    <i class="mdi mdi-chevron-down"
+                                        style="color: var(--primary-color); font-size: 1.3rem; transition: transform 0.3s; flex-shrink: 0;"></i>
                                 </button>
                             </h2>
                             <div id="collapse{{ $index }}" class="accordion-collapse collapse"
                                 aria-labelledby="heading{{ $index }}" data-bs-parent="#faqAccordion">
                                 <div class="accordion-body"
-                                    style="padding: 20px 30px; background: #fff; color: var(--text-muted); line-height: 1.7; font-size: 1rem;">
+                                    style="padding: 22px 28px 22px 56px; background: #fafbfc; color: var(--text-muted); line-height: 1.8; font-size: 0.95rem; border-top: 1px solid #e2e8f0;">
                                     {!! $faq->faq_ans !!}
                                 </div>
                             </div>
                         </div>
                     @endforeach
                 </div>
-            </div><!--end col-->
-        </div><!--end row-->
+            </div>
+        </div>
+
+        <style>
+            .accordion-button::before {
+                display: none !important;
+            }
+
+            .accordion-button:not(.collapsed) {
+                background: rgba(178, 1, 1, 0.05) !important;
+                color: var(--primary-color) !important;
+                box-shadow: none !important;
+            }
+
+            .accordion-button:not(.collapsed) i.mdi-chevron-down {
+                transform: rotate(-180deg);
+            }
+
+            .accordion-button:hover {
+                background: #f8fafc !important;
+            }
+
+            .accordion-button:focus {
+                box-shadow: none !important;
+                outline: 2px solid var(--primary-color);
+                outline-offset: -2px;
+            }
+
+            @media (max-width: 768px) {
+                .accordion-button {
+                    padding: 18px 20px !important;
+                    font-size: 0.95rem !important;
+                }
+
+                .accordion-body {
+                    padding: 18px 20px 18px 48px !important;
+                }
+            }
+        </style>
     </div><!--end container-->
     {{-- Faq end --}}
 
+    <section class="why-choose-section" style="background: #f8fafc; padding: 80px 0;">
+        <div class="container">
+            <div
+                style="text-align: center; margin-bottom: 60px; max-width: 600px; margin-left: auto; margin-right: auto;">
+                <h2
+                    style="font-size: 2.8rem; font-weight: 800; color: var(--dark-color); margin-bottom: 16px; line-height: 1.2;">
+                    Why Choose EstateBrokerage?</h2>
+                <p style="font-size: 1.05rem; color: var(--text-muted); line-height: 1.7;">We're not just listings —
+                    we're your complete real estate partner from search to ownership</p>
+            </div>
+
+            @php
+                $whyChooseItems = [
+                    [
+                        'icon' => 'bi bi-shield-check',
+                        'title' => 'Verified Listings',
+                        'description' => 'Every property is physically verified and legally checked before listing.',
+                    ],
+                    [
+                        'icon' => 'fa-solid fa-users',
+                        'title' => 'Expert Brokers',
+                        'description' => '100+ certified brokers with deep market knowledge across Bangladesh.',
+                    ],
+                    [
+                        'icon' => 'fa-solid fa-calculator',
+                        'title' => 'Smart Tools',
+                        'description' =>
+                            'Free ROI calculator, EMI planner and land unit converter for informed decisions.',
+                    ],
+                    [
+                        'icon' => 'fa-regular fa-clock',
+                        'title' => 'Fast Transactions',
+                        'description' => 'Average deal closure in 14 days with full legal and documentation support.',
+                    ],
+                    [
+                        'icon' => 'fa-solid fa-award',
+                        'title' => 'Award Winning',
+                        'description' =>
+                            "Recognized as Bangladesh's best real estate platform for 3 consecutive years.",
+                    ],
+                    [
+                        'icon' => 'fa-solid fa-building',
+                        'title' => 'Trusted Builders',
+                        'description' => 'Exclusive partnerships with 50+ verified builders and developers.',
+                    ],
+                ];
+            @endphp
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px;">
+                @foreach ($whyChooseItems as $item)
+                    <div class="why-card"
+                        style="background: white; border-radius: 16px; padding: 28px; border: 1px solid #e2e8f0; box-shadow: 0 4px 12px rgba(15, 23, 42, 0.05); transition: all 0.3s ease;">
+                        <div
+                            style="width: 48px; height: 48px; background: rgba(178, 1, 1, 0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; color: var(--primary-color); font-size: 1.5rem;">
+                            <i class="{{ $item['icon'] }}"></i>
+                        </div>
+                        <h3
+                            style="font-size: 1.2rem; font-weight: 700; color: var(--dark-color); margin-bottom: 10px; line-height: 1.3;">
+                            {{ $item['title'] }}</h3>
+                        <p style="font-size: 0.95rem; color: var(--text-muted); line-height: 1.6; margin: 0;">
+                            {{ $item['description'] }}</p>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+
+        <style>
+            .why-card {
+                cursor: default;
+            }
+
+            .why-card:hover {
+                box-shadow: 0 8px 24px rgba(15, 23, 42, 0.1);
+                transform: translateY(-4px);
+            }
+
+            @media (max-width: 768px) {
+                .why-card {
+                    padding: 20px;
+                }
+            }
+        </style>
+    </section>
+
+
 
     {{-- testimonial start --}}
-    <div class="container-fluid mt-100 mt-60 py-5">
+    <div class="container-fluid  mt-60 py-5">
         <div class="row justify-content-center">
             <div class="col">
                 <div class="section-title text-center mb-4 pb-2">
-                    <h4 class="title text-primary mb-3">Client's Testmonial</h4>
-                    <p class="para-desc mb-0 mx-auto">Discover the unparalleled quality and dedication through the
-                        experiences of our satisfied clients at AJ Group</p>
+                    <h4 class="title  mb-3"><strong>What Our Clients Say</strong></h4>
+                    <div
+                        style="width: 60px; height: 4px; background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%); margin: 15px auto 20px; border-radius: 2px;">
+                    </div>
+                    <p class="para-desc mb-0 mx-auto">Join thousands of happy property buyers, renters and investors
+                    </p>
                 </div>
             </div><!--end col-->
         </div><!--end row-->
@@ -2397,7 +3569,8 @@
                     @foreach ($testimonials as $key => $item)
                         <div class="tiny-slider client-testi">
                             <div class="card border-0 bg-white">
-                                <div class="card-body p-4 rounded-3 shadow m-2">
+                                <div class="card-body p-4 rounded-3 shadow m-2"
+                                    style="border-left: 4px solid var(--primary-color);">
                                     <i
                                         class="mdi mdi-format-quote-open display-1 text-primary opacity-25 position-absolute end-0 top-0"></i>
 
@@ -2436,26 +3609,48 @@
 
 
 
-    <div class="container mt-100 mt-60 py-5">
-        <div class="row justify-content-center">
-            <div class="col-12">
-                <div class="section-title text-center">
-                    <h4 class="title text-primary mb-3">Have a question, inquiry, or simply want to get in touch?
-                    </h4>
-                    <p class="para-desc mb-0 mx-auto" style="text-align: justify;">We're here to assist you every
-                        step of the way. Whether you're looking for more information about our projects, have
-                        queries about our services, or want to explore partnership opportunities, our dedicated team
-                        is ready to help. Simply fill out the form below, and we'll get back to you promptly. Your
-                        satisfaction is our priority, and we look forward to hearing from you soon!</p>
-                    <div class="mt-4 pt-2">
-                        <a href="{{ route('contact.us') }}" class="btn btn-pills btn-primary"><span
-                                class="h5 mb-0 me-1"><i data-feather="mail" class="fea icon-sm"></i></span>
-                            Contact us</a>
+    <section
+        style="background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%); color: white; padding: 80px 20px;">
+        <div class="container" style="max-width: 900px;">
+            <div class="row justify-content-center">
+                <div class="col-12">
+                    <div class="text-center">
+                        <!-- Icon Circle -->
+                        <div
+                            style="width: 80px; height: 80px; background: rgba(255, 255, 255, 0.2); border-radius: 24px; display: flex; align-items: center; justify-content: center; margin: 0 auto 30px; font-size: 45px;">
+                            <i class="fa-solid fa-clipboard-list"></i>
+                        </div>
+
+                        <!-- Heading -->
+                        <h2 style="font-size: 2.8rem; font-weight: 800; margin-bottom: 20px; line-height: 1.2;">
+                            Can't Find the Right Property?
+                        </h2>
+
+                        <!-- Description -->
+                        <p
+                            style="font-size: 1.15rem; color: rgba(255, 255, 255, 0.95); max-width: 700px; margin: 0 auto 40px; line-height: 1.7;">
+                            Post your requirement and let our expert brokers do the searching. Tell us your budget,
+                            location, and preferences — we'll match you with the perfect property.
+                        </p>
+
+                        <!-- Buttons -->
+                        <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+                            <a href="{{ route('contact.us') }}"
+                                style="display: inline-flex; align-items: center; gap: 10px; padding: 16px 32px; background: white; color: var(--primary-color); font-weight: 700; border-radius: 50px; text-decoration: none; transition: all 0.3s ease; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); font-size: 1rem;">
+                                <i class="fa-solid fa-clipboard-list"></i>
+                                Post Your Requirement
+                            </a>
+                            <a href="{{ route('contact.us') }}"
+                                style="display: inline-flex; align-items: center; gap: 10px; padding: 16px 32px; background: rgba(0, 0, 0, 0.3); color: white; font-weight: 700; border-radius: 50px; text-decoration: none; transition: all 0.3s ease; border: 2px solid rgba(255, 255, 255, 0.3); font-size: 1rem;">
+                                Talk to an Expert
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </a>
+                        </div>
                     </div>
-                </div>
-            </div><!--end col-->
-        </div><!--end row-->
-    </div><!--end container-->
+                </div><!--end col-->
+            </div><!--end row-->
+        </div>
+    </section><!--end section-->
     </section><!--end section-->
     <!-- End -->
 
@@ -2464,8 +3659,10 @@
     <!-- Footer End -->
 
     <!-- Back to top -->
-    <a href="#" onclick="topFunction()" id="back-to-top" class="back-to-top rounded-pill fs-5"><i
-            data-feather="arrow-up" class="fea icon-sm align-middle"></i></a>
+    <a href="#" onclick="topFunction()" id="back-to-top" class="back-to-top rounded-pill fs-5"
+        style="background: var(--primary-color); border: 1px solid var(--primary-color); color: #fff;">
+        <i data-feather="arrow-up" class="fea icon-sm align-middle" style="color: #fff;"></i>
+    </a>
     <!-- Back to top -->
 
     <script>

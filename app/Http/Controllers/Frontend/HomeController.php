@@ -62,6 +62,28 @@ class HomeController extends Controller
         return view('frontend.home.index', compact('sponsors', 'counter_icon', 'video_gallery', 'faqs', 'testimonials', 'social_works', 'about', 'blogs', 'brands', 'teams', 'slider', 'img_gallery', 'category', 'completed_project', 'projects', 'ongoing_project', 'upcomming_project', 'projectCategories'));
     } //end method------------------------
 
+    public function tech_web_emi_calculator()
+    {
+        return view('frontend.service.emi_calculator');
+    }
+
+    public function tech_web_roi_calculator()
+    {
+        return view('frontend.service.roi_calculator');
+    }
+
+    public function tech_web_unit_converter()
+    {
+        return view('frontend.service.unit_converter');
+    }
+
+    public function tech_web_all_builders()
+    {
+        $sponsors = Sponsor::where('status', 1)->latest('id', 'DESC')->get();
+
+        return view('frontend.builders.all_builders', compact('sponsors'));
+    }
+
     public function tech_web_about_details()
     {
         $about = About::latest()->first();

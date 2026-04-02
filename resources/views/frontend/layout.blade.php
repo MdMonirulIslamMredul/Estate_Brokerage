@@ -7,6 +7,11 @@
     @include('frontend.includes.headlink')
 </head>
 <style>
+    :root {
+        --primary-color: #b20101;
+        --primary-dark: #8f0000;
+    }
+
     .whatsapp_float {
         position: fixed;
         width: 60px;
@@ -47,6 +52,21 @@
 
     .back-to-top.open {
         bottom: 30px;
+    }
+
+    #back-to-top,
+    #back-to-top.back-to-top {
+        background-color: var(--primary-color) !important;
+        color: #fff !important;
+        border: 1px solid var(--primary-dark) !important;
+    }
+
+    #back-to-top .icons,
+    #back-to-top svg,
+    #back-to-top i {
+        color: #fff !important;
+        fill: currentColor !important;
+        stroke: currentColor !important;
     }
 
     .phone-button {
