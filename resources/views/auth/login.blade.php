@@ -33,22 +33,27 @@
                         <div class="card-body p-4">
 
                             <div class="text-center w-75 m-auto">
-                                <div class="auth-logo">
-                                    <a href="#" class="logo logo-dark text-center">
-                                        <span class="logo-lg">
-                                            <img src="{{ asset(App\Models\Logo::first()->favicon_image) }}"
-                                                alt="" height="22">
-                                        </span>
-                                    </a>
+                                <div class="auth-logo d-flex align-items-center justify-content-center gap-3">
+                                    <div>
+                                        <a href="/" class="logo logo-dark text-center">
+                                            <span class="logo-lg">
+                                                <img src="{{ asset(App\Models\Logo::first()->favicon_image) }}"
+                                                    alt="" height="60" style="object-fit: contain;">
+                                            </span>
+                                        </a>
 
-                                    <a href="#" class="logo logo-light text-center">
-                                        <span class="logo-lg">
-                                            <img src="{{ asset(App\Models\Logo::first()->favicon_image) }}"
-                                                alt="" height="22">
-                                        </span>
-                                    </a>
+                                        <a href="#" class="logo logo-light text-center">
+                                            <span class="logo-lg">
+                                                <img src="{{ asset(App\Models\Logo::first()->favicon_image) }}"
+                                                    alt="" height="60" style="object-fit: contain;">
+                                            </span>
+                                        </a>
+                                    </div>
+                                    <div>
+                                        <h4 class="mb-0"><b><span style="color: red;">{{ explode(' ', strtoupper(App\Models\Logo::first()->site_name_english))[0] }}</span> {{ implode(' ', array_slice(explode(' ', strtoupper(App\Models\Logo::first()->site_name_english)), 1)) }}</b></h4>
+                                    </div>
                                 </div>
-                                <h2>Admin Login</h2>
+                                <h2> Login </h2>
                             </div>
 
                             @if ($errors->any())

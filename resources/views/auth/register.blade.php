@@ -1,150 +1,166 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="utf-8" />
-    <title>Register & Signup </title>
+    <title>Broker Registration | Estate Brokerage</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
-    <meta content="Coderthemes" name="author" />
+    <meta content="Broker signup page" name="description" />
+    <meta content="Estate Brokerage" name="author" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <!-- App favicon -->
-    <link rel="shortcut icon" href="assets/images/favicon.ico">
+    <link rel="shortcut icon" href="{{ asset('backend/assets/images/favicon.ico') }}">
 
-    <!-- Bootstrap css -->
     <link href="{{ asset('backend/assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
-    <!-- App css -->
     <link href="{{ asset('backend/assets/css/app.min.css') }}" rel="stylesheet" type="text/css" id="app-style" />
-    <!-- icons -->
     <link href="{{ asset('backend/assets/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
-    <!-- Head js -->
     <script src="{{ asset('backend/assets/js/head.js') }}"></script>
+    <style>
+        :root {
+            --ebi-primary: #b20101;
+            --ebi-primary-dark: #7f0000;
+            --ebi-bg: #f8fafc;
+            --ebi-card: #ffffff;
+            --ebi-text: #0f172a;
+            --ebi-muted: #64748b;
+        }
 
+        body {
+            background: radial-gradient(circle at top left, rgba(178, 1, 1, 0.24), transparent 30%),
+                radial-gradient(circle at 88% 20%, rgba(245, 158, 11, 0.16), transparent 22%),
+                linear-gradient(135deg, #0f172a 0%, #111827 48%, #1f2937 100%);
+            color: #fff;
+            min-height: 100vh;
+        }
+
+        .reg-card {
+            border-radius: 1rem;
+            background: #ffffff;
+            box-shadow: 0 16px 34px rgba(15, 23, 42, 0.08);
+            color: #0f172a;
+        }
+
+        .reg-btn {
+            background: linear-gradient(135deg, var(--ebi-primary), var(--ebi-primary-dark));
+            border-color: var(--ebi-primary);
+            color: #ffffff;
+        }
+
+        .reg-btn:hover {
+            background: linear-gradient(135deg, var(--ebi-primary-dark), #590000);
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: #1f2937;
+        }
+
+        .page-head {
+            padding-top: 120px;
+            padding-bottom: 40px;
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .page-head h1 {
+            color: #f97316;
+            font-size: clamp(2rem, 5vw, 3rem);
+        }
+
+        .page-head p {
+            color: #64748b;
+        }
+    </style>
 </head>
 
-<body class="authentication-bg authentication-bg-pattern">
-
-    <div class="account-pages mt-5 mb-5">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-md-8 col-lg-6 col-xl-4">
-                    <div class="card bg-pattern">
-
-                        <div class="card-body p-4">
-
-                            <div class="text-center w-75 m-auto">
-                                <div class="auth-logo">
-                                    <a href="index.html" class="logo logo-dark text-center">
-                                        <span class="logo-lg">
-                                            <img src="assets/images/logo-dark.png" alt="" height="22">
-                                        </span>
-                                    </a>
-
-                                    <a href="index.html" class="logo logo-light text-center">
-                                        <span class="logo-lg">
-                                            <img src="assets/images/logo-light.png" alt="" height="22">
-                                        </span>
-                                    </a>
-                                </div>
-                                <p class="text-muted mb-4 mt-3">Don't have an account? Create your account, it takes
-                                    less than a minute</p>
-                            </div>
-
-                            <form method="POST" action="{{ route('register') }}">
-                                @csrf
-
-                                <div class="mb-3">
-                                    <label for="name" class="form-label">Name</label>
-                                    <input class="form-control" type="text" name="name" id="name" required
-                                        placeholder="Enter Your Name">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="email" class="form-label">Email address</label>
-                                    <input class="form-control" type="email" id="email" name="email" required
-                                        placeholder="Enter Your Email">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="phone" class="form-label">Phone</label>
-                                    <input class="form-control" type="text" id="phone" name="phone" required
-                                        placeholder="Enter Your Phone" pattern="01\d{9}"
-                                        title="Phone must start with 01 and have 11 digits total">
-                                </div>
-
-                                <div class="mb-3">
-                                    <label for="address" class="form-label">Address</label>
-                                    <input class="form-control" type="text" id="address" name="address" required
-                                        placeholder="Enter Your Address">
-                                </div>
-
-                                <div class="mb-3">
-                                    <label for="password" class="form-label">Password</label>
-                                    <div class="input-group input-group-merge">
-                                        <input type="password" name="password" id="password" class="form-control"
-                                            placeholder="Enter your password" autocomplete="new-password" required>
-                                        <div class="input-group-text" data-password="false">
-                                            <span class="password-eye"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="password_confirmation" class="form-label">Confirm Password</label>
-                                    <div class="input-group input-group-merge">
-                                        <input type="password" name="password_confirmation" id="password_confirmation"
-                                            class="form-control" placeholder="Enter your password" required
-                                            autocomplete="new-password">
-                                        <div class="input-group-text" data-password="false">
-                                            <span class="password-eye"></span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="mb-3">
-                                    <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" id="checkbox-signup">
-                                        <label class="form-check-label" for="checkbox-signup">I accept <a
-                                                href="javascript: void(0);" class="text-dark">Terms and
-                                                Conditions</a></label>
-                                    </div>
-                                </div>
-                                <div class="text-center d-grid">
-                                    <button class="btn btn-success" type="submit"> Sign Up </button>
-                                </div>
-
-                            </form>
-
-                        </div> <!-- end card-body -->
-                    </div>
-                    <!-- end card -->
-
-                    <div class="row mt-3">
-                        <div class="col-12 text-center">
-                            <p class="text-white-50">Already have account? <a href="{{ route('login') }}"
-                                    class="text-white ms-1"><b>Sign In</b></a></p>
-                        </div> <!-- end col -->
-                    </div>
-                    <!-- end row -->
-
-                </div> <!-- end col -->
-            </div>
-            <!-- end row -->
+<body>
+    <div class="container">
+        <div class="page-head">
+            <h1>Become a Broker</h1>
+            <p>Complete the broker registration with extra details and verification documents.</p>
         </div>
-        <!-- end container -->
+
+        <div class="reg-card p-4 p-md-5 mb-4">
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul class="mb-0">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
+            <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
+                @csrf
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label for="name" class="form-label">Full Name *</label>
+                        <input id="name" type="text" name="name" value="{{ old('name') }}" class="form-control" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="age" class="form-label">Age *</label>
+                        <input id="age" type="number" name="age" min="18" max="80" value="{{ old('age') }}" class="form-control" required>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="username" class="form-label">Desired Username *</label>
+                        <input id="username" type="text" name="username" value="{{ old('username') }}" class="form-control" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="email" class="form-label">Email Address *</label>
+                        <input id="email" type="email" name="email" value="{{ old('email') }}" class="form-control" required>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="phone" class="form-label">Phone *</label>
+                        <input id="phone" type="text" name="phone" value="{{ old('phone') }}" class="form-control" placeholder="+8801XXXXXXXXX" required>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="current_address" class="form-label">Current Address *</label>
+                        <input id="current_address" type="text" name="current_address" value="{{ old('current_address') }}" class="form-control" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="permanent_address" class="form-label">Permanent Address *</label>
+                        <input id="permanent_address" type="text" name="permanent_address" value="{{ old('permanent_address') }}" class="form-control" required>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="photo" class="form-label">Profile Image</label>
+                        <input id="photo" type="file" name="photo" class="form-control" accept="image/*">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="id_document" class="form-label">ID Document (NID/Birth Certificate)</label>
+                        <input id="id_document" type="file" name="id_document" class="form-control" accept="image/*">
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="password" class="form-label">Password *</label>
+                        <input id="password" type="password" name="password" class="form-control" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="password_confirmation" class="form-label">Confirm Password *</label>
+                        <input id="password_confirmation" type="password" name="password_confirmation" class="form-control" required>
+                    </div>
+                </div>
+
+                <div class="form-check mt-3">
+                    <input class="form-check-input" type="checkbox" id="agree" required>
+                    <label class="form-check-label" for="agree">I accept <a href="#">Terms & Conditions</a></label>
+                </div>
+
+                <div class="mt-4 text-center">
+                    <button type="submit" class="btn reg-btn btn-lg w-100">Submit Broker Registration</button>
+                </div>
+
+                <p class="mt-3 text-center">Already have broker account? <a href="{{ route('login') }}">Sign In</a></p>
+            </form>
+        </div>
     </div>
-    <!-- end page -->
 
-    <footer class="footer footer-alt">
-        2015 -
-        <script>
-            document.write(new Date().getFullYear())
-        </script> &copy; UBold theme by <a href="" class="text-white-50">Coderthemes</a>
-    </footer>
-
-    <!-- Vendor js -->
     <script src="{{ asset('backend/assets/js/vendor.min.js') }}"></script>
-
-    <!-- App js -->
     <script src="{{ asset('backend/assets/js/app.min.js') }}"></script>
-
 </body>
 
 </html>

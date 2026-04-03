@@ -47,6 +47,30 @@
                     </div>
                 </li>
 
+                <li>
+                    @php $rentUnreadCount = App\Models\RentRequest::where('status', 'unread')->count(); @endphp
+                    <a href="#sidebarRentRequest" data-bs-toggle="collapse">
+                        <i class="mdi mdi-home-city-outline"></i>
+
+                        <span
+                            class="badge bg-danger float-end">{{ $rentUnreadCount }}</span>
+                        <span>Rent Requests</span>
+
+                        <span class="menu-arrow" style="{{ $rentUnreadCount > 0 ? 'display:none;' : '' }}"></span>
+
+                    </a>
+                    <div class="collapse" id="sidebarRentRequest">
+                        <ul class="nav-second-level">
+                            <li>
+                                <a href="{{ route('admin.rent.requests') }}">All Rent Requests
+                                    <span
+                                        class="badge bg-danger float-end">{{ App\Models\RentRequest::where('status', 'unread')->count() }}</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
 
                 <li>
                     <a href="#sidebarGeneral" data-bs-toggle="collapse">

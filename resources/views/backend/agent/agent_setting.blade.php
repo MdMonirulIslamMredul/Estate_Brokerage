@@ -37,6 +37,7 @@
                                         <th>Role</th>
                                         <th>Status</th>
                                         <th>Action</th>
+                                        <th>Details</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -65,10 +66,14 @@
                                                         class="btn btn-sm btn-success">Activate</a>
                                                 @endif
                                             </td>
+                                            <td>
+                                                <a href="{{ route('user.details', $user->id) }}"
+                                                    class="btn btn-sm btn-info">View Details</a>
+                                            </td>
                                         </tr>
                                     @empty
                                         <tr>
-                                            <td colspan="7" class="text-center text-muted py-4">No users found.</td>
+                                            <td colspan="8" class="text-center text-muted py-4">No users found.</td>
                                         </tr>
                                     @endforelse
                                 </tbody>

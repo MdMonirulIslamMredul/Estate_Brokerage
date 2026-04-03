@@ -55,6 +55,13 @@
                                                 value="{{ $edit_project->title }}" placeholder="Project title...">
                                         </div>
                                     </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group mb-3">
+                                            <label for="project_code" class="form-label">Project Code</label>
+                                            <input type="text" name="project_code" id="project_code" class="form-control"
+                                                value="{{ $edit_project->project_code }}" placeholder="Project code...">
+                                        </div>
+                                    </div>
                                     {{-- <div class="col-lg-6">
                                         <div class="form-group mb-4">
                                             <label for="title_english" class="form-label mb-2">Project Status <span

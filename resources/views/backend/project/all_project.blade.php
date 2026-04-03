@@ -34,6 +34,7 @@
                                 <thead>
                                     <tr>
                                         <th>SL</th>
+                                        <th>Code</th>
                                         <th>Image</th>
                                         <th>Project Name</th>
                                         <th>Category</th>
@@ -47,6 +48,7 @@
                                     @foreach ($project as $key => $item)
                                         <tr>
                                             <td>{{ $key + 1 }}</td>
+                                            <td>{{ $item->project_code ?? 'N/A' }}</td>
                                             <td><img src="{{ asset($item->property_thumbnail) }}" alt=""
                                                     style="width:90px;height:80px"></td>
                                             <td>{{ $item->property_name }}</td>

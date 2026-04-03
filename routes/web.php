@@ -176,6 +176,9 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::get('/user/active/{id}', 'userActive')->name('user.active');
         Route::get('/user/inactive/{id}', 'userInactive')->name('user.inactive');
 
+        //user details route
+        Route::get('/user/details/{id}', 'userDetails')->name('user.details');
+
         //agent commission routes
         Route::get('/agent/commission/add', 'addAgentCommission')->name('agent.commission.add');
         Route::post('/agent/commission/store', 'storeAgentCommission')->name('agent.commission.store');
@@ -456,5 +459,14 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::get('/edit/project/subcategory/{subcategory}', 'edit')->name('edit.project_subcategory');
         Route::put('/update/project/subcategory/{subcategory}', 'update')->name('update.project_subcategory');
         Route::delete('/destroy/project/subcategory/{subcategory}', 'destroy')->name('destroy.project_subcategory');
+    });
+
+    // Rent request management
+    Route::controller(\App\Http\Controllers\Backend\RentRequestController::class)->group(function () {
+        Route::get('/admin/rent-requests', 'index')->name('admin.rent.requests');
+        Route::get('/admin/rent-request/{id}', 'show')->name('admin.rent.request.show');
+        Route::get('/admin/rent-request/{id}/read', 'markRead')->name('admin.rent.request.read');
+        Route::get('/admin/rent-request/{id}/unread', 'markUnread')->name('admin.rent.request.unread');
+        Route::get('/admin/rent-request/{id}/delete', 'destroy')->name('admin.rent.request.delete');
     });
 });

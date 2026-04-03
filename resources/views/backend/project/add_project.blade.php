@@ -66,6 +66,18 @@
                                             </select>
                                         </div>
                                     </div> --}}
+
+                                    <div class="col-lg-3">
+                                        <div class="form-group mb-3">
+                                            <label for="project_code" class="form-label">Project Code </label>
+                                            <input type="text" name="project_code" id="project_code" class="form-control"
+                                                value="{{ old('project_code') }}"
+                                                placeholder="Project code... Start With EB...">
+                                        </div>
+                                    </div>
+
+
+
                                     <div class="col-lg-3">
                                         <div class="form-group mb-3">
                                             <label for="price" class="form-label">Price </label>
@@ -434,6 +446,10 @@
                     property_name: {
                         required: true,
                     },
+                    project_code: {
+                        required: true,
+                        maxlength: 100,
+                    },
                     property_thumbnail: {
                         required: true,
                     },
@@ -444,6 +460,10 @@
                 messages: {
                     property_name: {
                         required: 'Please Enter Proptery Title',
+                    },
+                    project_code: {
+                        required: 'Please Enter Project Code',
+                        maxlength: 'Project Code must be less than 100 characters',
                     },
                     property_thumbnail: {
                         required: 'Please Select Thumbnail Image',

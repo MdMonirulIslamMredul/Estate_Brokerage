@@ -11,8 +11,8 @@
 
         .all-project-page .accent-line {
             border-top: 3px solid var(--primary-color) !important;
-            width: 100px;
-            margin: -15px auto 0;
+            width: 600px;
+            margin: -1px auto 0;
             opacity: 1;
             border-radius: 2px;
         }
@@ -55,7 +55,7 @@
         }
 
         .all-project-page .accent-btn {
-            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%) !important;
             color: #000 !important;
             border: none !important;
             padding: 11px 28px !important;
@@ -66,12 +66,12 @@
             cursor: pointer !important;
             display: inline-block !important;
             text-decoration: none !important;
-            box-shadow: 0 4px 12px rgba(178, 1, 1, 0.25) !important;
+            box-shadow: 0 4px 12px rgba(26, 1, 1, 0.25) !important;
             height: auto !important;
         }
 
         .all-project-page .accent-btn:hover {
-            color: #000 !important;
+            color: var(--primary-color) !important;
             box-shadow: 0 10px 28px rgba(178, 1, 1, 0.35) !important;
             transform: translateY(-2px) !important;
         }

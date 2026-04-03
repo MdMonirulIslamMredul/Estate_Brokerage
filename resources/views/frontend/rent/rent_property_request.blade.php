@@ -73,6 +73,7 @@
             font-weight: 800;
             letter-spacing: -0.04em;
             color: var(--rent-primary);
+
         }
 
         .rent-hero p {
@@ -138,6 +139,7 @@
             line-height: 1.15;
             font-weight: 800;
             letter-spacing: -0.03em;
+            color: var(--rent-primary);
         }
 
         .rent-info p,
@@ -354,7 +356,7 @@
                 <div class="row g-0">
                     <div class="col-lg-5">
                         <aside class="rent-info">
-                            <div class="section-tag" style="background: rgba(255,255,255,0.1); color: #fff;">Owner Support
+                            <div class="section-tag" style="background: rgba(255,255,255,0.1); color: #fff;">Team Support
                             </div>
                             <h2>Tell us about the property you want to rent out.</h2>
                             <p>We help property owners get visibility, verified tenants, and guided support from inquiry to

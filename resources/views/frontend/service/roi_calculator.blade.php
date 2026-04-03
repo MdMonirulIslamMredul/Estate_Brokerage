@@ -93,7 +93,7 @@
                 </div>
                 <div class="col-md-4">
                     <div class="roi-stat-card">
-                        <div class="roi-stat-value">₹ 7.2 Cr</div>
+                        <div class="roi-stat-value">৳ 7.2 Cr</div>
                         <div class="roi-stat-label">Market Value Potential</div>
                     </div>
                 </div>

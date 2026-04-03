@@ -6,6 +6,14 @@
 
     <style>
         /* ── Completed Project Details ── */
+        :root {
+            --project-primary: #0d6efd;
+            --project-primary-dark: #0b5ed7;
+            --project-primary-soft: #e7f1ff;
+            --project-primary-border: #cfe2ff;
+            --project-primary-text: #0b4fa8;
+        }
+
         .project-hero {
             position: relative;
             min-height: 440px;
@@ -28,7 +36,7 @@
         }
 
         .badge-completed {
-            background: #17A84C;
+            background: var(--project-primary);
             color: #fff;
             font-size: .76rem;
             font-weight: 700;
@@ -43,7 +51,7 @@
         .section-divider {
             width: 55px;
             height: 3px;
-            background: #17A84C;
+            background: var(--project-primary);
             border-radius: 2px;
             margin: 10px 0 20px;
         }
@@ -74,7 +82,7 @@
 
         .gallery-thumb-row img:hover,
         .gallery-thumb-row img.active-thumb {
-            border-color: #17A84C;
+            border-color: var(--project-primary);
             opacity: .9;
         }
 
@@ -83,13 +91,13 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            background: #f0faf4;
-            border: 1px solid #c7ecd7;
+            background: var(--project-primary-soft);
+            border: 1px solid var(--project-primary-border);
             border-radius: 50px;
             padding: 8px 18px;
             font-size: .88rem;
             font-weight: 600;
-            color: #1a6635;
+            color: var(--project-primary-text);
         }
 
         /* Info card */
@@ -118,13 +126,13 @@
             width: 42px;
             height: 42px;
             border-radius: 10px;
-            background: #e8f7ee;
+            background: var(--project-primary-soft);
             display: flex;
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
             font-size: 1.1rem;
-            color: #17A84C;
+            color: var(--project-primary);
         }
 
         .info-label {
@@ -150,15 +158,15 @@
             justify-content: center;
             text-align: center;
             padding: 20px 10px;
-            background: #f8fdf9;
+            background: var(--project-primary-soft);
             border-radius: 12px;
-            border: 1px solid #e0f2e9;
+            border: 1px solid var(--project-primary-border);
             min-height: 100px;
         }
 
         .feature-item i {
             font-size: 1.7rem;
-            color: #17A84C;
+            color: var(--project-primary);
             margin-bottom: 8px;
         }
 
@@ -176,7 +184,7 @@
 
         /* Desc cards */
         .desc-card {
-            background: #f8fdf9;
+            background: var(--project-primary-soft);
             border-radius: 14px;
             padding: 30px 28px;
         }
@@ -188,7 +196,7 @@
 
         .detail-table tr:nth-child(even) td,
         .detail-table tr:nth-child(even) th {
-            background: #f8fdf9;
+            background: var(--project-primary-soft);
         }
 
         .detail-table th,
@@ -301,7 +309,7 @@
         }
 
         .glb-nav:hover {
-            background: rgba(23, 168, 76, .7);
+            background: rgba(13, 110, 253, .7);
         }
 
         .glb-nav.prev {
@@ -328,20 +336,21 @@
         }
 
         .glb-dot.active {
-            background: #17A84C;
+            background: var(--project-primary);
         }
 
         /* CTA bar */
         .cta-bar {
-            background: linear-gradient(135deg, #17A84C 0%, #0e7c38 100%);
+            background: linear-gradient(135deg, #b21001 0%, #3f0505 100%);
             border-radius: 14px;
             padding: 30px 28px;
             color: #fff;
+            text-decoration: none;
         }
 
         .btn-cta {
             background: #fff;
-            color: #17A84C;
+            color: var(--project-primary);
             font-weight: 700;
             border-radius: 50px;
             padding: 11px 28px;
@@ -353,13 +362,13 @@
         }
 
         .btn-cta:hover {
-            background: #e8f7ee;
-            color: #0e7c38;
+            background: var(--project-primary-soft);
+            color: var(--project-primary-dark);
         }
 
         /* Contact form */
         .contact-section {
-            background: linear-gradient(135deg, #f0faf4 0%, #e8f4ee 100%);
+            background: linear-gradient(135deg, var(--project-primary-soft) 0%, #f4f8ff 100%);
         }
 
         .contact-card {
@@ -401,7 +410,7 @@
             </h1>
             @if ($completed->location_eng)
                 <p class="text-white-50 mb-0 fs-6"><i
-                        class="mdi mdi-map-marker me-1 text-success"></i>{{ $completed->location_eng }}</p>
+                        class="mdi mdi-map-marker me-1 text-primary"></i>{{ $completed->location_eng }}</p>
             @endif
         </div>
     </div>
@@ -724,9 +733,9 @@
 
                     {{-- CTA bar --}}
                     <div class="cta-bar d-flex flex-wrap align-items-center justify-content-between gap-3">
-                        <div>
-                            <h5 class="fw-bold mb-1">Interested in this property?</h5>
-                            <p class="mb-0" style="opacity:.85;font-size:.9rem;">Contact our team — book a free site
+                        <div class="text-white">
+                            <h5 class="fw-bold mb-1 text-white">Interested in this property?</h5>
+                            <p class="mb-0 text-white" style="opacity:.85;font-size:.9rem;">Contact our team — book a free site
                                 visit today.</p>
                         </div>
                         <a href="{{ route('contact.us') }}" class="btn-cta"><i class="mdi mdi-phone me-1"></i> Contact
@@ -804,7 +813,7 @@
                             <div class="info-icon"><i class="mdi mdi-check-circle"></i></div>
                             <div>
                                 <p class="info-label">Status</p>
-                                <p class="info-value text-success">Completed</p>
+                                <p class="info-value text-primary">Completed</p>
                             </div>
                         </div>
 
@@ -813,13 +822,13 @@
                                 <div class="info-icon"><i class="mdi mdi-currency-usd"></i></div>
                                 <div>
                                     <p class="info-label"> <i class="mdi mdi-briefcase me-1"></i>Agent Commission </p>
-                                    <p class="info-value text-success fw-bold"> {{ $completed->commission ?? 'N/A' }} </p>
+                                    <p class="info-value text-primary fw-bold"> {{ $completed->commission ?? 'N/A' }} </p>
 
                                 </div>
                             </div>
                         @else
                             <a href="{{ route('contact.us') }}"
-                                class="btn btn-success w-100 mt-4 rounded-pill fw-semibold">
+                                class="btn btn-primary w-100 mt-4 rounded-pill fw-semibold">
                                 <i class="mdi mdi-send me-1"></i> Send Enquiry
                             </a>
                         @endif
@@ -879,10 +888,10 @@
                                 <div class="col-12">
                                     <div class="d-grid gap-2">
                                         <button type="submit" name="send"
-                                            class="btn btn-success btn-lg rounded-pill fw-semibold">
+                                            class="btn btn-primary btn-lg rounded-pill fw-semibold">
                                             <i class="mdi mdi-send me-1"></i> Send Message
                                         </button>
-                                        <a href="tel:" class="btn btn-outline-success btn-lg rounded-pill fw-semibold">
+                                        <a href="tel:" class="btn btn-outline-primary btn-lg rounded-pill fw-semibold">
                                             <i class="mdi mdi-phone me-1"></i> Call Now
                                         </a>
                                     </div>
