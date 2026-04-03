@@ -27,6 +27,11 @@ class ProjectController extends Controller
 
     public function tech_web_project_store(Request $request)
     {
+        $request->validate([
+            'project_code' => 'nullable|string|max:100|unique:projects,project_code',
+            'property_name' => 'required|string|max:255',
+            'property_thumbnail' => 'required',
+        ]);
 
         //video format--------
         $url = $request->property_video;
@@ -73,6 +78,7 @@ class ProjectController extends Controller
 
         $data = new Project();
         $data->property_name = $request->property_name;
+        $data->project_code = $request->project_code;
         // $data->property_status = $request->property_status;
         $data->status = 1;
         $data->project_category_id = $request->project_category_id;
@@ -190,7 +196,14 @@ class ProjectController extends Controller
             $data['image3'] = $image3_url;
         }
 
+        $request->validate([
+            'project_code' => 'nullable|string|max:100|unique:projects,project_code,' . $id,
+            'property_name' => 'required|string|max:255',
+            'property_thumbnail' => 'sometimes',
+        ]);
+
         $data['property_name'] = $request->property_name;
+        $data['project_code'] = $request->project_code;
         // $data['property_status'] = $request->property_status;
         $data['status'] = (int) $request->input('status', 0);
         // Keep existing category/subcategory unchanged during update.

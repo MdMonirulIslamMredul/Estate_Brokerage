@@ -4,11 +4,10 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\ContactU;
 use App\Models\BannerAndTitle;
+use App\Models\RentRequest;
 use App\Mail\Contactus;
 use App\Mail\RentPropertyRequestMail;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
 class FcontactusController extends Controller
@@ -21,7 +20,7 @@ class FcontactusController extends Controller
 
     public function tech_web_rent_property()
     {
-        return view('backend.Rent.rent_property_request');
+        return view('frontend.rent.rent_property_request');
     }
 
     public function tech_web_contactdata_store(Request $request)
@@ -62,10 +61,9 @@ class FcontactusController extends Controller
             'description' => 'required|string|max:3000',
         ]);
 
-        $adminEmail = 'mesbaalam90@gmail.com';
+        // store request data
+        RentRequest::create($validated);
 
-        Mail::to($adminEmail)->send(new RentPropertyRequestMail($validated));
-
-        return back()->with('status', 'Your rent property request has been submitted successfully.');
+        return back()->with('status', 'Your rent property request has been submitted successfully. Our team will contact you for further queries.');
     }
 }

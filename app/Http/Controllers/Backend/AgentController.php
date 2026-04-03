@@ -28,6 +28,12 @@ class AgentController extends Controller
         return back()->with('success', 'User deactivated successfully.');
     }
 
+    public function userDetails($id)
+    {
+        $user = User::findOrFail($id);
+        return view('backend.agent.user_details', compact('user'));
+    }
+
     //agent commission methods --- IGNORE ---
     public function addAgentCommission()
     {
