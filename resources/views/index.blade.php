@@ -1,7 +1,7 @@
 @extends('admin_dashboard')
 @section('admin')
 @section('title')
-    Laravel Page
+    Admin DashBoard
 @endsection
 
 <div class="content">

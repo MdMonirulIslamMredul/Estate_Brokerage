@@ -94,7 +94,8 @@
                     <thead>
                         <tr>
                             <th style="width:50px;">#</th>
-                            <th>Project</th>
+                            <th>Project Name</th>
+                            <th>Project Code</th>
                             <th>Commission Amount</th>
                             <th>Date</th>
                         </tr>
@@ -117,6 +118,11 @@
                                         </div>
                                         <span style="font-weight:500;">{{ $commission->project->property_name }}</span>
                                     </div>
+                                </td>
+                                <td>
+                                    <span style="font-weight:500; color:#334155;">
+                                        {{ $commission->project->project_code }}
+                                    </span>
                                 </td>
                                 <td>
                                     <span style="font-weight:700; color:#059669; font-size:15px;">
