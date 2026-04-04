@@ -6,6 +6,10 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Pagination\Paginator;
 
+use Illuminate\Support\Facades\URL;
+
+
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -19,9 +23,17 @@ class AppServiceProvider extends ServiceProvider
     /**
      * Bootstrap any application services.
      */
-    public function boot(): void
+    // public function boot(): void
+    // {
+    //     Paginator::useBootstrapFour();
+    //     Schema::defaultStringLength(191);
+    // }
+
+    public function boot()
     {
-        Paginator::useBootstrapFour();
-        Schema::defaultStringLength(191);
+        if (app()->environment('local')) {
+            URL::forceRootUrl(config('app.url'));
+            URL::forceScheme('https');
+        }
     }
 }

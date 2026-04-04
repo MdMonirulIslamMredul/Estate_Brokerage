@@ -41,7 +41,7 @@ class HomeController extends Controller
 {
     public function tech_web_home_index()
     {
-        $testimonials = Testimonial::where('status', 1)->latest()->limit(5)->get();
+        $testimonials = Testimonial::where('status', 1)->latest()->limit(12)->get();
         $social_works = Service::inRandomOrder()->get();
         $blogs = Blog::inRandomOrder()->get();
         $about = About::latest()->first();
