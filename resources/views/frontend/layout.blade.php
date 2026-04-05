@@ -12,37 +12,82 @@
         --primary-dark: #8f0000;
     }
 
-    .whatsapp_float {
+    /* Modern WhatsApp and Back-to-Top Floating Buttons */
+    .floating-btn {
         position: fixed;
-        width: 60px;
-        height: 60px;
-        bottom: 25px;
-        left: 40px;
-        background-color: #acacac;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
+        z-index: 1200;
+        background: #25d366;
         color: #fff;
-        border-radius: 50px;
-        text-align: center;
-        font-size: 30px;
-        box-shadow: 2px 2px 3px #999;
-        z-index: 100;
+        font-size: 28px;
+        border: none;
+        transition: transform 0.2s, box-shadow 0.2s;
+        right: 30px;
+        cursor: pointer;
+        text-decoration: none;
     }
 
-    .whatsapp-icon {
-        margin-top: 16px;
+    .floating-btn:hover {
+        transform: translateY(-4px) scale(1.07);
+        box-shadow: 0 8px 32px rgba(37, 211, 102, 0.25);
     }
 
-    /* for mobile */
-    @media screen and (max-width: 767px) {
-        .whatsapp-icon {
-            margin-top: 10px;
-        }
+    .floating-btn.whatsapp {
+        bottom: 30px;
+        background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
+    }
 
-        .whatsapp_float {
+    .floating-btn.back-to-top {
+        bottom: 100px;
+        background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+        font-size: 22px;
+        display: none;
+    }
+
+    .floating-btn svg,
+    .floating-btn i {
+        color: #fff;
+        width: 28px;
+        height: 28px;
+    }
+
+    @media (max-width: 767px) {
+        .floating-btn {
             width: 40px;
             height: 40px;
+            font-size: 18px;
+            right: 12px;
+        }
+
+        .floating-btn.whatsapp {
+            bottom: 18px;
+        }
+
+        .floating-btn.back-to-top {
             bottom: 70px;
-            right: 40px;
-            font-size: 22px;
+        }
+    }
+
+    @media (max-width: 426px) {
+        .floating-btn {
+            width: 32px;
+            height: 32px;
+            font-size: 14px;
+            right: 6px;
+        }
+
+        .floating-btn.whatsapp {
+            bottom: 10px;
+        }
+
+        .floating-btn.back-to-top {
+            bottom: 50px;
         }
     }
 
@@ -98,25 +143,20 @@
         color: #F08121;
     }
 </style>
-<a href="https://api.WhatsApp.com/send?phone=+8801715175856&text=Hello! " style="padding-top: 1px;margin-top: 9px;"
-    class="phone-button bounce"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="70"
-        viewBox="0 0 48 48">
+<!-- WhatsApp Floating Button -->
+<a href="https://api.WhatsApp.com/send?phone=+8801715175856&text=Hello! " class="floating-btn whatsapp"
+    title="Chat on WhatsApp" target="_blank" rel="noopener">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="28" height="28">
         <path fill="#fff"
-            d="M4.868,43.303l2.694-9.835C5.9,30.59,5.026,27.324,5.027,23.979C5.032,13.514,13.548,5,24.014,5c5.079,0.002,9.845,1.979,13.43,5.566c3.584,3.588,5.558,8.356,5.556,13.428c-0.004,10.465-8.522,18.98-18.986,18.98c-0.001,0,0,0,0,0h-0.008c-3.177-0.001-6.3-0.798-9.073-2.311L4.868,43.303z">
-        </path>
-        <path fill="#fff"
-            d="M4.868,43.803c-0.132,0-0.26-0.052-0.355-0.148c-0.125-0.127-0.174-0.312-0.127-0.483l2.639-9.636c-1.636-2.906-2.499-6.206-2.497-9.556C4.532,13.238,13.273,4.5,24.014,4.5c5.21,0.002,10.105,2.031,13.784,5.713c3.679,3.683,5.704,8.577,5.702,13.781c-0.004,10.741-8.746,19.48-19.486,19.48c-3.189-0.001-6.344-0.788-9.144-2.277l-9.875,2.589C4.953,43.798,4.911,43.803,4.868,43.803z">
-        </path>
-        <path fill="#cfd8dc"
-            d="M24.014,5c5.079,0.002,9.845,1.979,13.43,5.566c3.584,3.588,5.558,8.356,5.556,13.428c-0.004,10.465-8.522,18.98-18.986,18.98h-0.008c-3.177-0.001-6.3-0.798-9.073-2.311L4.868,43.303l2.694-9.835C5.9,30.59,5.026,27.324,5.027,23.979C5.032,13.514,13.548,5,24.014,5 M24.014,42.974C24.014,42.974,24.014,42.974,24.014,42.974C24.014,42.974,24.014,42.974,24.014,42.974 M24.014,42.974C24.014,42.974,24.014,42.974,24.014,42.974C24.014,42.974,24.014,42.974,24.014,42.974 M24.014,4C24.014,4,24.014,4,24.014,4C12.998,4,4.032,12.962,4.027,23.979c-0.001,3.367,0.849,6.685,2.461,9.622l-2.585,9.439c-0.094,0.345,0.002,0.713,0.254,0.967c0.19,0.192,0.447,0.297,0.711,0.297c0.085,0,0.17-0.011,0.254-0.033l9.687-2.54c2.828,1.468,5.998,2.243,9.197,2.244c11.024,0,19.99-8.963,19.995-19.98c0.002-5.339-2.075-10.359-5.848-14.135C34.378,6.083,29.357,4.002,24.014,4L24.014,4z">
-        </path>
-        <path fill="#40c351"
-            d="M35.176,12.832c-2.98-2.982-6.941-4.625-11.157-4.626c-8.704,0-15.783,7.076-15.787,15.774c-0.001,2.981,0.833,5.883,2.413,8.396l0.376,0.597l-1.595,5.821l5.973-1.566l0.577,0.342c2.422,1.438,5.2,2.198,8.032,2.199h0.006c8.698,0,15.777-7.077,15.78-15.776C39.795,19.778,38.156,15.814,35.176,12.832z">
-        </path>
-        <path fill="#fff" fill-rule="evenodd"
-            d="M19.268,16.045c-0.355-0.79-0.729-0.806-1.068-0.82c-0.277-0.012-0.593-0.011-0.909-0.011c-0.316,0-0.83,0.119-1.265,0.594c-0.435,0.475-1.661,1.622-1.661,3.956c0,2.334,1.7,4.59,1.937,4.906c0.237,0.316,3.282,5.259,8.104,7.161c4.007,1.58,4.823,1.266,5.693,1.187c0.87-0.079,2.807-1.147,3.202-2.255c0.395-1.108,0.395-2.057,0.277-2.255c-0.119-0.198-0.435-0.316-0.909-0.554s-2.807-1.385-3.242-1.543c-0.435-0.158-0.751-0.237-1.068,0.238c-0.316,0.474-1.225,1.543-1.502,1.859c-0.277,0.317-0.554,0.357-1.028,0.119c-0.474-0.238-2.002-0.738-3.815-2.354c-1.41-1.257-2.362-2.81-2.639-3.285c-0.277-0.474-0.03-0.731,0.208-0.968c0.213-0.213,0.474-0.554,0.712-0.831c0.237-0.277,0.316-0.475,0.474-0.791c0.158-0.317,0.079-0.594-0.04-0.831C20.612,19.329,19.69,16.983,19.268,16.045z"
-            clip-rule="evenodd"></path>
-    </svg></a>
+            d="M16 3C9.373 3 4 8.373 4 15c0 2.385.832 4.58 2.236 6.36L4.07 28.07a1 1 0 0 0 1.2 1.2l6.71-2.166A12.94 12.94 0 0 0 16 27c6.627 0 12-5.373 12-12S22.627 3 16 3zm0 22c-2.13 0-4.16-.66-5.85-1.8l-.41-.27-4.01 1.29 1.3-3.98-.27-.41A9.96 9.96 0 0 1 6 15c0-5.514 4.486-10 10-10s10 4.486 10 10-4.486 10-10 10zm5.13-7.29c-.28-.14-1.65-.81-1.9-.9-.25-.09-.43-.14-.61.14-.18.28-.7.9-.86 1.08-.16.18-.32.2-.6.07-.28-.14-1.18-.43-2.25-1.37-.83-.74-1.39-1.65-1.55-1.93-.16-.28-.02-.43.12-.57.13-.13.28-.34.42-.51.14-.17.18-.29.28-.48.09-.19.05-.36-.02-.5-.07-.14-.61-1.47-.84-2.01-.22-.54-.45-.47-.61-.48-.16-.01-.36-.01-.56-.01-.19 0-.5.07-.76.36-.26.29-1 1-1 2.43s1.02 2.82 1.16 3.02c.14.2 2.01 3.2 5.01 4.36.7.24 1.25.38 1.68.48.71.15 1.36.13 1.87.08.57-.06 1.75-.72 2-1.41.25-.69.25-1.28.18-1.41-.07-.13-.25-.2-.53-.34z" />
+    </svg>
+</a>
+<!-- Back to Top Floating Button -->
+<button id="back-to-top" class="floating-btn back-to-top" title="Back to Top" aria-label="Back to Top">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22">
+        <path fill="none" stroke="#fff" stroke-width="2" d="M12 19V5m0 0l-7 7m7-7l7 7" />
+    </svg>
+</button>
 
 <body id="bg">
     <div class="page-wraper ">
@@ -136,7 +176,25 @@
     </div>
     {{-- <div id="loading-area"></div> --}}
 
+
     @include('frontend.includes.script')
+    <script>
+        // Show/hide back-to-top button
+        const backToTopBtn = document.getElementById('back-to-top');
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 300) {
+                backToTopBtn.style.display = 'flex';
+            } else {
+                backToTopBtn.style.display = 'none';
+            }
+        });
+        backToTopBtn.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    </script>
 
 
 </body>

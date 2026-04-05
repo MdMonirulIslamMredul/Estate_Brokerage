@@ -496,7 +496,14 @@
         </a>
 
         <div class="sidebar-user">
-            <div class="avatar">{{ strtoupper(substr(Auth::user()->name, 0, 1)) }}</div>
+            @if (Auth::user()->photo)
+                <div class="avatar p-0" style="background:none;">
+                    <img src="{{ asset('storage/' . Auth::user()->photo) }}" alt="User Photo"
+                        style="width:40px;height:40px;border-radius:50%;object-fit:cover;">
+                </div>
+            @else
+                <div class="avatar">{{ strtoupper(substr(Auth::user()->name, 0, 1)) }}</div>
+            @endif
             <div class="user-info">
                 <div class="name">{{ Auth::user()->name }}</div>
                 <div class="role">Sales Agent</div>
@@ -535,7 +542,7 @@
         </ul>
 
         <div class="sidebar-footer">
-            &copy; {{ date('Y') }} AJ Group
+            &copy; {{ date('Y') }} Estate Brokerage
         </div>
     </aside>
 
@@ -550,7 +557,14 @@
         <div class="topbar-right">
             <div class="dropdown">
                 <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown">
-                    <div class="user-avatar-sm">{{ strtoupper(substr(Auth::user()->name, 0, 1)) }}</div>
+                    @if (Auth::user()->photo)
+                        <div class="user-avatar-sm p-0" style="background:none;">
+                            <img src="{{ asset('storage/' . Auth::user()->photo) }}" alt="User Photo"
+                                style="width:32px;height:32px;border-radius:50%;object-fit:cover;">
+                        </div>
+                    @else
+                        <div class="user-avatar-sm">{{ strtoupper(substr(Auth::user()->name, 0, 1)) }}</div>
+                    @endif
                     {{ Auth::user()->name }}
                     <i class="mdi mdi-chevron-down"></i>
                 </a>
@@ -598,7 +612,7 @@
         </div>
 
         <footer class="ag-footer">
-            &copy; {{ date('Y') }} AJ Group &mdash; Agent Portal
+            &copy; {{ date('Y') }} Estate Brokerage &mdash; Agent Portal
         </footer>
     </div>
 

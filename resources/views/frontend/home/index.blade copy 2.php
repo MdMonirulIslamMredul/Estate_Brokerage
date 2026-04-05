@@ -1,0 +1,3881 @@
+@extends('frontend.layout')
+
+@section('title')
+    Home
+@endsection
+
+@section('content')
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #b20101;
+            --secondary-color: #3f3f3b;
+            --accent-color: #F8F9FA;
+            --dark-color: #1A1A1B;
+            --light-gray: #F8F9FA;
+            --text-muted: #6c757d;
+            --text-dark: #2c3e50;
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.12);
+            --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.15);
+            --border-color: #e8e8e8;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-dark);
+            line-height: 1.6;
+            padding: 0;
+            margin: 0;
+            background: #f5f7fa;
+        }
+
+        /* ===== HERO SECTION ===== */
+        .swiper-slider-hero {
+            position: relative;
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            min-height: 100vh;
+        }
+
+        .swiper-slider-hero .swiper-container,
+        .swiper-slider-hero .swiper-wrapper,
+        .swiper-slider-hero .swiper-slide {
+            height: 100%;
+            min-height: 100vh;
+        }
+
+        .swiper-slider-hero .slide-inner {
+            background-size: cover !important;
+            background-position: center !important;
+            min-height: 100vh;
+            width: 100%;
+        }
+
+        .swiper-slider-hero .bg-overlay {
+            background: linear-gradient(180deg, rgba(7, 17, 39, 0.73) 0%, rgba(7, 17, 39, 0.62) 100%);
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+
+        .hero-foreground {
+            position: absolute;
+            inset: 0;
+            z-index: 5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 110px 20px 36px;
+            pointer-events: none;
+        }
+
+        .hero-content-wrap {
+            width: min(980px, 100%);
+            text-align: center;
+            pointer-events: auto;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(205, 204, 202, 0.747);
+            border: 1px solid rgba(255, 40, 7, 0.45);
+            border-radius: 999px;
+            color: var(--primary-color);
+            padding: 0.5rem 1rem;
+            font-size: 0.95rem;
+            font-weight: 700;
+            margin-bottom: 1.25rem;
+        }
+
+        .title-heading {
+            margin-bottom: 1.5rem;
+        }
+
+        .title-heading h1 {
+            color: #ffffff;
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+            font-size: clamp(5.2rem, 10vw, 9rem);
+            margin-bottom: 1rem;
+        }
+
+        .title-heading .accent-line {
+            display: block;
+            color: var(--primary-color);
+            margin-top: 0.1rem;
+        }
+
+        .title-heading p {
+            color: rgba(226, 232, 240, 0.78);
+            font-size: clamp(1rem, 1.5vw, 1.2rem);
+            font-weight: 400;
+            letter-spacing: 0.01em;
+            line-height: 1.45;
+            max-width: 720px;
+            margin: 0 auto;
+        }
+
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 18px;
+            width: min(920px, 100%);
+            margin: 36px auto 0;
+        }
+
+        .hero-stat {
+            text-align: center;
+            color: #ffffff;
+        }
+
+        .hero-stat-value {
+            display: inline-flex;
+            align-items: baseline;
+            justify-content: center;
+            gap: 0.1rem;
+            color: var(--primary-color);
+            font-size: clamp(1.7rem, 3.2vw, 2.7rem);
+            font-weight: 800;
+            line-height: 1;
+            margin-bottom: 0.4rem;
+        }
+
+        .hero-stat-value .hero-stat-plus {
+            font-size: 1em;
+            line-height: 1;
+        }
+
+        .hero-stat-label {
+            display: block;
+            color: rgba(226, 232, 240, 0.8);
+            font-size: 0.95rem;
+            font-weight: 500;
+            letter-spacing: 0.01em;
+        }
+
+        .swiper-button-next,
+        .swiper-button-prev {
+            background: var(--primary-color) !important;
+            transition: all 0.3s ease !important;
+            border: none !important;
+            width: 48px !important;
+            height: 48px !important;
+            display: flex !important;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .swiper-button-next i,
+        .swiper-button-prev i {
+            color: #ffffff;
+            font-size: 18px;
+        }
+
+        .swiper-button-next:hover,
+        .swiper-button-prev:hover {
+            background: rgba(240, 129, 33, 1) !important;
+            transform: scale(1.08);
+        }
+
+        /* ===== SEARCH FORM ===== */
+        #costom {
+            width: min(920px, 94vw) !important;
+            margin: 0 auto;
+            border-radius: 20px;
+            background: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
+            transform: none !important;
+            position: relative !important;
+            top: auto !important;
+            left: auto !important;
+            z-index: 2;
+        }
+
+        .searchform {
+            background: rgba(255, 255, 255, 0.95) !important;
+            border: 1px solid rgba(255, 255, 255, 0.55) !important;
+            box-shadow: 0 20px 52px rgba(10, 23, 56, 0.24) !important;
+            border-radius: 20px !important;
+            overflow: hidden;
+            backdrop-filter: blur(7px);
+        }
+
+        .searchform .card-body {
+            padding: 14px;
+        }
+
+        .hero-search-tabs {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 10px;
+            padding: 8px;
+            border-radius: 14px;
+            background: #eef1f5;
+            margin-bottom: 12px;
+        }
+
+        .hero-tab {
+            border: 0;
+            border-radius: 12px;
+            background: transparent;
+            color: #334155;
+            font-weight: 700;
+            padding: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .hero-tab.active {
+            background: #ffffff;
+            box-shadow: 0 4px 14px rgba(15, 23, 42, 0.12);
+        }
+
+        .hero-search-row {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 180px 180px;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .hero-search-field .input-group-text {
+            border: 1px solid #d9dee7;
+            border-right: 0;
+            border-radius: 12px 0 0 12px;
+            background: #ffffff;
+            color: #94a3b8;
+            padding-inline: 16px;
+        }
+
+        .hero-search-field .form-control {
+            border-radius: 0 12px 12px 0 !important;
+            border-left: 0;
+        }
+
+        .hero-type-select {
+            height: 56px;
+            border-radius: 12px !important;
+        }
+
+        .searchform .form-control,
+        .searchform .form-select {
+            border: 1px solid #d9dee7;
+            border-radius: 12px;
+            padding: 12px 14px;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            background-color: #ffffff;
+            color: #1f2937;
+            height: 56px;
+        }
+
+        .searchform .form-label {
+            color: var(--secondary-color) !important;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .searchform .form-control:focus,
+        .searchform .form-select:focus {
+            border-color: var(--primary-color);
+            background-color: #fff;
+            box-shadow: 0 0 0 3px rgba(240, 129, 33, 0.1);
+            outline: none;
+        }
+
+        .searchform .form-control::placeholder {
+            color: var(--text-muted);
+        }
+
+        #search {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%) !important;
+            border: none !important;
+            color: white !important;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            height: 56px;
+            border-radius: 12px !important;
+            font-size: 1.15rem;
+        }
+
+        #search:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 14px 34px rgba(245, 124, 0, 0.4) !important;
+        }
+
+        /* ===== SECTION STYLING ===== */
+        .section {
+            padding: 80px 0;
+        }
+
+        .py-100 {
+            padding: 100px 0;
+        }
+
+        .section-title {
+            margin-bottom: 60px;
+        }
+
+        .section-title span {
+            font-size: 12px;
+            letter-spacing: 2px;
+            color: var(--secondary-color);
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .section-title h1 {
+            color: var(--dark-color);
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-top: 15px;
+            line-height: 1.3;
+        }
+
+        .section-title h3 {
+            color: var(--dark-color);
+            font-weight: 700;
+        }
+
+        .section-title .divider {
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            margin: 20px auto;
+            border-radius: 2px;
+        }
+
+        .section-title p {
+            color: var(--text-muted);
+            font-size: 15px;
+            line-height: 1.8;
+            margin-top: 20px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* ===== ABOUT SECTION ===== */
+        .ms-lg-5 {
+            margin-left: 3rem !important;
+        }
+
+        .section-title {
+            text-align: center;
+        }
+
+        /* ===== BUTTON STYLES ===== */
+        .btn-modern {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white !important;
+            border: none;
+            padding: 14px 32px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-modern:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(240, 129, 33, 0.3);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--primary-color) !important;
+            border: 2px solid var(--primary-color);
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-secondary:hover {
+            background: #f0f7ff;
+            color: var(--secondary-color);
+        }
+
+        /* ===== PROJECT CARDS ===== */
+        .property {
+            border-radius: 12px !important;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            background: white;
+            border: 1px solid var(--border-color) !important;
+        }
+
+        .property:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 48px rgba(0, 0, 0, 0.12) !important;
+        }
+
+        .property-image {
+            height: 280px;
+            overflow: hidden;
+            background: #f0f0f0;
+        }
+
+        .property-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .property:hover .property-image img {
+            transform: scale(1.05);
+        }
+
+        .card-body {
+            padding: 24px;
+        }
+
+        .card-body h4 {
+            color: var(--dark-color);
+            font-weight: 700;
+            margin-bottom: 12px;
+            font-size: 18px;
+        }
+
+        .card-body p {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-bottom: 12px;
+        }
+
+        /* ===== COUNTER SECTION ===== */
+        .counter-section {
+            background: linear-gradient(135deg, var(--dark-color) 0%, var(--primary-color) 100%);
+            padding: 60px 40px;
+            border-radius: 16px;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .counter-box h2 {
+            color: var(--accent-color);
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+
+        .counter-box p {
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 600;
+            margin-top: 12px;
+            font-size: 16px;
+        }
+
+        /* ===== TAB STYLING ===== */
+        .nav-pills {
+            gap: 12px;
+        }
+
+        .nav-link {
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color) !important;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            padding: 10px 20px;
+        }
+
+        .nav-link:hover {
+            background: #f0f7ff;
+            transform: translateY(-2px);
+        }
+
+        .nav-link.active {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white !important;
+            border: none;
+        }
+
+        /* ===== ACCORDION STYLING ===== */
+        .accordion {
+            color: var(--text-dark);
+            cursor: pointer;
+            padding: 18px 24px;
+            width: 100%;
+            border: none;
+            border-bottom: 1px solid var(--border-color);
+            text-align: left;
+            outline: none;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            background: #ffffff;
+        }
+
+        .accordion:hover {
+            background-color: #f8f9fa;
+            padding-left: 28px;
+        }
+
+        .accordion.active {
+            background: linear-gradient(135deg, rgba(240, 129, 33, 0.1) 0%, rgba(63, 63, 59, 0.08) 100%);
+            color: var(--primary-color);
+        }
+
+        .accordion:after {
+            content: '+';
+            color: var(--primary-color);
+            font-weight: bold;
+            float: right;
+            font-size: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .accordion.active:after {
+            content: "−";
+        }
+
+        .panel {
+            padding: 24px;
+            background-color: #fafbfc;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+
+        /* ===== BOOTSTRAP ACCORDION STYLING ===== */
+        .accordion-button::after {
+            content: "+" !important;
+            font-weight: bold !important;
+            font-size: 1.4rem !important;
+            color: var(--primary-color) !important;
+            background-image: none !important;
+            width: auto !important;
+            height: auto !important;
+            transform: none !important;
+            position: static !important;
+        }
+
+        .accordion-button:not(.collapsed)::after {
+            content: "−" !important;
+        }
+
+        /* ===== TESTIMONIALS ===== */
+        .client-testi {
+            padding: 0;
+        }
+
+        .client-testi .card-body {
+            position: relative;
+            padding: 32px;
+            background: white;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .client-testi .card-body:hover {
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+            transform: translateY(-4px);
+        }
+
+        .client-testi .avatar {
+            object-fit: cover;
+        }
+
+        .client-testi h6 {
+            color: var(--dark-color);
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .client-testi small {
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+
+        .client-testi p {
+            color: var(--text-muted);
+            font-style: italic;
+            line-height: 1.8;
+            margin-top: 16px;
+        }
+
+        .star-rating {
+            color: #ffc107;
+            display: flex;
+            gap: 4px;
+            margin-top: 12px;
+        }
+
+        /* ===== VIDEO SHOWCASE ===== */
+        .video-showcase-section {
+            position: relative;
+            overflow: hidden;
+            padding: 96px 0;
+            background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+        }
+
+        .video-showcase-section::before,
+        .video-showcase-section::after {
+            content: '';
+            position: absolute;
+            pointer-events: none;
+            border-radius: 999px;
+        }
+
+        .video-showcase-section::before {
+            width: 280px;
+            height: 280px;
+            top: -90px;
+            left: -90px;
+            background: rgba(178, 1, 1, 0.05);
+            filter: blur(4px);
+        }
+
+        .video-showcase-section::after {
+            width: 220px;
+            height: 220px;
+            right: -70px;
+            bottom: -60px;
+            background: rgba(178, 1, 1, 0.06);
+            filter: blur(8px);
+        }
+
+        .video-showcase-section .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .video-showcase-header {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 24px;
+            margin-bottom: 36px;
+        }
+
+        .video-showcase-copy {
+            max-width: 760px;
+        }
+
+        .video-showcase-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 0.48rem 1rem;
+            border-radius: 999px;
+            background: rgba(178, 1, 1, 0.14);
+            border: 1px solid rgba(178, 1, 1, 0.28);
+            color: #ff8f8f;
+            font-size: 0.86rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        .video-showcase-copy h1 {
+            margin: 0 0 0.7rem;
+            color: var(--dark-color);
+            font-size: clamp(2.1rem, 3.8vw, 3.5rem);
+            line-height: 1.05;
+            font-weight: 800;
+        }
+
+        .video-showcase-copy p {
+            margin: 0;
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        .video-showcase-meta {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+
+        .video-showcase-stat {
+            min-width: 140px;
+            padding: 1rem 1.1rem;
+            border-radius: 18px;
+            background: #ffffff;
+            border: 1px solid rgba(178, 1, 1, 0.1);
+            box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+            text-align: center;
+        }
+
+        .video-showcase-stat strong {
+            display: block;
+            color: var(--primary-color);
+            font-size: 1.4rem;
+            font-weight: 800;
+            line-height: 1.1;
+        }
+
+        .video-showcase-stat span {
+            display: block;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-top: 0.3rem;
+        }
+
+        .video-showcase-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 22px;
+        }
+
+        .video-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 24px;
+            background: #ffffff;
+            border: 1px solid rgba(178, 1, 1, 0.08);
+            box-shadow: 0 18px 44px rgba(15, 23, 42, 0.08);
+            transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
+        }
+
+        .video-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(178, 1, 1, 0.22);
+            box-shadow: 0 24px 52px rgba(15, 23, 42, 0.12);
+        }
+
+        .video-card-featured {
+            grid-column: span 2;
+        }
+
+        .video-media {
+            position: relative;
+            background: #081120;
+        }
+
+        .video-media iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+            display: block;
+        }
+
+        .video-media .ratio {
+            --bs-aspect-ratio: 56.25%;
+        }
+
+        .video-overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: flex-end;
+            justify-content: flex-start;
+            padding: 16px;
+            background: linear-gradient(180deg, rgba(8, 17, 32, 0.06) 0%, rgba(8, 17, 32, 0.56) 100%);
+            pointer-events: none;
+        }
+
+        .video-play-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 0.6rem 0.9rem;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            color: #ffffff;
+            font-size: 0.84rem;
+            font-weight: 700;
+            letter-spacing: 0.03em;
+            backdrop-filter: blur(6px);
+        }
+
+        .video-card-body {
+            padding: 1.1rem 1.15rem 1.2rem;
+            background: #ffffff;
+        }
+
+        .video-card-meta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 0.8rem;
+        }
+
+        .video-meta-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 0.42rem 0.7rem;
+            border-radius: 999px;
+            background: rgba(178, 1, 1, 0.14);
+            border: 1px solid rgba(178, 1, 1, 0.26);
+            color: var(--primary-color);
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+
+        .video-meta-chip-soft {
+            background: rgba(15, 23, 42, 0.04);
+            border-color: rgba(15, 23, 42, 0.06);
+            color: var(--secondary-color);
+        }
+
+        .video-card-body h5 {
+            color: var(--dark-color);
+            font-size: 1.35rem;
+            font-weight: 800;
+            line-height: 1.25;
+            margin-bottom: 0.55rem;
+        }
+
+        .video-card-body p {
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin: 0;
+        }
+
+        .video-empty-state {
+            grid-column: 1 / -1;
+            padding: 2rem;
+            text-align: center;
+            color: var(--text-muted);
+            border-radius: 20px;
+            border: 1px dashed rgba(178, 1, 1, 0.18);
+            background: #ffffff;
+        }
+
+        /* ===== WHY CHOOSE SECTION ===== */
+        .why-choose-section {
+            position: relative;
+            overflow: hidden;
+            padding: 96px 0;
+            background: linear-gradient(180deg, #ffffff 0%, #fbfbfd 100%);
+        }
+
+        .why-choose-section::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 50% 0%, rgba(178, 1, 1, 0.06), transparent 34%);
+            pointer-events: none;
+        }
+
+        .why-choose-section .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .why-choose-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 24px;
+            margin-bottom: 36px;
+        }
+
+        .why-choose-copy {
+            max-width: 780px;
+        }
+
+        .why-choose-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 0.48rem 1rem;
+            border-radius: 999px;
+            background: rgba(178, 1, 1, 0.12);
+            border: 1px solid rgba(178, 1, 1, 0.18);
+            color: var(--primary-color);
+            font-size: 0.86rem;
+            font-weight: 800;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        .why-choose-copy h1 {
+            margin: 0 0 0.7rem;
+            color: var(--dark-color);
+            font-size: clamp(2.1rem, 3.8vw, 3.45rem);
+            line-height: 1.05;
+            font-weight: 800;
+        }
+
+        .why-choose-copy p {
+            margin: 0;
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            line-height: 1.7;
+            max-width: 680px;
+        }
+
+        .why-choose-cta {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            flex-shrink: 0;
+            padding: 0.95rem 1.45rem;
+            border-radius: 999px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, #7d0000 100%);
+            color: #ffffff;
+            font-weight: 800;
+            text-decoration: none;
+            box-shadow: 0 18px 34px rgba(178, 1, 1, 0.22);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .why-choose-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 22px 40px rgba(178, 1, 1, 0.28);
+            color: #ffffff;
+        }
+
+        .why-choose-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 24px;
+        }
+
+        .why-choose-card {
+            position: relative;
+            background: #ffffff;
+            border-radius: 22px;
+            padding: 28px 26px 26px;
+            border: 1px solid rgba(15, 23, 42, 0.08);
+            border-top: 4px solid var(--primary-color);
+            box-shadow: 0 14px 30px rgba(15, 23, 42, 0.08);
+            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+        }
+
+        .why-choose-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 22px;
+            background: linear-gradient(180deg, rgba(178, 1, 1, 0.02), transparent 40%);
+            pointer-events: none;
+        }
+
+        .why-choose-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(178, 1, 1, 0.18);
+            box-shadow: 0 22px 44px rgba(15, 23, 42, 0.12);
+        }
+
+        .why-choose-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 16px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(178, 1, 1, 0.08);
+            color: var(--primary-color);
+            font-size: 1.35rem;
+            margin-bottom: 1.1rem;
+        }
+
+        .why-choose-card h3 {
+            margin: 0 0 0.55rem;
+            color: var(--dark-color);
+            font-size: 1.25rem;
+            font-weight: 800;
+            line-height: 1.25;
+        }
+
+        .why-choose-card p {
+            margin: 0;
+            color: var(--text-muted);
+            line-height: 1.7;
+            font-size: 0.98rem;
+        }
+
+        @media (max-width: 1024px) {
+            .why-choose-header {
+                flex-direction: column;
+            }
+
+            .why-choose-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .why-choose-section {
+                padding: 72px 0;
+            }
+
+            .why-choose-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .why-choose-card {
+                padding: 22px 20px 20px;
+                border-radius: 18px;
+            }
+
+            .why-choose-card h3 {
+                font-size: 1.15rem;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .video-showcase-header {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .video-card-featured {
+                grid-column: span 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .video-showcase-section {
+                padding: 72px 0;
+            }
+
+            .video-showcase-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .video-showcase-stat {
+                min-width: 0;
+                flex: 1 1 140px;
+            }
+
+            .video-card-body h5 {
+                font-size: 1.15rem;
+            }
+        }
+
+        /* ===== BUILDER PARTNERS SECTION ===== */
+        .partners-section {
+            position: relative;
+            overflow: hidden;
+            padding: 96px 0 88px;
+            background: radial-gradient(circle at top left, rgba(178, 1, 1, 0.16), transparent 34%), linear-gradient(180deg, #0b1120 0%, #101a2c 100%);
+        }
+
+        .partners-section::before,
+        .partners-section::after {
+            content: '';
+            position: absolute;
+            border-radius: 999px;
+            pointer-events: none;
+        }
+
+        .partners-section::before {
+            width: 260px;
+            height: 260px;
+            right: -90px;
+            top: -70px;
+            background: rgba(178, 1, 1, 0.12);
+            filter: blur(10px);
+        }
+
+        .partners-section::after {
+            width: 180px;
+            height: 180px;
+            left: -60px;
+            bottom: -50px;
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .partners-section .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .partners-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 24px;
+            margin-bottom: 34px;
+        }
+
+        .partners-copy {
+            max-width: 760px;
+        }
+
+        .partners-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 0.5rem 1rem;
+            border-radius: 999px;
+            background: rgba(178, 1, 1, 0.14);
+            border: 1px solid rgba(178, 1, 1, 0.28);
+            color: #ff8f8f;
+            font-size: 0.86rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        .partners-copy h1 {
+            color: #ffffff;
+            font-size: clamp(2.1rem, 3.7vw, 3.4rem);
+            line-height: 1.05;
+            font-weight: 800;
+            margin: 0 0 0.7rem;
+        }
+
+        .partners-copy p {
+            margin: 0;
+            color: rgba(226, 232, 240, 0.78);
+            font-size: 1.06rem;
+            line-height: 1.7;
+        }
+
+        .partners-cta {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            flex-shrink: 0;
+            padding: 0.95rem 1.5rem;
+            border-radius: 999px;
+            color: #ffffff;
+            background: linear-gradient(135deg, var(--primary-color) 0%, #7d0000 100%);
+            font-weight: 800;
+            font-size: 1rem;
+            text-decoration: none;
+            box-shadow: 0 18px 34px rgba(178, 1, 1, 0.24);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .partners-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 22px 40px rgba(178, 1, 1, 0.3);
+            color: #ffffff;
+        }
+
+        .partners-carousel {
+            position: relative;
+            padding: 0 62px;
+        }
+
+        .partners-carousel-track {
+            overflow: hidden;
+            border-radius: 28px;
+        }
+
+        #buildersCarousel {
+            display: flex;
+            gap: 18px;
+            padding: 2px;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            will-change: transform;
+        }
+
+        .builder-slide {
+            flex-shrink: 0;
+            width: calc(25% - 13.5px);
+        }
+
+        .builder-card {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 224px;
+            padding: 22px;
+            overflow: hidden;
+            border-radius: 24px;
+            background: linear-gradient(180deg, #263149 0%, #1a2438 100%);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.24);
+            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+        }
+
+        .builder-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.08), transparent 38%), radial-gradient(circle at 80% 80%, rgba(178, 1, 1, 0.16), transparent 32%);
+        }
+
+        .builder-card-body {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            text-align: center;
+        }
+
+        .builder-logo-wrap {
+            width: 100%;
+            min-height: 140px;
+            padding: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(8px);
+        }
+
+        .builder-logo-wrap img {
+            max-width: 82%;
+            max-height: 100px;
+            object-fit: contain;
+            filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.3));
+        }
+
+        .builder-label {
+            color: rgba(255, 255, 255, 0.84);
+            font-size: 0.95rem;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+        }
+
+        .builder-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(178, 1, 1, 0.42);
+            box-shadow: 0 24px 48px rgba(0, 0, 0, 0.3);
+        }
+
+        .builder-card:hover .builder-logo-wrap {
+            background: rgba(255, 255, 255, 0.09);
+        }
+
+        .builders-empty-state {
+            display: none;
+            margin-top: 1.5rem;
+            text-align: center;
+            color: rgba(226, 232, 240, 0.8);
+            font-weight: 600;
+        }
+
+        .builders-empty-state.is-visible {
+            display: block;
+        }
+
+        .partners-carousel-controls {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+        }
+
+        .partners-nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            border: none;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.35rem;
+            color: #ffffff;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            box-shadow: 0 14px 30px rgba(178, 1, 1, 0.25);
+            pointer-events: auto;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .partners-nav-btn:hover {
+            transform: translateY(-50%) scale(1.08);
+            box-shadow: 0 18px 36px rgba(178, 1, 1, 0.3);
+        }
+
+        .partners-nav-left {
+            left: 0;
+        }
+
+        .partners-nav-right {
+            right: 0;
+        }
+
+        .partners-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 2.25rem;
+            flex-wrap: wrap;
+        }
+
+        .partner-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 999px;
+            border: none;
+            background: rgba(255, 255, 255, 0.18);
+            padding: 0;
+            transition: all 0.25s ease;
+        }
+
+        .partner-dot:hover,
+        .partner-dot:focus {
+            transform: scale(1.2);
+            outline: none;
+        }
+
+        .partner-dot.is-active {
+            background: var(--primary-color);
+            transform: scale(1.35);
+            box-shadow: 0 0 0 6px rgba(178, 1, 1, 0.14);
+        }
+
+        @media (max-width: 1024px) {
+            .partners-header {
+                flex-direction: column;
+            }
+
+            .builder-slide {
+                width: calc(50% - 9px);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .partners-section {
+                padding: 76px 0 72px;
+            }
+
+            .partners-carousel {
+                padding: 0 44px;
+            }
+
+            .builder-slide {
+                width: 100%;
+            }
+
+            .builder-card {
+                min-height: 200px;
+                padding: 18px;
+            }
+
+            .builder-logo-wrap {
+                min-height: 124px;
+                padding: 18px;
+            }
+
+            .partners-nav-btn {
+                width: 42px;
+                height: 42px;
+                font-size: 1.15rem;
+            }
+        }
+
+        /* ===== CONTACT BUTTONS ===== */
+        .phone-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            z-index: 99;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            background: rgba(161, 161, 161, 0.476);
+            box-shadow: var(--shadow-lg);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            width: 56px;
+            height: 56px;
+        }
+
+        .phone-button:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 40px rgba(240, 129, 33, 0.35);
+        }
+
+        .whatsapp_float {
+            position: fixed;
+            width: 56px;
+            height: 56px;
+            bottom: 25px;
+            left: 40px;
+            background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
+            color: #fff;
+            border-radius: 50%;
+            text-align: center;
+            font-size: 28px;
+            box-shadow: var(--shadow-lg);
+            z-index: 100;
+            transition: all 0.3s ease;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+        }
+
+        .whatsapp_float:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 40px rgba(37, 211, 102, 0.35);
+        }
+
+        .bounce {
+            animation: float 2s infinite ease-in-out;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-8px);
+            }
+        }
+
+        .bounce_w {
+            animation: float 2s infinite ease-in-out;
+        }
+
+
+
+        .theme-switcher {
+            display: none !important;
+        }
+
+        .back-to-top.open {
+            bottom: 50px;
+        }
+
+        /* === unified color palette from target site === */
+        .btn,
+        .project-action-btn,
+        .partners-cta,
+        .hero-tab,
+        .carousel-nav-btn,
+        {
+        border-radius: 8px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
+        }
+
+        .btn:hover,
+        .project-action-btn:hover,
+        .partners-cta:hover,
+        .hero-tab:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.05);
+            box-shadow: 0 12px 18px rgba(0, 0, 0, 0.16);
+        }
+
+        .section-title h1,
+        .section-title h2 {
+            color: #0f172a;
+            font-weight: 900;
+        }
+
+        .section-title p,
+        .project-location,
+        .hero-stat-label {
+            color: #64748b;
+        }
+
+        .project-card,
+        .builder-card,
+        .video-card,
+        .faq .accordion-item {
+            border-radius: 16px;
+            box-shadow: 0 12px 30px rgba(15, 23, 42, 0.10);
+        }
+
+        .project-card:hover,
+        .builder-card:hover,
+        .video-card:hover {
+            box-shadow: 0 18px 38px rgba(15, 23, 42, 0.15);
+        }
+
+
+        /* ===== RESPONSIVE DESIGN ===== */
+        @media only screen and (max-width: 768px) {
+
+            .swiper-button-next,
+            .swiper-button-prev {
+                display: none !important;
+            }
+
+
+            .mbst {
+                width: 99%;
+                max-width: 100%;
+                margin-top: 0;
+            }
+
+            .hero-foreground {
+                padding-top: 36px;
+                padding-bottom: 10px;
+            }
+
+            .hero-content-wrap {
+                padding-left: 6px;
+                padding-right: 6px;
+            }
+
+            .hero-badge {
+                font-size: 0.62rem;
+                margin-bottom: 0.4rem;
+                padding: 0.18rem 0.5rem;
+                max-width: 90vw;
+                white-space: normal;
+            }
+
+            .title-heading h1 {
+                font-size: 1.25rem !important;
+                margin-bottom: 0.4rem;
+                line-height: 1.05;
+                word-break: break-word;
+                max-width: 90vw;
+            }
+
+            .title-heading .accent-line {
+                font-size: 0.85rem;
+                margin-top: 0.03rem;
+            }
+
+            .title-heading p {
+                font-size: 0.78rem;
+                max-width: 92vw;
+                line-height: 1.3;
+                margin-bottom: 0.5rem;
+            }
+
+            .hero-search-tabs {
+                gap: 4px;
+                padding: 3px;
+            }
+
+            .hero-tab {
+                font-size: 0.7rem;
+                padding: 5px 2px;
+            }
+
+            .hero-search-row {
+                grid-template-columns: 1fr;
+                gap: 5px;
+            }
+
+            .hero-stats {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: flex-end;
+                gap: 32px;
+                width: min(920px, 100%);
+                margin: 24px auto 0;
+                flex-wrap: wrap;
+            }
+
+            .hero-stat {
+                text-align: center;
+                color: #fff;
+                min-width: 80px;
+                background: none;
+                border-radius: 0;
+                padding: 0;
+                box-shadow: none;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .hero-stat-value {
+                display: block;
+                color: var(--primary-color);
+                font-size: 2.1rem;
+                font-weight: 900;
+                line-height: 1.1;
+                margin-bottom: 0.2rem;
+                letter-spacing: 0.01em;
+            }
+
+            .hero-stat-value .hero-stat-plus {
+                font-size: 1.1em;
+                line-height: 1;
+            }
+
+            .hero-stat-label {
+                display: block;
+                color: #fff;
+                font-size: 1rem;
+                font-weight: 600;
+                letter-spacing: 0.01em;
+                margin-top: 0.1rem;
+            }
+
+            .searchform .form-control,
+            .searchform .form-select,
+            #search {
+                height: 32px;
+                font-size: 0.7rem;
+                padding: 4px 5px;
+            }
+
+            #costom {
+                width: 99% !important;
+                max-width: 100%;
+            }
+
+            .section-title h1 {
+                font-size: 1rem;
+            }
+
+
+
+            .section {
+                padding: 18px 0;
+            }
+
+            .py-100 {
+                padding: 18px 0;
+            }
+        }
+
+        @media only screen and (max-width: 426px) {
+            .mbst {
+                width: 100%;
+                max-width: 100%;
+                margin-top: 0;
+            }
+
+            .hero-content-wrap {
+                padding-left: 2px;
+                padding-right: 2px;
+            }
+
+            .section-title h1 {
+                font-size: 0.8rem;
+            }
+
+            .title-heading h1 {
+                font-size: 0.85rem !important;
+                margin-bottom: 0.3rem;
+                line-height: 1.02;
+                max-width: 98vw;
+            }
+
+            .title-heading .accent-line {
+                font-size: 0.7rem;
+            }
+
+            .title-heading p {
+                font-size: 0.65rem;
+                max-width: 98vw;
+                line-height: 1.15;
+            }
+
+            .hero-badge {
+                font-size: 0.5rem;
+                margin-bottom: 0.3rem;
+                padding: 0.12rem 0.3rem;
+                max-width: 98vw;
+            }
+
+            .hero-stats {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: flex-end;
+                gap: 18px;
+                width: 100%;
+                margin-top: 10px;
+                padding: 0 1vw;
+                flex-wrap: wrap;
+            }
+
+            .hero-stat {
+                min-width: 60px;
+                background: none;
+                border-radius: 0;
+                padding: 0;
+                box-shadow: none;
+            }
+
+            .hero-stat-value {
+                font-size: 1.1rem;
+                margin-bottom: 0.08rem;
+                color: var(--primary-color);
+            }
+
+            .hero-stat-label {
+                font-size: 0.8rem;
+                color: #fff;
+            }
+
+            .searchform .form-control,
+            .searchform .form-select,
+            #search {
+                height: 24px;
+                font-size: 0.6rem;
+                padding: 2px 3px;
+            }
+
+            #costom {
+                width: 100% !important;
+                max-width: 100%;
+            }
+
+
+
+            .section {
+                padding: 8px 0;
+            }
+
+            .py-100 {
+                padding: 8px 0;
+            }
+        }
+    </style>
+
+
+    <!-- Hero Start -->
+    <section class="swiper-slider-hero position-relative d-block" id="home">
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                @foreach ($slider as $item)
+                    <div class="swiper-slide d-flex align-items-center overflow-hidden">
+                        <div class="slide-inner slide-bg-image d-flex align-items-center" style="background: center center;"
+                            data-background="{{ asset($item->image) }}">
+                            <div class="bg-overlay"></div>
+                        </div>
+                        <!-- end slide-inner -->
+                    </div>
+                    <!-- end swiper-slide -->
+                @endforeach
+            </div>
+            <!-- end swiper-wrapper -->
+            <!-- swipper controls -->
+            <div class="swiper-button-next rounded-circle text-center">
+                <i class="fa-solid fa-arrow-right"></i>
+            </div>
+            <div class="swiper-button-prev rounded-circle text-center">
+                <i class="fa-solid fa-arrow-left"></i>
+            </div>
+        </div>
+        <!--end container-->
+
+        <div class="hero-foreground">
+            <div class="hero-content-wrap">
+                <div class="hero-badge">
+                    <i class="fa-regular fa-circle-check"></i>
+                    Bangladesh's #1 Real Estate Platform
+                </div>
+
+                <div class="title-heading text-center">
+                    <h1 class="heading fw-bold title-dark mb-3 hero-title-responsive">
+                        Build Your Dream
+                        <span class="accent-line">With Trust</span>
+                    </h1>
+                    <p class="mb-0 text-center"
+                        style="font-size: 18px; color: rgba(226, 232, 240, 0.78); line-height: 1.5; max-width: 760px; margin: 0 auto;">
+                        Premium properties, verified brokers, trusted builders - your complete real estate solution in
+                        Bangladesh.
+                    </p>
+                </div>
+
+                <div class="rounded-3 sm-rounded-0 mbst" id="costom">
+                    <div class="searchform card border-0" id="buy">
+                        <form class="card-body text-start" method="get"
+                            action="{{ url('/serch-property/type/location') }}">
+                            @csrf
+                            <div class="hero-search-tabs">
+                                <button type="button" class="hero-tab active">Buy</button>
+                                <button type="button" class="hero-tab">Dream</button>
+                                <button type="button" class="hero-tab">Property</button>
+                            </div>
+
+                            <div class="hero-search-row">
+                                <div class="input-group hero-search-field">
+                                    <span class="input-group-text"><i class="fa-solid fa-location-dot"></i></span>
+                                    <input name="location" type="text" class="form-control"
+                                        placeholder="Search by location, area...">
+                                </div>
+
+                                <select class="form-select hero-type-select" name="property_type">
+                                    <option value="">Select Category</option>
+                                    @foreach ($projectCategories as $cat)
+                                        <option value="{{ $cat->slug }}">{{ $cat->name }}</option>
+                                    @endforeach
+                                </select>
+
+                                <input type="submit" id="search" name="search" class="btn" value="Search">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="hero-stats">
+                    @php
+                        $heroCounters = [
+                            [
+                                'value' => $counter_icon->value_1 ?? null,
+                                'label' => $counter_icon->title_english_1 ?? null,
+                            ],
+                            [
+                                'value' => $counter_icon->value_2 ?? null,
+                                'label' => $counter_icon->title_english_2 ?? null,
+                            ],
+                            [
+                                'value' => $counter_icon->value_3 ?? null,
+                                'label' => $counter_icon->title_english_3 ?? null,
+                            ],
+                            [
+                                'value' => $counter_icon->value_4 ?? null,
+                                'label' => $counter_icon->title_english_4 ?? null,
+                            ],
+                        ];
+                    @endphp
+
+                    @foreach ($heroCounters as $heroCounter)
+                        @if (!empty($heroCounter['value']) || !empty($heroCounter['label']))
+                            <div class="hero-stat">
+                                <span class="hero-stat-value">
+                                    <span class="counter-value"
+                                        data-target="{{ (int) ($heroCounter['value'] ?? 0) }}">0</span><span
+                                        class="hero-stat-plus">+</span>
+                                </span>
+                                <span class="hero-stat-label">{{ $heroCounter['label'] }}</span>
+                            </div>
+                        @endif
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--end section-->
+    {{-- Heros end  --}}
+
+    <section class="project-zones-section">
+        <div class="container">
+            <div class="section-title text-center">
+                <h1>Explore Property Zones</h1>
+                <p>Choose your preferred category and browse thousands of verified listings</p>
+            </div>
+
+            @php
+                $zoneIcons = [
+                    'mdi mdi-home-city-outline',
+                    'mdi mdi-map-marker-radius-outline',
+                    'mdi mdi-office-building-outline',
+                    'mdi mdi-domain',
+                    'mdi mdi-storefront-outline',
+                ];
+            @endphp
+
+            <div class="project-zones-grid">
+                @foreach ($projectCategories as $index => $categoryItem)
+                    @php
+                        $iconClass = $zoneIcons[$index % count($zoneIcons)];
+                        $categoryImage = !empty($categoryItem->image) ? asset($categoryItem->image) : null;
+                        $categoryCount = $projects->where('project_category_id', $categoryItem->id)->count();
+                    @endphp
+
+                    <a class="zone-card" href="{{ route('all.project.list', ['category' => $categoryItem->slug]) }}"
+                        @if ($categoryImage) style="background-image: linear-gradient(135deg, rgba(15, 23, 42, 0.407), rgba(15, 23, 42, 0.197)), url('{{ $categoryImage }}');" @endif>
+                        <span class="zone-icon"><i class="{{ $iconClass }}"></i></span>
+                        <h4>{{ $categoryItem->name }}</h4>
+                        <p>{{ $categoryItem->description ?: 'Premium projects in this category' }}</p>
+                        <div class="zone-meta">
+                            <span>{{ number_format($categoryCount) }}+ listings</span>
+                            <span>Browse <i class="mdi mdi-arrow-right"></i></span>
+                        </div>
+                    </a>
+                @endforeach
+            </div>
+        </div>
+    </section>
+
+
+    <div class="container-fluid py-100" style="background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 100%);">
+        <div class="row justify-content-center">
+            <div class="col">
+                <div class="container section-title">
+                    <span>Explore Your Dream Homes</span>
+                    <h1>Unveiling Our Premier Projects</h1>
+                    <div class="divider"></div>
+                    <p class="my-4">Step into the realm of luxury living and unparalleled convenience as we showcase
+                        our exceptional apartment and land projects in and around Dhaka. From stunning urban residences
+                        to expansive plots of land ripe for development.</p>
+                </div>
+            </div><!--end col-->
+        </div><!--end row-->
+
+        <!-- Projects Carousel -->
+        <div class="container-lg mt-5" style="max-width: 1240px; margin-left: auto; margin-right: auto;">
+            <div class="row">
+                <div class="col-12">
+                    <div class="projects-carousel-wrapper">
+                        <div class="projects-carousel-shell">
+                            <div class="projects-carousel-track" id="carouselContainer">
+                                <div id="projectsCarousel">
+                                    @php
+                                        $hotlinePhone = optional(App\Models\WebsiteLink::latest()->first())->phone;
+                                        $toNumber = static function ($value): float {
+                                            if (is_int($value) || is_float($value)) {
+                                                return (float) $value;
+                                            }
+
+                                            $normalized = preg_replace('/[^0-9.\-]/', '', (string) $value);
+
+                                            return is_numeric($normalized) ? (float) $normalized : 0.0;
+                                        };
+                                    @endphp
+                                    @foreach ($projects as $item)
+                                        @php
+                                            $unit = $item->property_mood == 'sqr feet' ? 'sqft' : 'katha';
+                                            $sizeValue = $toNumber($item->property_size);
+                                            $offerValue = $toNumber($item->discount ?? $item->price);
+                                            $regularValue = $toNumber($item->price);
+                                        @endphp
+                                        <div class="carousel-slide">
+                                            <article class="project-card">
+                                                <a href="{{ route('completed.project.details', $item->id) }}"
+                                                    class="project-link project-image-link">
+                                                    <div class="project-media">
+                                                        <img src="{{ asset($item->property_thumbnail ?? null) }}"
+                                                            alt="{{ $item->property_name }}">
+                                                        <div class="project-overlay"></div>
+                                                        <div class="project-badge">
+                                                            @if ($item->property_status == 1)
+                                                                <span class="badge badge-ongoing">Ongoing</span>
+                                                            @elseif($item->property_status == 2)
+                                                                <span class="badge badge-upcoming">Upcoming</span>
+                                                            @else
+                                                                <span class="badge badge-completed">Completed</span>
+                                                            @endif
+                                                        </div>
+                                                    </div>
+                                                </a>
+
+                                                <div class="project-content">
+                                                    <div>
+                                                        <h5 class="project-title">
+                                                            <a href="{{ route('completed.project.details', $item->id) }}"
+                                                                class="project-title-link">{{ $item->property_name }}</a>
+                                                        </h5>
+
+                                                        <h5 class="project-title">
+                                                            Code: {{ $item->project_code }}
+                                                            <button type="button" class="copy-code-btn"
+                                                                onclick="navigator.clipboard.writeText(@js($item->project_code))"
+                                                                aria-label="Copy code" title="Copy code">
+                                                                <i class="fa-regular fa-copy"></i>
+                                                            </button>
+                                                        </h5>
+
+                                                        <p class="project-location">
+                                                            <i class="fa-solid fa-location-dot"></i>
+                                                            <span>{{ $item->location_eng }}</span>
+                                                        </p>
+
+                                                        <div class="project-metrics">
+                                                            <div class="metric-box">
+                                                                <i class="mdi mdi-arrow-expand-all"></i>
+                                                                <span
+                                                                    class="metric-value">{{ number_format($sizeValue) }}</span>
+                                                                <span class="metric-unit">{{ $unit }}</span>
+                                                            </div>
+                                                            <div class="metric-box">
+                                                                <i class="mdi mdi-bed"></i>
+                                                                <span class="metric-value">{{ $item->rooms ?? 0 }}</span>
+                                                                <span class="metric-unit">Beds</span>
+                                                            </div>
+                                                            <div class="metric-box">
+                                                                <i class="mdi mdi-shower"></i>
+                                                                <span
+                                                                    class="metric-value">{{ $item->bathrooms ?? 0 }}</span>
+                                                                <span class="metric-unit">Baths</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="project-footer">
+                                                        <div class="project-price-wrap">
+                                                            <span class="project-price-label">Offer Price</span>
+                                                            <div class="project-price">&#2547;
+                                                                {{ number_format($offerValue) }} <span
+                                                                    class="project-price-unit">/ per
+                                                                    {{ $unit }}</span>
+                                                            </div>
+                                                            <div class="project-regular-price">Regular: &#2547;
+                                                                <del>{{ number_format($regularValue) }}</del>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="project-actions">
+                                                            <a href="{{ $hotlinePhone ? 'tel:' . $hotlinePhone : route('contact.us') }}"
+                                                                class="project-action-btn project-call-btn">
+                                                                <i class="mdi mdi-phone"></i> Call Now
+                                                            </a>
+                                                            <a href="{{ route('contact.us') }}"
+                                                                class="project-action-btn project-contact-btn">
+                                                                <i class="mdi mdi-email"></i> Contact Us
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </article>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+
+                        <button onclick="prevSlide()" class="carousel-nav-btn carousel-nav-left"
+                            aria-label="Previous projects">
+                            <i class="mdi mdi-chevron-left"></i>
+                        </button>
+                        <button onclick="nextSlide()" class="carousel-nav-btn carousel-nav-right"
+                            aria-label="Next projects">
+                            <i class="mdi mdi-chevron-right"></i>
+                        </button>
+                    </div>
+
+                    <div id="projectsEmptyState" class="projects-empty-state">
+                        No projects available right now.
+                    </div>
+
+                    <div class="carousel-indicators" id="indicatorsContainer"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- View More Link -->
+        <div class="row mt-5">
+            <div class="col-12">
+                <div class="text-center">
+                    <a href="{{ route('all.project.list') }}"
+                        style="color: var(--primary-color); font-weight: 600; font-size: 1.1rem; text-decoration: none; transition: all 0.3s ease; display: inline-block;"
+                        onmouseover="this.style.letterSpacing='1px'" onmouseout="this.style.letterSpacing='0'">
+                        View All Properties
+                        <i class="mdi mdi-arrow-right align-middle ms-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div><!--end container-->
+
+    <script>
+        let currentGroup = 0;
+        let slidesPerView = 3;
+        let totalSlides = 0;
+        let totalGroups = 1;
+        let autoPlayTimer = null;
+
+        function getSlidesPerView() {
+            if (window.innerWidth <= 768) {
+                return 1;
+            }
+
+            if (window.innerWidth <= 1024) {
+                return 2;
+            }
+
+            return 3;
+        }
+
+        function getVisibleSlides() {
+            return Array.from(document.querySelectorAll('.carousel-slide'));
+        }
+
+        function refreshCarouselState() {
+            const preferredSlidesPerView = getSlidesPerView();
+            totalSlides = getVisibleSlides().length;
+
+            // Keep carousel movement for small filtered sets (2-3 slides)
+            // by falling back to single-slide view instead of locking at one group.
+            if (totalSlides > 1 && totalSlides <= preferredSlidesPerView) {
+                slidesPerView = 1;
+            } else {
+                slidesPerView = preferredSlidesPerView;
+            }
+
+            totalGroups = Math.max(1, Math.ceil(totalSlides / slidesPerView));
+        }
+
+        function toggleEmptyState() {
+            const emptyState = document.getElementById('projectsEmptyState');
+
+            if (!emptyState) {
+                return;
+            }
+
+            emptyState.classList.toggle('is-visible', totalSlides === 0);
+        }
+
+        function createIndicators() {
+            const container = document.getElementById('indicatorsContainer');
+
+            if (!container) {
+                return;
+            }
+
+            container.innerHTML = '';
+
+            if (totalSlides === 0 || totalGroups <= 1) {
+                return;
+            }
+
+            for (let i = 0; i < totalGroups; i++) {
+                const dot = document.createElement('button');
+                dot.type = 'button';
+                dot.className = 'carousel-dot';
+                dot.setAttribute('aria-label', `Go to projects group ${i + 1}`);
+                dot.onclick = () => {
+                    clearTimeout(autoPlayTimer);
+                    currentGroup = i;
+                    showSlide(currentGroup);
+                    startAutoPlay();
+                };
+                container.appendChild(dot);
+            }
+        }
+
+        function rebuildCarouselUi() {
+            refreshCarouselState();
+            currentGroup = Math.min(currentGroup, totalGroups - 1);
+            toggleEmptyState();
+            createIndicators();
+        }
+
+        function showSlide(groupIndex) {
+            const carousel = document.getElementById('projectsCarousel');
+            const track = document.querySelector('.projects-carousel-track');
+
+            if (!carousel || !track) {
+                return;
+            }
+
+            refreshCarouselState();
+
+            if (totalSlides === 0) {
+                carousel.style.transform = 'translateX(0px)';
+                updateIndicators();
+                return;
+            }
+
+            if (groupIndex >= totalGroups) {
+                currentGroup = 0;
+            } else if (groupIndex < 0) {
+                currentGroup = totalGroups - 1;
+            } else {
+                currentGroup = groupIndex;
+            }
+
+            const firstSlide = carousel.querySelector('.carousel-slide');
+            const slideGap = parseFloat(getComputedStyle(carousel).gap) || 0;
+            const slideWidth = firstSlide ? firstSlide.offsetWidth : 0;
+            const slideStep = (slideWidth + slideGap) * slidesPerView;
+
+            const maxOffset = Math.max(0, carousel.scrollWidth - track.clientWidth);
+            const desiredOffset = Math.min(currentGroup * slideStep, maxOffset);
+            carousel.style.transform = `translateX(-${desiredOffset}px)`;
+
+            updateIndicators();
+        }
+
+        function nextSlide() {
+            if (totalSlides === 0) {
+                return;
+            }
+
+            clearTimeout(autoPlayTimer);
+            currentGroup++;
+            showSlide(currentGroup);
+            startAutoPlay();
+        }
+
+        function prevSlide() {
+            if (totalSlides === 0) {
+                return;
+            }
+
+            clearTimeout(autoPlayTimer);
+            currentGroup--;
+            showSlide(currentGroup);
+            startAutoPlay();
+        }
+
+        function updateIndicators() {
+            const dots = document.querySelectorAll('#indicatorsContainer .carousel-dot');
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('is-active', index === currentGroup);
+            });
+        }
+
+        function startAutoPlay() {
+            clearTimeout(autoPlayTimer);
+
+            if (totalSlides === 0 || totalGroups <= 1) {
+                return;
+            }
+
+            autoPlayTimer = setTimeout(() => {
+                currentGroup++;
+                showSlide(currentGroup);
+                startAutoPlay();
+            }, 5000);
+        }
+
+        // Initialize carousel
+        document.addEventListener('DOMContentLoaded', () => {
+            rebuildCarouselUi();
+            showSlide(0);
+            startAutoPlay();
+
+            // Stop autoplay on hover
+            const container = document.getElementById('carouselContainer');
+            if (container) {
+                container.addEventListener('mouseenter', () => {
+                    clearTimeout(autoPlayTimer);
+                });
+                container.addEventListener('mouseleave', () => {
+                    startAutoPlay();
+                });
+            }
+
+            const slides = document.querySelectorAll('.carousel-slide');
+            slides.forEach(slide => {
+                const img = slide.querySelector('img');
+                const overlay = slide.querySelector('.project-overlay');
+
+                slide.addEventListener('mouseenter', () => {
+                    if (img) img.style.transform = 'scale(1.05)';
+                    if (overlay) overlay.style.opacity = '0.5';
+                });
+
+                slide.addEventListener('mouseleave', () => {
+                    if (img) img.style.transform = 'scale(1)';
+                    if (overlay) overlay.style.opacity = '0';
+                });
+            });
+
+            const btns = document.querySelectorAll('.carousel-nav-btn');
+            btns.forEach(btn => {
+                btn.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-50%) scale(1.1)';
+                    this.style.boxShadow = '0 8px 24px rgba(0,0,0,0.3)';
+                });
+                btn.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(-50%) scale(1)';
+                    this.style.boxShadow = '0 4px 12px rgba(0,0,0,0.2)';
+                });
+            });
+
+            window.addEventListener('resize', () => {
+                rebuildCarouselUi();
+                showSlide(currentGroup);
+                startAutoPlay();
+            });
+        });
+    </script>
+
+    <style>
+        /* Responsive hero title for all breakpoints */
+        .hero-title-responsive {
+            font-size: 4.5rem;
+            line-height: 1.05;
+            margin-bottom: 1rem;
+            word-break: break-word;
+            max-width: 90vw;
+            font-weight: 800;
+        }
+
+        @media (max-width: 1024px) {
+            .hero-title-responsive {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-title-responsive {
+                font-size: 1.25rem;
+                margin-bottom: 0.4rem;
+                max-width: 90vw;
+            }
+        }
+
+        @media (max-width: 426px) {
+            .hero-title-responsive {
+                font-size: 0.85rem;
+                margin-bottom: 0.3rem;
+                max-width: 98vw;
+            }
+        }
+
+        .project-zones-section {
+            background: #f3f5f8;
+            padding: 90px 0 40px;
+        }
+
+        .project-zones-section .section-title h1 {
+            margin-bottom: 0.7rem;
+        }
+
+        .project-zones-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 22px;
+            margin-top: 2.5rem;
+        }
+
+        .zone-card {
+            position: relative;
+            display: block;
+            border: none;
+            text-align: left;
+            min-height: 290px;
+            border-radius: 22px;
+            padding: 28px 28px 24px;
+            color: #ffffff;
+            overflow: hidden;
+            cursor: pointer;
+            background-color: #334155;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            box-shadow: 0 18px 30px rgba(15, 23, 42, 0.15);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            text-decoration: none;
+        }
+
+        .zone-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.45);
+        }
+
+        .zone-card>* {
+            position: relative;
+            z-index: 2;
+        }
+
+        .zone-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 22px 38px rgba(15, 23, 42, 0.2);
+        }
+
+        .zone-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(2px);
+            margin-bottom: 1rem;
+            font-size: 1.45rem;
+        }
+
+        .zone-card h4 {
+            color: #ffffff;
+            margin: 0;
+            font-size: 2rem;
+            font-weight: 800;
+            line-height: 1.1;
+        }
+
+        .zone-card p {
+            color: rgba(255, 255, 255, 0.9);
+            margin: 0.55rem 0 1.5rem;
+            font-size: 1rem;
+            line-height: 1.45;
+        }
+
+        .zone-meta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        .zone-meta i {
+            vertical-align: middle;
+        }
+
+        .projects-carousel-wrapper {
+            position: relative;
+            padding: 0 60px;
+        }
+
+        .projects-carousel-shell {
+            position: relative;
+        }
+
+        .projects-carousel-track {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            border-radius: 24px;
+            background: linear-gradient(180deg, #ffffff 0%, #fbfbfc 100%);
+            box-shadow: 0 24px 60px rgba(16, 24, 40, 0.12);
+            border: 1px solid rgba(178, 1, 1, 0.08);
+        }
+
+        #projectsCarousel {
+            box-sizing: border-box;
+            width: 100%;
+            display: flex;
+            gap: 18px;
+            padding: 18px;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            will-change: transform;
+        }
+
+        .carousel-slide {
+            flex-shrink: 0;
+            width: calc(100% / 3 - 12px);
+            min-height: 560px;
+        }
+
+        .projects-empty-state {
+            display: none;
+            margin-top: 1.5rem;
+            text-align: center;
+            color: #64748b;
+            font-weight: 600;
+        }
+
+        .projects-empty-state.is-visible {
+            display: block;
+        }
+
+        .project-link {
+            display: block;
+            width: 100%;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .project-image-link {
+            border-bottom: 1px solid #e4e7ec;
+        }
+
+        .project-card {
+            height: 100%;
+            min-height: 560px;
+            display: flex;
+            flex-direction: column;
+            background: #f7f8fa;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid #d4dbe4;
+            box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
+            transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
+        }
+
+        .project-media {
+            position: relative;
+            height: 300px;
+            overflow: hidden;
+            background: #f1f5f9;
+        }
+
+        .project-media img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.45s ease;
+        }
+
+        .project-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(15, 23, 42, 0.0) 0%, rgba(15, 23, 42, 0.45) 100%);
+            opacity: 0.65;
+            transition: opacity 0.3s ease;
+        }
+
+        .project-badge {
+            position: absolute;
+            top: 14px;
+            left: 14px;
+            z-index: 2;
+        }
+
+        .badge-ongoing,
+        .badge-upcoming,
+        .badge-completed {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.45rem 0.8rem;
+            font-size: 0.74rem;
+            font-weight: 800;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            border-radius: 999px;
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.18);
+        }
+
+        .badge-ongoing {
+            background: linear-gradient(135deg, #ff7a45 0%, #f04444 100%);
+            color: #ffffff;
+        }
+
+        .badge-upcoming {
+            background: linear-gradient(135deg, #2563eb 0%, #0ea5e9 100%);
+            color: #ffffff;
+        }
+
+        .badge-completed {
+            background: linear-gradient(135deg, #16a34a 0%, #22c55e 100%);
+            color: #ffffff;
+        }
+
+        .project-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 1.1rem 1.2rem 1.25rem;
+        }
+
+        .project-title {
+            font-size: 2rem;
+            line-height: 1.35;
+            font-weight: 800;
+            color: var(--dark-color);
+            margin-bottom: 0.45rem;
+            min-height: auto;
+            text-align: center;
+        }
+
+        .project-title-link {
+            color: #0f172a;
+            text-decoration: none;
+        }
+
+        .project-title-link:hover {
+            color: var(--primary-color);
+        }
+
+        .project-location {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            margin-bottom: 0.9rem;
+            min-height: 1.2rem;
+        }
+
+        .project-location i {
+            color: var(--primary-color);
+            margin-top: 0;
+        }
+
+        .project-metrics {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 8px;
+            padding: 1rem 0;
+            border-top: 1px solid #e4e7ec;
+            border-bottom: 1px solid #e4e7ec;
+            margin-bottom: 1.05rem;
+        }
+
+        .metric-box {
+            background: transparent;
+            border: none;
+            border-radius: 0;
+            padding: 0.2rem;
+            text-align: center;
+        }
+
+        .metric-box i {
+            display: block;
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .metric-value {
+            display: block;
+            color: var(--dark-color);
+            font-size: 1rem;
+            font-weight: 700;
+            line-height: 1.1;
+        }
+
+        .metric-unit {
+            display: block;
+            color: #64748b;
+            font-size: 0.75rem;
+            font-weight: 500;
+            margin-top: 0.2rem;
+        }
+
+        .project-footer {
+            display: flex;
+            flex-direction: column;
+            gap: 0.85rem;
+            margin-top: auto;
+        }
+
+        .project-price-wrap {
+            text-align: center;
+            border-bottom: 1px solid #e4e7ec;
+            padding-bottom: 0.85rem;
+        }
+
+        .project-price-label {
+            display: block;
+            font-size: 1rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            margin-bottom: 0.35rem;
+        }
+
+        .project-price {
+            color: var(--primary-color);
+            font-size: 2rem;
+            font-weight: 900;
+            letter-spacing: -0.02em;
+            text-shadow: 0 2px 4px rgba(178, 1, 1, 0.2);
+        }
+
+        .project-price-unit {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .project-regular-price {
+            margin-top: 0.35rem;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .project-actions {
+            display: grid;
+            gap: 0.55rem;
+            margin-top: 0.15rem;
+        }
+
+        .project-action-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.4rem;
+            width: 100%;
+            padding: 0.64rem 1rem;
+            border-radius: 12px;
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 1rem;
+            text-decoration: none;
+            border: 1px solid transparent;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .project-call-btn {
+            background: #d9efcc;
+            color: #1e293b;
+            border-color: #7aa27d;
+        }
+
+        .project-contact-btn {
+            background: linear-gradient(135deg, #c70000 0%, #4a4a4a 100%);
+            color: #ffffff;
+        }
+
+        .project-action-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 18px rgba(15, 23, 42, 0.12);
+        }
+
+        .project-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 18px 36px rgba(15, 23, 42, 0.14);
+            border-color: var(--primary-color);
+        }
+
+        .project-card:hover .project-media img {
+            transform: scale(1.08);
+        }
+
+        .project-card:hover .project-overlay {
+            opacity: 0.85;
+        }
+
+        .carousel-nav-btn {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            transition: all 0.25s ease;
+            box-shadow: 0 10px 22px rgba(178, 1, 1, 0.25);
+            z-index: 10;
+        }
+
+        .carousel-nav-btn:hover {
+            transform: translateY(-50%) scale(1.08);
+            box-shadow: 0 14px 28px rgba(178, 1, 1, 0.3);
+        }
+
+        .carousel-nav-left {
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .carousel-nav-right {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .carousel-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 2.5rem;
+            flex-wrap: wrap;
+        }
+
+        .carousel-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 999px;
+            border: none;
+            background: #d7dce4;
+            padding: 0;
+            transition: all 0.25s ease;
+            box-shadow: none;
+        }
+
+        .carousel-dot:hover,
+        .carousel-dot:focus {
+            transform: scale(1.2);
+            outline: none;
+        }
+
+        .carousel-dot.is-active {
+            background: var(--primary-color);
+            transform: scale(1.35);
+            box-shadow: 0 0 0 6px rgba(178, 1, 1, 0.15);
+        }
+
+        @media (max-width: 1024px) {
+            .project-zones-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .carousel-slide {
+                width: calc(100% / 2 - 12px);
+                min-height: 540px;
+            }
+
+            .project-card {
+                min-height: 540px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .project-zones-section {
+                padding: 70px 0 30px;
+            }
+
+            .project-zones-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .zone-card {
+                min-height: 240px;
+                border-radius: 18px;
+                padding: 20px;
+            }
+
+            .zone-card h4 {
+                font-size: 1.7rem;
+            }
+
+            .zone-card p {
+                margin-bottom: 1.1rem;
+                font-size: 0.92rem;
+            }
+
+            .projects-carousel-wrapper {
+                padding: 0 46px;
+            }
+
+            .project-media {
+                height: 240px;
+            }
+
+            .carousel-slide {
+                width: 100%;
+                min-height: 0;
+            }
+
+            .project-card {
+                min-height: 0;
+            }
+
+            .project-title {
+                min-height: auto;
+                font-size: 1.6rem;
+            }
+
+            .carousel-nav-btn {
+                width: 44px;
+                height: 44px;
+                font-size: 1.15rem;
+            }
+        }
+    </style>
+
+
+
+
+
+
+    {{-- various projects start --}}
+
+
+    {{-- <div class="container-fluid py-100">
+        <div class="row justify-content-center mb-5">
+            <div class="col">
+                <div class="section-title">
+                    <span>Our Portfolio</span>
+                    <h1>Ongoing, Upcoming & Completed</h1>
+                    <div class="divider"></div>
+                    <p>We offer a wide variety of residential and commercial properties in Dhaka. Find your dream home
+                        or
+                        commercial space from our pull of nicely built properties.</p>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <ul class="nav nav-pills d-flex justify-content-center flex-wrap mb-5" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <a href="#ongoing" data-bs-toggle="tab" aria-expanded="true" class="nav-link px-4 py-2"
+                                aria-selected="false" role="tab" tabindex="-1">
+                                <i class="mdi mdi-play-circle me-2"></i>Ongoing
+                            </a>
+                        </li>
+
+                        <li class="nav-item" role="presentation">
+                            <a href="#upcomming" data-bs-toggle="tab" aria-expanded="false"
+                                class="nav-link px-4 py-2" aria-selected="true" role="tab">
+                                <i class="mdi mdi-rocket-launch me-2"></i>Upcoming
+                            </a>
+                        </li>
+
+                        <li class="nav-item" role="presentation">
+                            <a href="#completed" data-bs-toggle="tab" aria-expanded="false"
+                                class="nav-link active px-4 py-2" aria-selected="false" role="tab"
+                                tabindex="-1">
+                                <i class="mdi mdi-check-circle me-2"></i>Completed
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="completed" role="tabpanel">
+                            <div class="row g-4 mt-4">
+                                @foreach ($completed_project as $key => $item)
+                                    <div class="col-lg-4 col-md-6 col-12">
+                                        <div class="card property border-0 position-relative overflow-hidden">
+
+                                            <div class="property-image position-relative overflow-hidden">
+                                                <img src="{{ asset($item->property_thumbnail ?? null) }}"
+                                                    class="img-fluid" alt="{{ $item->property_name }}_Image">
+                                            </div>
+                                            <div class="card-body">
+                                                <h4 class="text-center fw-bold text-success">
+                                                    {{ $item->property_name }}</h4>
+                                                <p class="text-center"><i
+                                                        class="fa-solid fa-location-dot text-success"></i>
+                                                    {{ $item->location_eng }}</p>
+                                                @if ($item->property_mood == 'sqr feet')
+                                                    <ul
+                                                        class="list-unstyled mb-0 py-3 border-top border-bottom d-flex align-items-center justify-content-between small">
+                                                        <li class="d-flex align-items-center">
+                                                            <i class="mdi mdi-arrow-expand-all me-2 text-primary"></i>
+                                                            <span class="text-muted">{{ $item->property_size }}
+                                                                SQFT</span>
+                                                        </li>
+
+                                                        <li class="d-flex align-items-center">
+                                                            <i class="mdi mdi-bed me-2 text-primary"></i>
+                                                            <span class="text-muted">{{ $item->rooms }}
+                                                                Beds</span>
+                                                        </li>
+
+                                                        <li class="d-flex align-items-center">
+                                                            <i class="mdi mdi-shower me-2 text-primary"></i>
+                                                            <span class="text-muted">{{ $item->bathrooms }}
+                                                                Baths</span>
+                                                        </li>
+                                                    </ul>
+                                                @endif
+                                                <ul class="list-unstyled mt-2 mb-0">
+                                                    <li class="list-inline-item mb-0 d-flex justify-content-center">
+                                                        <div class="text-center">
+                                                            <span class="fw-medium text-muted">Offer Price:
+                                                                &#2547; {{ $item->discount }} / per
+                                                                Sqft</span>
+                                                            <p class="fw-medium mb-0 small">
+                                                                Regular Price:
+                                                                &#2547; <del>{{ $item->price }} / per
+                                                                    Sqft</del></p>
+                                                        </div>
+                                                    </li>
+                                                    <li
+                                                        class="list-inline-item mb-0 mt-3 d-flex justify-content-center gap-2">
+                                                        <a href="tel:{{ App\Models\WebsiteLink::latest()->first()->phone }}"
+                                                            class="btn btn-sm btn-primary">Call</a>
+                                                        <a href="{{ route('contact.us') }}"
+                                                            class="btn btn-sm btn-success">Email</a>
+                                                    </li>
+
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                @endforeach
+                                <div class="col-12 mt-4 pt-2">
+                                    <div class="text-center">
+                                        <a href="{{ route('all.project.list') }}" class="mt-3">View
+                                            More <i class="mdi mdi-arrow-right align-middle"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="tab-pane" id="ongoing" role="tabpanel">
+                            <div class="row g-4 mt-0">
+                                @foreach ($ongoing_project as $key => $item)
+                                    <div class="col-lg-4 col-md-6 col-12">
+                                        <div class="card property border-0 position-relative overflow-hidden">
+
+                                            <div class="property-image position-relative overflow-hidden">
+                                                <img src="{{ asset($item->property_thumbnail ?? null) }}"
+                                                    class="img-fluid" alt="{{ $item->property_name }}_Image">
+                                            </div>
+                                            <div class="card-body">
+                                                <h4 class="text-center fw-bold text-success">
+                                                    {{ $item->property_name }}</h4>
+                                                <p class="text-center"><i
+                                                        class="fa-solid fa-location-dot text-success"></i>
+                                                    {{ $item->location_eng }}</p>
+
+                                                @if ($item->property_mood == 'sqr feet')
+                                                    <ul
+                                                        class="list-unstyled py-3 border-top border-bottom d-flex align-items-center justify-content-between small">
+                                                        <li class="d-flex align-items-center">
+                                                            <i class="mdi mdi-arrow-expand-all me-2 text-primary"></i>
+                                                            <span class="text-muted">{{ $item->property_size }}
+                                                                SQFT</span>
+                                                        </li>
+
+                                                        <li class="d-flex align-items-center">
+                                                            <i class="mdi mdi-bed me-2 text-primary"></i>
+                                                            <span class="text-muted">{{ $item->rooms }}
+                                                                Beds</span>
+                                                        </li>
+
+                                                        <li class="d-flex align-items-center">
+                                                            <i class="mdi mdi-shower me-2 text-primary"></i>
+                                                            <span class="text-muted">{{ $item->bathrooms }}
+                                                                Baths</span>
+                                                        </li>
+                                                    </ul>
+                                                @endif
+                                                <ul class="list-unstyled mt-2 mb-0">
+                                                    <li class="list-inline-item mb-0 d-flex justify-content-center">
+
+                                                        <div class="text-center">
+                                                            <span class="fw-medium text-muted">Offer Price:
+                                                                &#2547; {{ $item->discount }} / per
+                                                                Sqft</span>
+                                                            <p class="fw-medium mb-0 small">
+                                                                Regular Price:
+                                                                &#2547; <del>{{ $item->price }} / per
+                                                                    Sqft</del></p>
+                                                        </div>
+                                                    </li>
+                                                    <li
+                                                        class="list-inline-item mb-0 mt-3 d-flex justify-content-center gap-2">
+                                                        <a href="tel:{{ App\Models\WebsiteLink::latest()->first()->phone }}"
+                                                            class="btn btn-sm btn-primary">Call</a>
+                                                        <a href="{{ route('contact.us') }}"
+                                                            class="btn btn-sm btn-success">Email</a>
+                                                    </li>
+
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                @endforeach
+
+                            </div>
+
+                        </div>
+                        <div class="tab-pane" id="upcomming" role="tabpanel">
+                            <div class="row g-4 mt-0">
+                                @foreach ($upcomming_project as $key => $item)
+                                    <div class="col-lg-4 col-md-6 col-12">
+                                        <div class="card property border-0 position-relative overflow-hidden">
+
+                                            <div class="property-image position-relative overflow-hidden">
+                                                <img src="{{ asset($item->property_thumbnail ?? null) }}"
+                                                    class="img-fluid" alt="{{ $item->property_name }}_Image">
+                                            </div>
+                                            <div class="card-body">
+                                                <h4 class="text-center fw-bold text-success">
+                                                    {{ $item->property_name }}</h4>
+                                                <p class="text-center"><i
+                                                        class="fa-solid fa-location-dot text-success"></i>
+                                                    {{ $item->location_eng }}</p>
+                                                @if ($item->property_mood == 'sqr feet')
+                                                    <ul
+                                                        class="list-unstyled py-3 border-top border-bottom d-flex align-items-center justify-content-between small">
+                                                        <li class="d-flex align-items-center">
+                                                            <i class="mdi mdi-arrow-expand-all me-2 text-primary"></i>
+                                                            <span class="text-muted">{{ $item->property_size }}
+                                                                SQFT</span>
+                                                        </li>
+
+                                                        <li class="d-flex align-items-center">
+                                                            <i class="mdi mdi-bed me-2 text-primary"></i>
+                                                            <span class="text-muted">{{ $item->rooms }}
+                                                                Beds</span>
+                                                        </li>
+
+                                                        <li class="d-flex align-items-center">
+                                                            <i class="mdi mdi-shower me-2 text-primary"></i>
+                                                            <span class="text-muted">{{ $item->bathrooms }}
+                                                                Baths</span>
+                                                        </li>
+                                                    </ul>
+                                                @endif
+                                                <ul class="list-unstyled mt-2 mb-0">
+                                                    <li class="list-inline-item mb-0 d-flex justify-content-center">
+
+                                                        <div class="text-center">
+                                                            <span class="fw-medium text-muted">Offer Price:
+                                                                &#2547; {{ $item->discount }}</span>
+                                                            <p class="fw-medium mb-0 small">
+                                                                Regular Price:
+                                                                &#2547;<del>{{ $item->price }}</del></p>
+                                                        </div>
+                                                    </li>
+                                                    <li
+                                                        class="list-inline-item mb-0 mt-3 d-flex justify-content-center gap-2">
+                                                        <a href="tel:{{ App\Models\WebsiteLink::latest()->first()->phone }}"
+                                                            class="btn btn-sm btn-primary">Call</a>
+                                                        <a href="{{ route('contact.us') }}"
+                                                            class="btn btn-sm btn-success">Email</a>
+                                                    </li>
+
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                @endforeach
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div> --}
+
+
+
+
+    <!--end container-->
+    {{-- various projects end --}}
+
+
+
+
+
+    <div class="container-fluid partners-section">
+        <div class="container">
+            <div class="partners-header">
+                <div class="partners-copy">
+                    <div class="partners-badge">
+                        <i class="fa-regular fa-circle-check"></i>
+                        Verified Builders
+                    </div>
+                    <h1>Trusted Builder Partners</h1>
+                    <p>Connect directly with Bangladesh's top real estate developers</p>
+                </div>
+
+                <a href="{{ route('all.builders') }}" class="partners-cta">
+                    View All Builders
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+            </div>
+
+            <div class="partners-carousel">
+                <div class="partners-carousel-track">
+                    <div id="buildersCarousel">
+                        @foreach ($sponsors as $item)
+                            <div class="builder-slide">
+                                <article class="builder-card">
+                                    <div class="builder-card-body">
+                                        <div class="builder-logo-wrap">
+                                            <img src="{{ asset($item->image ?? null) }}" class="img-fluid"
+                                                alt="builder_logo">
+                                        </div>
+                                        <div class="builder-label">
+                                            {{ $item->title_english ?? 'Builder Partner' }}
+                                        </div>
+                                    </div>
+                                </article>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+
+                <div class="partners-carousel-controls">
+                    <button type="button" class="partners-nav-btn partners-nav-left" aria-label="Previous builders"
+                        onclick="prevBuilderSlide()">
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </button>
+                    <button type="button" class="partners-nav-btn partners-nav-right" aria-label="Next builders"
+                        onclick="nextBuilderSlide()">
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div id="buildersEmptyState" class="builders-empty-state">
+                No builder partners available right now.
+            </div>
+
+            <div class="partners-indicators" id="buildersIndicators"></div>
+        </div>
+    </div><!--end container-fluid-->
+
+    <script>
+        let buildersCurrentGroup = 0;
+        let buildersSlidesPerView = 4;
+        let buildersTotalSlides = 0;
+        let buildersTotalGroups = 1;
+        let buildersAutoPlayTimer = null;
+
+        function getBuilderSlidesPerView() {
+            if (window.innerWidth <= 768) {
+                return 1;
+            }
+
+            if (window.innerWidth <= 1024) {
+                return 2;
+            }
+
+            return 4;
+        }
+
+        function getBuilderSlides() {
+            return Array.from(document.querySelectorAll('.builder-slide'));
+        }
+
+        function refreshBuilderCarouselState() {
+            const preferredSlidesPerView = getBuilderSlidesPerView();
+            buildersTotalSlides = getBuilderSlides().length;
+
+            if (buildersTotalSlides > 1 && buildersTotalSlides <= preferredSlidesPerView) {
+                buildersSlidesPerView = 1;
+            } else {
+                buildersSlidesPerView = preferredSlidesPerView;
+            }
+
+            buildersTotalGroups = Math.max(1, Math.ceil(buildersTotalSlides / buildersSlidesPerView));
+        }
+
+        function toggleBuildersEmptyState() {
+            const emptyState = document.getElementById('buildersEmptyState');
+
+            if (!emptyState) {
+                return;
+            }
+
+            emptyState.classList.toggle('is-visible', buildersTotalSlides === 0);
+        }
+
+        function createBuilderIndicators() {
+            const container = document.getElementById('buildersIndicators');
+
+            if (!container) {
+                return;
+            }
+
+            container.innerHTML = '';
+
+            if (buildersTotalSlides === 0 || buildersTotalGroups <= 1) {
+                return;
+            }
+
+            for (let i = 0; i < buildersTotalGroups; i++) {
+                const dot = document.createElement('button');
+                dot.type = 'button';
+                dot.className = 'partner-dot';
+                dot.setAttribute('aria-label', `Go to builder group ${i + 1}`);
+                dot.onclick = () => {
+                    clearTimeout(buildersAutoPlayTimer);
+                    buildersCurrentGroup = i;
+                    showBuilderSlide(buildersCurrentGroup);
+                    startBuilderAutoPlay();
+                };
+                container.appendChild(dot);
+            }
+        }
+
+        function rebuildBuildersCarouselUi() {
+            refreshBuilderCarouselState();
+            buildersCurrentGroup = Math.min(buildersCurrentGroup, buildersTotalGroups - 1);
+            toggleBuildersEmptyState();
+            createBuilderIndicators();
+        }
+
+        function showBuilderSlide(groupIndex) {
+            const carousel = document.getElementById('buildersCarousel');
+
+            if (!carousel) {
+                return;
+            }
+
+            refreshBuilderCarouselState();
+
+            if (buildersTotalSlides === 0) {
+                carousel.style.transform = 'translateX(0%)';
+                updateBuilderIndicators();
+                return;
+            }
+
+            if (groupIndex >= buildersTotalGroups) {
+                buildersCurrentGroup = 0;
+            } else if (groupIndex < 0) {
+                buildersCurrentGroup = buildersTotalGroups - 1;
+            } else {
+                buildersCurrentGroup = groupIndex;
+            }
+
+            const offset = -buildersCurrentGroup * 100;
+            carousel.style.transform = `translateX(${offset}%)`;
+
+            updateBuilderIndicators();
+        }
+
+        function nextBuilderSlide() {
+            if (buildersTotalSlides === 0) {
+                return;
+            }
+
+            clearTimeout(buildersAutoPlayTimer);
+            buildersCurrentGroup++;
+            showBuilderSlide(buildersCurrentGroup);
+            startBuilderAutoPlay();
+        }
+
+        function prevBuilderSlide() {
+            if (buildersTotalSlides === 0) {
+                return;
+            }
+
+            clearTimeout(buildersAutoPlayTimer);
+            buildersCurrentGroup--;
+            showBuilderSlide(buildersCurrentGroup);
+            startBuilderAutoPlay();
+        }
+
+        function updateBuilderIndicators() {
+            const dots = document.querySelectorAll('#buildersIndicators .partner-dot');
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('is-active', index === buildersCurrentGroup);
+            });
+        }
+
+        function startBuilderAutoPlay() {
+            clearTimeout(buildersAutoPlayTimer);
+
+            if (buildersTotalSlides === 0 || buildersTotalGroups <= 1) {
+                return;
+            }
+
+            buildersAutoPlayTimer = setTimeout(() => {
+                buildersCurrentGroup++;
+                showBuilderSlide(buildersCurrentGroup);
+                startBuilderAutoPlay();
+            }, 4500);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            rebuildBuildersCarouselUi();
+            showBuilderSlide(0);
+            startBuilderAutoPlay();
+
+            const container = document.querySelector('.partners-carousel');
+
+            if (container) {
+                container.addEventListener('mouseenter', () => {
+                    clearTimeout(buildersAutoPlayTimer);
+                });
+
+                container.addEventListener('mouseleave', () => {
+                    startBuilderAutoPlay();
+                });
+            }
+
+            const slides = document.querySelectorAll('.builder-slide');
+            slides.forEach(slide => {
+                const card = slide.querySelector('.builder-card');
+
+                slide.addEventListener('mouseenter', () => {
+                    if (card) {
+                        card.style.transform = 'translateY(-6px)';
+                    }
+                });
+
+                slide.addEventListener('mouseleave', () => {
+                    if (card) {
+                        card.style.transform = 'translateY(0)';
+                    }
+                });
+            });
+
+            window.addEventListener('resize', () => {
+                rebuildBuildersCarouselUi();
+                showBuilderSlide(buildersCurrentGroup);
+                startBuilderAutoPlay();
+            });
+        });
+    </script>
+
+
+    <section class="video-showcase-section"
+        style="background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%); padding: 100px 0;">
+        <div class="container">
+            <div class="video-showcase-header"
+                style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 60px; flex-wrap: wrap; gap: 40px;">
+                <div class="video-showcase-copy" style="flex: 1; min-width: 300px;">
+                    <div class="video-showcase-badge"
+                        style="display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; background: rgba(178, 1, 1, 0.1); border-radius: 50px; margin-bottom: 20px; color: var(--primary-color); font-weight: 600; font-size: 0.9rem;">
+                        <i class="fa-regular fa-circle-play"></i>
+                        Video Showcase
+                    </div>
+                    <h1
+                        style="font-size: 2.8rem; font-weight: 800; color: var(--dark-color); margin-bottom: 15px; line-height: 1.2;">
+                        Video Gallery</h1>
+                    <div
+                        style="width: 60px; height: 4px; background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%); margin-bottom: 20px; border-radius: 2px;">
+                    </div>
+                    <p style="font-size: 1.05rem; color: var(--text-muted); line-height: 1.7; max-width: 500px;">
+                        Explore our curated collection of property walkthroughs, project updates, construction progress,
+                        and satisfied client testimonials.</p>
+                </div>
+
+                <div class="video-showcase-meta" style="display: flex; gap: 30px;">
+                    <div class="video-showcase-stat" style="text-align: center;">
+                        <div style="font-size: 2.5rem; font-weight: 900; color: var(--primary-color); line-height: 1;">
+                            {{ $video_gallery->count() }}</div>
+                        <span
+                            style="color: var(--text-muted); font-weight: 600; font-size: 0.95rem; display: block; margin-top: 5px;">Videos</span>
+                    </div>
+                    <div style="width: 1px; background: #e2e8f0;"></div>
+                    <div class="video-showcase-stat" style="text-align: center;">
+                        <div style="font-size: 2.5rem; font-weight: 900; color: var(--primary-color); line-height: 1;">
+                            HD</div>
+                        <span
+                            style="color: var(--text-muted); font-weight: 600; font-size: 0.95rem; display: block; margin-top: 5px;">Quality</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="video-showcase-grid"
+                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 28px;">
+                @forelse ($video_gallery as $item)
+                    <article class="video-card"
+                        style="background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 15px rgba(15, 23, 42, 0.08); transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1); border-left: 4px solid var(--primary-color);">
+                        <div class="video-media" style="position: relative; overflow: hidden; background: #000;">
+                            <div class="ratio ratio-16x9">
+                                <iframe src="https://www.youtube.com/embed/{{ $item->video_link }}"
+                                    title="{{ $item->title_english ?? ($item->title ?? 'Video') }}"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    allowfullscreen loading="lazy"></iframe>
+                            </div>
+                            <div class="video-overlay"
+                                style="position: absolute; inset: 0; background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.3) 100%); opacity: 0; transition: opacity 0.3s ease;">
+                            </div>
+                        </div>
+
+                        <div class="video-card-body" style="padding: 24px;">
+                            <div class="video-card-meta"
+                                style="display: flex; gap: 10px; margin-bottom: 12px; flex-wrap: wrap;">
+                                <span class="video-meta-chip"
+                                    style="display: inline-flex; align-items: center; padding: 6px 12px; background: rgba(178, 1, 1, 0.15); color: var(--primary-color); border-radius: 20px; font-size: 0.8rem; font-weight: 600;">📹
+                                    Project Story</span>
+                                @if ($loop->first)
+                                    <span class="video-meta-chip video-meta-chip-soft"
+                                        style="display: inline-flex; align-items: center; padding: 6px 12px; background: rgba(34, 197, 94, 0.15); color: #16a34a; border-radius: 20px; font-size: 0.8rem; font-weight: 600;">⭐
+                                        Featured</span>
+                                @endif
+                            </div>
+
+                            <h5
+                                style="font-size: 1.3rem; font-weight: 700; color: var(--dark-color); margin-bottom: 10px; line-height: 1.4;">
+                                {{ $item->title_english ?? ($item->title ?? 'Video') }}</h5>
+
+                            @if (!empty($item->short_text_eng))
+                                <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; margin: 0;">
+                                    {{ \Illuminate\Support\Str::limit(strip_tags($item->short_text_eng), 120) }}</p>
+                            @endif
+                        </div>
+                    </article>
+                @empty
+                    <div class="video-empty-state"
+                        style="grid-column: 1 / -1; text-align: center; padding: 60px 20px; color: var(--text-muted); font-weight: 600; font-size: 1.1rem;">
+                        No videos available right now.
+                    </div>
+                @endforelse
+            </div>
+        </div>
+
+        <style>
+            @media (max-width: 768px) {
+                .video-showcase-header {
+                    flex-direction: column !important;
+                }
+
+                .video-showcase-grid {
+                    grid-template-columns: 1fr !important;
+                }
+            }
+
+            .video-card:hover {
+                transform: translateY(-8px);
+                box-shadow: 0 16px 40px rgba(15, 23, 42, 0.15);
+            }
+
+            .video-card:hover .video-overlay {
+                opacity: 1 !important;
+            }
+        </style>
+    </section><!--end section-->
+
+
+
+
+    {{-- Faq start --}}
+    <div class="container-fluid py-80" style="background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);">
+        <div class="container">
+            <div style="max-width: 800px; margin: 0 auto 50px; text-align: center;">
+                <span class="text-uppercase fw-semibold"
+                    style="font-size: 12px; letter-spacing: 2px; color: var(--secondary-color); display: block; margin-bottom: 15px;">Help
+                    & Support</span>
+                <h1
+                    style="color: var(--dark-color); font-size: 2.8rem; font-weight: 800; margin-bottom: 18px; line-height: 1.2;">
+                    Frequently Asked Questions</h1>
+                <div
+                    style="width: 60px; height: 4px; background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%); margin: 0 auto 20px; border-radius: 2px;">
+                </div>
+                <p style="color: var(--text-muted); line-height: 1.8; font-size: 1.05rem;">Get answers to common
+                    questions about our services, properties, and how we can help you find your perfect real estate
+                    solution.</p>
+            </div>
+
+            <div style="max-width: 900px; margin: 0 auto;">
+                <div id="faqAccordion" class="accordion"
+                    style="border-radius: 12px; overflow: hidden; background: white; box-shadow: 0 8px 24px rgba(15, 23, 42, 0.1);">
+                    @foreach ($faqs as $index => $faq)
+                        <div class="accordion-item" style="border: none; border-bottom: 1px solid #e2e8f0;">
+                            <h2 class="accordion-header" id="heading{{ $index }}" style="margin: 0;">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapse{{ $index }}" aria-expanded="false"
+                                    aria-controls="collapse{{ $index }}"
+                                    style="background: white; color: var(--dark-color); font-weight: 600; border: none; padding: 22px 28px; font-size: 1.05rem; transition: all 0.3s ease; display: flex; align-items: center; width: 100%;">
+                                    <i class="mdi mdi-circle-medium me-3"
+                                        style="color: var(--primary-color); font-size: 0.8rem; flex-shrink: 0;"></i>
+                                    <span style="text-align: left; flex: 1;">{{ $faq->faq_question }}</span>
+                                    <i class="mdi mdi-chevron-down"
+                                        style="color: var(--primary-color); font-size: 1.3rem; transition: transform 0.3s; flex-shrink: 0;"></i>
+                                </button>
+                            </h2>
+                            <div id="collapse{{ $index }}" class="accordion-collapse collapse"
+                                aria-labelledby="heading{{ $index }}" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body"
+                                    style="padding: 22px 28px 22px 56px; background: #fafbfc; color: var(--text-muted); line-height: 1.8; font-size: 0.95rem; border-top: 1px solid #e2e8f0;">
+                                    {!! $faq->faq_ans !!}
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+
+        <style>
+            .accordion-button::before {
+                display: none !important;
+            }
+
+            .accordion-button:not(.collapsed) {
+                background: rgba(178, 1, 1, 0.05) !important;
+                color: var(--primary-color) !important;
+                box-shadow: none !important;
+            }
+
+            .accordion-button:not(.collapsed) i.mdi-chevron-down {
+                transform: rotate(-180deg);
+            }
+
+            .accordion-button:hover {
+                background: #f8fafc !important;
+            }
+
+            .accordion-button:focus {
+                box-shadow: none !important;
+                outline: 2px solid var(--primary-color);
+                outline-offset: -2px;
+            }
+
+            @media (max-width: 768px) {
+                .accordion-button {
+                    padding: 18px 20px !important;
+                    font-size: 0.95rem !important;
+                }
+
+                .accordion-body {
+                    padding: 18px 20px 18px 48px !important;
+                }
+            }
+        </style>
+    </div><!--end container-->
+    {{-- Faq end --}}
+
+    <section class="why-choose-section" style="background: #f8fafc; padding: 80px 0;">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 60px; max-width: 600px; margin-left: auto; margin-right: auto;">
+                <h2
+                    style="font-size: 2.8rem; font-weight: 800; color: var(--dark-color); margin-bottom: 16px; line-height: 1.2;">
+                    Why Choose EstateBrokerage?</h2>
+                <p style="font-size: 1.05rem; color: var(--text-muted); line-height: 1.7;">We're not just listings —
+                    we're your complete real estate partner from search to ownership</p>
+            </div>
+
+            @php
+                $whyChooseItems = [
+                    [
+                        'icon' => 'bi bi-shield-check',
+                        'title' => 'Verified Listings',
+                        'description' => 'Every property is physically verified and legally checked before listing.',
+                    ],
+                    [
+                        'icon' => 'fa-solid fa-users',
+                        'title' => 'Expert Brokers',
+                        'description' => '100+ certified brokers with deep market knowledge across Bangladesh.',
+                    ],
+                    [
+                        'icon' => 'fa-solid fa-calculator',
+                        'title' => 'Smart Tools',
+                        'description' =>
+                            'Free ROI calculator, EMI planner and land unit converter for informed decisions.',
+                    ],
+                    [
+                        'icon' => 'fa-regular fa-clock',
+                        'title' => 'Fast Transactions',
+                        'description' => 'Average deal closure in 14 days with full legal and documentation support.',
+                    ],
+                    [
+                        'icon' => 'fa-solid fa-award',
+                        'title' => 'Award Winning',
+                        'description' =>
+                            "Recognized as Bangladesh's best real estate platform for 3 consecutive years.",
+                    ],
+                    [
+                        'icon' => 'fa-solid fa-building',
+                        'title' => 'Trusted Builders',
+                        'description' => 'Exclusive partnerships with 50+ verified builders and developers.',
+                    ],
+                ];
+            @endphp
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px;">
+                @foreach ($whyChooseItems as $item)
+                    <div class="why-card"
+                        style="background: white; border-radius: 16px; padding: 28px; border: 1px solid #e2e8f0; box-shadow: 0 4px 12px rgba(15, 23, 42, 0.05); transition: all 0.3s ease;">
+                        <div
+                            style="width: 48px; height: 48px; background: rgba(178, 1, 1, 0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; color: var(--primary-color); font-size: 1.5rem;">
+                            <i class="{{ $item['icon'] }}"></i>
+                        </div>
+                        <h3
+                            style="font-size: 1.2rem; font-weight: 700; color: var(--dark-color); margin-bottom: 10px; line-height: 1.3;">
+                            {{ $item['title'] }}</h3>
+                        <p style="font-size: 0.95rem; color: var(--text-muted); line-height: 1.6; margin: 0;">
+                            {{ $item['description'] }}</p>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+
+        <style>
+            .why-card {
+                cursor: default;
+            }
+
+            .why-card:hover {
+                box-shadow: 0 8px 24px rgba(15, 23, 42, 0.1);
+                transform: translateY(-4px);
+            }
+
+            @media (max-width: 768px) {
+                .why-card {
+                    padding: 20px;
+                }
+            }
+        </style>
+    </section>
+
+
+
+    {{-- testimonial start --}}
+    <div class="container-fluid  mt-60 py-5">
+        <div class="row justify-content-center">
+            <div class="col">
+                <div class="section-title text-center mb-4 pb-2">
+                    <h4 class="title  mb-3"><strong>What Our Clients Say</strong></h4>
+                    <div
+                        style="width: 60px; height: 4px; background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%); margin: 15px auto 20px; border-radius: 2px;">
+                    </div>
+                    <p class="para-desc mb-0 mx-auto">Join thousands of happy property buyers, renters and investors
+                    </p>
+                </div>
+            </div><!--end col-->
+        </div><!--end row-->
+
+        <div class="row" style="width: 90%;margin:auto">
+            <div class="col-12 mt-4">
+                <div class="tiny-three-item">
+                    @foreach ($testimonials as $key => $item)
+                        <div class="tiny-slider client-testi">
+                            <div class="card border-0 bg-white">
+                                <div class="card-body p-4 rounded-3 shadow m-2"
+                                    style="border-left: 4px solid var(--primary-color);">
+                                    <i
+                                        class="mdi mdi-format-quote-open display-1 text-primary opacity-25 position-absolute end-0 top-0"></i>
+
+                                    <div class="d-flex">
+                                        <img src="{{ asset($item->image ?? null) }}"
+                                            class="avatar avatar-md-sm rounded-circle shadow-md" alt="">
+                                        <div class="flex-1 ms-3">
+                                            <h6 class="mb-0">{{ $item->name_english }}</h6>
+                                            <small class="text-muted">{{ $item->desig_eng }}</small>
+                                        </div>
+                                    </div>
+
+                                    <p class="text-muted fst-italic mb-0 mt-4"> {!! $item->review_eng !!} </p>
+
+                                    <ul class="list-unstyled mb-0 mt-3 text-warning h5">
+                                        @for ($i = 0; $i < $item->star; $i++)
+                                            <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                        @endfor
+                                    </ul>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </div><!--end col-->
+        </div><!--end row-->
+    </div><!--end container-->
+    {{-- testimonial end --}}
+
+
+
+
+
+
+
+
+    <section
+        style="background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%); color: white; padding: 80px 20px;">
+        <div class="container" style="max-width: 900px;">
+            <div class="row justify-content-center">
+                <div class="col-12">
+                    <div class="text-center">
+                        <!-- Icon Circle -->
+                        <div
+                            style="width: 80px; height: 80px; background: rgba(255, 255, 255, 0.2); border-radius: 24px; display: flex; align-items: center; justify-content: center; margin: 0 auto 30px; font-size: 45px;">
+                            <i class="fa-solid fa-clipboard-list"></i>
+                        </div>
+
+                        <!-- Heading -->
+                        <h2 style="font-size: 2.8rem; font-weight: 800; margin-bottom: 20px; line-height: 1.2;">
+                            Can't Find the Right Property?
+                        </h2>
+
+                        <!-- Description -->
+                        <p
+                            style="font-size: 1.15rem; color: rgba(255, 255, 255, 0.95); max-width: 700px; margin: 0 auto 40px; line-height: 1.7;">
+                            Post your requirement and let our expert brokers do the searching. Tell us your budget,
+                            location, and preferences — we'll match you with the perfect property.
+                        </p>
+
+                        <!-- Buttons -->
+                        <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+                            <a href="{{ route('contact.us') }}"
+                                style="display: inline-flex; align-items: center; gap: 10px; padding: 16px 32px; background: white; color: var(--primary-color); font-weight: 700; border-radius: 50px; text-decoration: none; transition: all 0.3s ease; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); font-size: 1rem;">
+                                <i class="fa-solid fa-clipboard-list"></i>
+                                Post Your Requirement
+                            </a>
+                            <a href="{{ route('contact.us') }}"
+                                style="display: inline-flex; align-items: center; gap: 10px; padding: 16px 32px; background: rgba(0, 0, 0, 0.3); color: white; font-weight: 700; border-radius: 50px; text-decoration: none; transition: all 0.3s ease; border: 2px solid rgba(255, 255, 255, 0.3); font-size: 1rem;">
+                                Talk to an Expert
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div><!--end col-->
+            </div><!--end row-->
+        </div>
+    </section><!--end section-->
+    </section><!--end section-->
+    <!-- End -->
+
+    <!-- Footer Start -->
+    @include('frontend.includes.footer')
+    <!-- Footer End -->
+
+    <!-- Back to top -->
+    <a href="#" onclick="topFunction()" id="back-to-top" class="back-to-top rounded-pill fs-5"
+        style="background: var(--primary-color); border: 1px solid var(--primary-color); color: #fff;">
+        <i data-feather="arrow-up" class="fea icon-sm align-middle" style="color: #fff;"></i>
+    </a>
+    <!-- Back to top -->
+
+    <script>
+        (function() {
+            const counters = document.querySelectorAll('.hero-stat .counter-value');
+            if (!counters.length) {
+                return;
+            }
+
+            const animateCounter = (element) => {
+                if (element.dataset.animated === 'true') {
+                    return;
+                }
+
+                element.dataset.animated = 'true';
+                const target = Number(element.dataset.target || 0);
+                const duration = 1400;
+                const startTime = performance.now();
+
+                const tick = (currentTime) => {
+                    const progress = Math.min((currentTime - startTime) / duration, 1);
+                    element.textContent = Math.floor(target * progress).toLocaleString();
+
+                    if (progress < 1) {
+                        requestAnimationFrame(tick);
+                    } else {
+                        element.textContent = target.toLocaleString();
+                    }
+                };
+
+                requestAnimationFrame(tick);
+            };
+
+            const heroSection = document.querySelector('.swiper-slider-hero');
+
+            if ('IntersectionObserver' in window && heroSection) {
+                const observer = new IntersectionObserver((entries, observerInstance) => {
+                    entries.forEach((entry) => {
+                        if (entry.isIntersecting) {
+                            counters.forEach(animateCounter);
+                            observerInstance.disconnect();
+                        }
+                    });
+                }, {
+                    threshold: 0.35
+                });
+
+                observer.observe(heroSection);
+            } else {
+                counters.forEach(animateCounter);
+            }
+        })();
+
+        function topFunction() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        const backToTopBtn = document.getElementById('back-to-top');
+        window.addEventListener('scroll', () => {
+            if (!backToTopBtn) return;
+            backToTopBtn.classList.toggle('open', window.pageYOffset > 350);
+        });
+    </script>
+
+    <!-- JAVASCRIPTS -->
+    @include('frontend.includes.script')
+    </body>
+
+    <!-- Mirrored from shreethemes.in/towntor/layouts/index-three.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 21 Nov 2023 05:10:06 GMT -->
+
+    </html>

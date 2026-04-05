@@ -11,11 +11,19 @@
         <div class="col-lg-4">
             <div class="ag-card text-center">
                 {{-- Avatar --}}
-                <div
-                    style="width:90px;height:90px;border-radius:50%;background:linear-gradient(135deg,#4f46e5,#7c3aed);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;">
-                    <span
-                        style="font-size:36px;font-weight:800;color:#fff;">{{ strtoupper(substr(Auth::user()->name, 0, 1)) }}</span>
-                </div>
+                @if (Auth::user()->photo)
+                    <div
+                        style="width:90px;height:90px;border-radius:50%;overflow:hidden;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;background:#fff;">
+                        <img src="{{ asset('storage/' . Auth::user()->photo) }}" alt="User Photo"
+                            style="width:100%;height:100%;object-fit:cover;">
+                    </div>
+                @else
+                    <div
+                        style="width:90px;height:90px;border-radius:50%;background:linear-gradient(135deg,#4f46e5,#7c3aed);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;">
+                        <span
+                            style="font-size:36px;font-weight:800;color:#fff;">{{ strtoupper(substr(Auth::user()->name, 0, 1)) }}</span>
+                    </div>
+                @endif
                 <h5 class="mb-1" style="font-weight:700;color:#1e293b;">{{ Auth::user()->name }}</h5>
                 <p class="mb-3" style="color:#64748b;font-size:13.5px;">{{ Auth::user()->email }}</p>
                 <span class="badge"
