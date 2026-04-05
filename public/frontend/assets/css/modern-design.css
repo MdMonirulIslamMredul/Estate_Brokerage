@@ -9,7 +9,7 @@
     --primary-blue-light: #2d5a8c;
     --accent-blue: #0066cc;
     --accent-light: #64b5f6;
-    
+
     /* Neutral Colors */
     --bg-light: #f5f7fa;
     --bg-white: #ffffff;
@@ -17,11 +17,11 @@
     --text-gray: #4a5568;
     --text-light: #718096;
     --border-color: #e2e8f0;
-    
+
     /* Dark Mode */
     --bg-dark: #0f1823;
     --bg-dark-light: #1a2332;
-    
+
     /* Shadows */
     --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
     --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.12);
@@ -227,7 +227,7 @@ a:hover {
     background: var(--bg-white);
     border: 1px solid var(--border-color);
     border-radius: 12px;
-    padding: 30px;
+    padding: 10px;
     transition: all 0.3s ease;
 }
 
@@ -248,6 +248,11 @@ a:hover {
     color: var(--text-gray);
     line-height: 1.7;
 }
+
+.card .card-body {
+    padding: .8rem;
+}
+
 
 /* ============================================================
    HERO SECTION
@@ -541,7 +546,7 @@ a:hover {
     }
 
     .row {
-        margin: 0 -15px;
+        margin: 0 -5px;
     }
 
     .col {
