@@ -10,30 +10,34 @@
                                 <i class="fe-search"></i>
                             </button>
                         </div>
-                        
+
                     </div>
                 </form>
             </li>
 
             <li class="dropdown d-inline-block d-lg-none">
-                <a class="nav-link dropdown-toggle arrow-none waves-effect waves-light" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                <a class="nav-link dropdown-toggle arrow-none waves-effect waves-light" data-bs-toggle="dropdown"
+                    href="#" role="button" aria-haspopup="false" aria-expanded="false">
                     <i class="fe-search noti-icon"></i>
                 </a>
                 <div class="dropdown-menu dropdown-lg dropdown-menu-end p-0">
                     <form class="p-3">
-                        <input type="text" class="form-control" placeholder="Search ..." aria-label="Recipient's username">
+                        <input type="text" class="form-control" placeholder="Search ..."
+                            aria-label="Recipient's username">
                     </form>
                 </div>
             </li>
 
             <li class="dropdown d-none d-lg-inline-block">
-                <a class="nav-link dropdown-toggle arrow-none waves-effect waves-light" data-toggle="fullscreen" href="#">
+                <a class="nav-link dropdown-toggle arrow-none waves-effect waves-light" data-toggle="fullscreen"
+                    href="#">
                     <i class="fe-maximize noti-icon"></i>
                 </a>
             </li>
 
             <li class="dropdown notification-list topbar-dropdown">
-                <a class="nav-link dropdown-toggle waves-effect waves-light" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                <a class="nav-link dropdown-toggle waves-effect waves-light" data-bs-toggle="dropdown" href="#"
+                    role="button" aria-haspopup="false" aria-expanded="false">
                     <i class="fe-bell noti-icon"></i>
                     <span class="badge bg-danger rounded-circle noti-icon-badge">9</span>
                 </a>
@@ -94,20 +98,27 @@
             </li>
 
             @php
-            $id = auth()->user()->id;
-            $adminData = App\Models\User::find($id);
+                $id = auth()->user()->id;
+                $adminData = App\Models\User::find($id);
             @endphp
-        <li class="dropdown notification-list topbar-dropdown">
-            <a class="nav-link dropdown-toggle nav-user me-0 waves-effect waves-light" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                @if($adminData->photo)
-                <img src="{{ asset('/upload/admin_image/'.$adminData->photo) }}" alt=""  class="rounded-circle avatar-lg img-thumbnail" alt="profile-image" style="width: 60px;height:60px"> 
-                @else
-                <img src="{{ url('upload/no_image.jpg') }}" alt="" class="rounded-circle avatar-lg img-thumbnail" alt="profile-image">
-                @endif
-                <span class="pro-user-name ms-1">
-                   {{ $adminData->name }} <i class="mdi mdi-chevron-down"></i> 
-                </span>
-            </a>
+            <li class="dropdown notification-list topbar-dropdown">
+                <a class="nav-link dropdown-toggle nav-user me-0 waves-effect waves-light" data-bs-toggle="dropdown"
+                    href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                    @if ($adminData->photo)
+                        <img src="{{ asset('/upload/admin_image/' . $adminData->photo) }}" alt=""
+                            class="rounded-circle avatar-lg img-thumbnail" alt="profile-image"
+                            style="width: 60px;height:60px">
+                    @else
+                        <span
+                            class="rounded-circle avatar-lg img-thumbnail d-inline-flex align-items-center justify-content-center bg-secondary"
+                            style="width: 60px; height: 60px; font-size: 32px; color: #fff;">
+                            <i class="mdi mdi-account"></i>
+                        </span>
+                    @endif
+                    <span class="pro-user-name ms-1">
+                        {{ $adminData->name }} <i class="mdi mdi-chevron-down"></i>
+                    </span>
+                </a>
                 <div class="dropdown-menu dropdown-menu-end profile-dropdown ">
                     <!-- item-->
                     <div class="dropdown-header noti-title">
@@ -155,21 +166,25 @@
         <div class="logo-box">
             <a href="{{ route('dashboard') }}" class="logo logo-dark text-center">
                 <span class="logo-sm">
-                    <img src="{{ asset(App\Models\Logo::first()->admin_logo_image) }}" alt="" height="40px" width="100px">
+                    <img src="{{ asset(App\Models\Logo::first()->admin_logo_image) }}" alt="" height="40px"
+                        width="100px">
                     <!-- <span class="logo-lg-text-light">UBold</span> -->
                 </span>
                 <span class="logo-lg">
-                    <img src="{{ asset(App\Models\Logo::first()->admin_logo_image) }}" alt="" height="40px" width="100px">
+                    <img src="{{ asset(App\Models\Logo::first()->admin_logo_image) }}" alt="" height="40px"
+                        width="100px">
                     <!-- <span class="logo-lg-text-light">U</span> -->
                 </span>
             </a>
 
             <a href="{{ route('dashboard') }}" class="logo logo-light text-center">
                 <span class="logo-sm">
-                    <img src="{{ asset(App\Models\Logo::first()->admin_logo_image) }}" alt="" height="40px" width="100px">
+                    <img src="{{ asset(App\Models\Logo::first()->admin_logo_image) }}" alt="" height="40px"
+                        width="100px">
                 </span>
                 <span class="logo-lg">
-                    <img src="{{ asset(App\Models\Logo::first()->admin_logo_image) }}" alt="" height="40px" width="100px">
+                    <img src="{{ asset(App\Models\Logo::first()->admin_logo_image) }}" alt="" height="40px"
+                        width="100px">
                 </span>
             </a>
         </div>
@@ -179,7 +194,8 @@
                 <button class="button-menu-mobile waves-effect waves-light">
                     <i class="fe-menu"></i>
                 </button>
-                <a href="{{ url('/') }}" style="color:white;font-size:18px;background:#6658DD" class="btn btn-sm">Frontend</a>
+                <a href="{{ url('/') }}" style="color:white;font-size:18px;background:#6658DD"
+                    class="btn btn-sm">Frontend</a>
             </li>
 
             <li>
@@ -193,7 +209,7 @@
                 </a>
                 <!-- End mobile menu toggle-->
             </li>
-            
+
         </ul>
         <div class="clearfix"></div>
     </div>

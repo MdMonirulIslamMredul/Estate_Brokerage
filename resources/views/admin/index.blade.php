@@ -1,12 +1,14 @@
 @extends('admin_dashboard')
 @section('admin')
-@section('title') Laravel @endsection
+@section('title')
+    Admin DashBoard
+@endsection
 
 <div class="content">
 
     <!-- Start Content-->
     <div class="container-fluid">
-        
+
         <!-- start page title -->
         <div class="row">
             <div class="col-12">
@@ -30,8 +32,8 @@
                     <h4 class="page-title">Dashboard</h4>
                 </div>
             </div>
-        </div>     
-        <!-- end page title --> 
+        </div>
+        <!-- end page title -->
 
         <div class="row d-none">
             <div class="col-md-6 col-xl-3">
@@ -116,10 +118,10 @@
         </div>
         <!-- end row-->
 
-        
 
-       
-        
+
+
+
     </div> <!-- container -->
 
 </div> <!-- content -->

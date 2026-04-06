@@ -52,9 +52,8 @@
                     <a href="#sidebarRentRequest" data-bs-toggle="collapse">
                         <i class="mdi mdi-home-city-outline"></i>
 
-                        <span
-                            class="badge bg-danger float-end">{{ $rentUnreadCount }}</span>
-                        <span>Rent Requests</span>
+                        <span class="badge bg-danger float-end">{{ $rentUnreadCount }}</span>
+                        <span>Sell Requests</span>
 
                         <span class="menu-arrow" style="{{ $rentUnreadCount > 0 ? 'display:none;' : '' }}"></span>
 
@@ -62,7 +61,7 @@
                     <div class="collapse" id="sidebarRentRequest">
                         <ul class="nav-second-level">
                             <li>
-                                <a href="{{ route('admin.rent.requests') }}">All Rent Requests
+                                <a href="{{ route('admin.rent.requests') }}">All Sell Requests
                                     <span
                                         class="badge bg-danger float-end">{{ App\Models\RentRequest::where('status', 'unread')->count() }}</span>
                                 </a>
