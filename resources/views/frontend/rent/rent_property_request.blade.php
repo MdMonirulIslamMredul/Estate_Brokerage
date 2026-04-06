@@ -1,7 +1,7 @@
 @extends('frontend.layout')
 
 @section('title')
-    Rent Your Property
+    Sell Your Property
 @endsection
 
 @section('content')
@@ -282,6 +282,10 @@
             .rent-shell {
                 padding: 42px 0 72px;
             }
+
+            .row {
+                margin: 0 -5px;
+            }
         }
 
         @media (max-width: 575px) {
@@ -293,15 +297,18 @@
             .rent-info {
                 padding: 18px;
             }
+
+
         }
     </style>
 
     <section class="rent-hero">
         <div class="container">
             <div class="rent-hero-inner">
-                <div class="rent-kicker">Rent Property Request</div>
-                <h1>List Your Property for Rent</h1>
-                <p>Share your property details with us and our team will review everything, connect with tenants, and guide
+                <div class="rent-kicker">Sell Property Request</div>
+                <h1>List Your Property for Sale</h1>
+                <p>Share your property details with us and our team will review everything, connect with potential buyers,
+                    and guide
                     you through the next steps.</p>
             </div>
         </div>
@@ -358,8 +365,8 @@
                         <aside class="rent-info">
                             <div class="section-tag" style="background: rgba(255,255,255,0.1); color: #fff;">Team Support
                             </div>
-                            <h2>Tell us about the property you want to rent out.</h2>
-                            <p>We help property owners get visibility, verified tenants, and guided support from inquiry to
+                            <h2>Tell us about the property you want to sell.</h2>
+                            <p>We help property owners get visibility, verified buyers, and guided support from inquiry to
                                 final agreement.</p>
 
                             <div class="info-list">
@@ -392,8 +399,8 @@
                     <div class="col-lg-7">
                         <div class="rent-form">
                             <div class="section-tag">Property Form</div>
-                            <h2>Request a Rent Listing</h2>
-                            <p class="lead-copy mb-4">Fill in the details below and we will review your property for a rent
+                            <h2>Request a Sale Listing</h2>
+                            <p class="lead-copy mb-4">Fill in the details below and we will review your property for a sale
                                 listing request.</p>
 
                             <form method="POST" action="{{ route('rent.property.submit') }}">
@@ -452,7 +459,7 @@
                                         @enderror
                                     </div>
                                     <div class="col-md-6">
-                                        <label class="form-label">Monthly Rent (BDT) *</label>
+                                        <label class="form-label">Sell Price (BDT) *</label>
                                         <input type="number" name="monthly_rent" value="{{ old('monthly_rent') }}"
                                             class="form-control @error('monthly_rent') is-invalid @enderror"
                                             placeholder="25000">
