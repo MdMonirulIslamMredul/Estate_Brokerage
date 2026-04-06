@@ -24,7 +24,7 @@ class ProjectCategoryController extends Controller
     {
         error_log('=== STORE METHOD CALLED ===');
         error_log('Request data: ' . json_encode($request->all()));
-        
+
         $validated = $request->validate([
             'name' => 'required|unique:project_categories',
             'description' => 'nullable',
@@ -49,19 +49,19 @@ class ProjectCategoryController extends Controller
             if (!file_exists(public_path('backend/project_category'))) {
                 mkdir(public_path('backend/project_category'), 0777, true);
             }
-            
+
             $image = $request->file('image');
             $imageName = time() . '.' . $image->getClientOriginalExtension();
             $image->move(public_path('backend/project_category'), $imageName);
-            $data['image'] = 'backend/project_category/' . $imageName;
+            $data['image'] = 'public/backend/project_category/' . $imageName;
         }
 
         error_log('About to create category with: ' . json_encode($data));
-        
+
         $category = ProjectCategory::create($data);
-        
+
         error_log('Category created with ID: ' . $category->id . ', Status: ' . $category->status);
-        
+
         return redirect()->route('all.project_category')->with('success', 'Category created successfully');
     }
 
@@ -93,16 +93,16 @@ class ProjectCategoryController extends Controller
             if ($category->image && file_exists(public_path($category->image))) {
                 unlink(public_path($category->image));
             }
-            
+
             // Create directory if it doesn't exist
             if (!file_exists(public_path('backend/project_category'))) {
                 mkdir(public_path('backend/project_category'), 0777, true);
             }
-            
+
             $image = $request->file('image');
             $imageName = time() . '.' . $image->getClientOriginalExtension();
             $image->move(public_path('backend/project_category'), $imageName);
-            $data['image'] = 'backend/project_category/' . $imageName;
+            $data['image'] = 'public/backend/project_category/' . $imageName;
         }
 
         $category->update($data);
