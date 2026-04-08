@@ -162,6 +162,7 @@
     .footer-bottom-links {
         display: flex;
         gap: 2rem;
+        flex-wrap: wrap;
     }
 
     .footer-bottom-links a {
@@ -180,6 +181,7 @@
         align-items: center;
         gap: 1rem;
         margin-top: 1rem;
+        flex-wrap: wrap;
     }
 
     .footer-contact-info a {
@@ -190,6 +192,7 @@
         align-items: center;
         gap: 0.5rem;
         font-size: 0.9rem;
+        word-break: break-word;
     }
 
     .footer-contact-info a:hover {
@@ -213,26 +216,105 @@
         font-weight: 700;
     }
 
-    @media (max-width: 1024px) {
+    @media (max-width: 1200px) {
         .footer-top {
             grid-template-columns: repeat(2, 1fr);
             gap: 2rem;
+        }
+
+        .footer-logo img {
+            width: 140px !important;
+            height: auto !important;
         }
     }
 
     @media (max-width: 768px) {
         .footer-top {
-            grid-template-columns: 1fr;
-            gap: 2rem;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 1.8rem;
+        }
+
+        .footer-brand {
+            grid-column: 1 / -1;
+        }
+
+        .footer-logo img {
+            width: 120px !important;
+            height: auto !important;
+        }
+
+        .footer-brand,
+        .footer-widget {
+            padding: 0;
+        }
+
+        .footer-widget-title {
+            font-size: 0.95rem;
+        }
+
+        .footer-widget ul {
+            gap: 0.75rem;
+        }
+
+        .footer-widget a {
+            font-size: 0.95rem;
         }
 
         .footer-bottom-row {
             flex-direction: column;
             align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .footer-bottom-links {
+            gap: 1rem;
+        }
+
+        .footer-contact-info {
+            width: 100%;
+            gap: 0.75rem;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .footer-top {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 1.2rem;
+        }
+
+        .footer-brand {
+            grid-column: 1 / -1;
+        }
+
+        .site-footer {
+            padding: 3rem 1.25rem 1.5rem;
+        }
+
+        .footer-top {
+            gap: 1.2rem;
         }
 
         .footer-widget-title {
-            font-size: 0.9rem;
+            font-size: 0.88rem;
+        }
+
+        .footer-description {
+            font-size: 0.92rem;
+        }
+
+        .footer-widget a,
+        .footer-contact-info a,
+        .footer-bottom-links a {
+            font-size: 0.88rem;
+        }
+
+        .footer-socials {
+            flex-wrap: wrap;
+            gap: 0.6rem;
+        }
+
+        .footer-bottom-row {
+            gap: 0.75rem;
         }
     }
 </style>
@@ -244,7 +326,7 @@
             <!-- Brand Column -->
             <div class="footer-brand">
                 <div class="footer-logo">
-                    <img src="{{ asset($logo->frontend_logo_image) }}" alt="{{ config('app.name') }}">
+                    <img src="{{ asset($logo->frontend_logo_image) }}" alt="{{ $logo->site_name_english }} Logo">
                 </div>
                 <p class="footer-description">{{ $footer->footer_details_eng }}</p>
                 <div>
@@ -268,11 +350,11 @@
             <div class="footer-widget">
                 <h5 class="footer-widget-title">Properties</h5>
                 <ul>
-                    <li><a href="#">Buy Property</a></li>
-                    <li><a href="#">Rent Property</a></li>
-                    <li><a href="#">Flat Zone</a></li>
-                    <li><a href="#">Land Zone</a></li>
-                    <li><a href="#">Commercial</a></li>
+                    <li><a href="{{ route('all.project.list') }}">Buy Property</a></li>
+                    <li><a href="{{ route('rent.property.request') }}">Sell Property</a></li>
+                    <li><a href="{{ route('all.project.list') }}">Flat Zone</a></li>
+                    <li><a href="{{ route('all.project.list') }}">Land Zone</a></li>
+                    <li><a href="{{ route('all.project.list') }}">Commercial</a></li>
                 </ul>
             </div>
 
@@ -282,9 +364,9 @@
                 <ul>
                     <li><a href="{{ route('all.builders') }}">Find Builders</a></li>
                     <li><a href="{{ route('rent.property.request') }}">Rent Your Property</a></li>
-                    <li><a href="#">ROI Calculator</a></li>
-                    <li><a href="#">EMI Calculator</a></li>
-                    <li><a href="#">Unit Converter</a></li>
+                    <li><a href="{{ route('roi.calculator') }}">ROI Calculator</a></li>
+                    <li><a href="{{ route('emi.calculator') }}">EMI Calculator</a></li>
+                    <li><a href="{{ route('unit.converter') }}">Unit Converter</a></li>
                 </ul>
             </div>
 
@@ -296,7 +378,7 @@
                     <li><a href="{{ route('contact.us') }}">Contact Us</a></li>
                     <li><a href="{{ route('frontend.ongoing.project') }}">Best Locations</a></li>
                     <li><a href="{{ route('privacy.policy') }}">Privacy Policy</a></li>
-                    <li><a href="#">Terms & Conditions</a></li>
+                    <li><a href="{{ route('contact.us') }}">Terms & Conditions</a></li>
                 </ul>
             </div>
         </div>
@@ -311,7 +393,7 @@
                     <span class="footer-contact-info-icon"><i class="bi bi-envelope"></i></span>
                     <a href="mailto:{{ $links->email }}">{{ $links->email }}</a>
                 </div>
-                <p style="margin: 0;">© 2026 {{ config('app.name') }}. All rights reserved.</p>
+                <p style="margin: 0;">© 2026 {{ $logo->site_name_english }} All rights reserved.</p>
             </div>
         </div>
     </div>

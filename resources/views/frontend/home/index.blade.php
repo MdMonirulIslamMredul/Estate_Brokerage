@@ -1,15 +1,10 @@
-<!doctype html>
-<html lang="en">
+@extends('frontend.layout')
 
-<!-- Mirrored from shreethemes.in/towntor/layouts/index-three.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 21 Nov 2023 05:10:05 GMT -->
+@section('title')
+    Home
+@endsection
 
-<head>
-
-    @include('frontend.includes.headlink')
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-
+@section('content')
     <style>
         * {
             margin: 0;
@@ -32,11 +27,12 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             color: var(--text-dark);
             line-height: 1.6;
             padding: 0;
             margin: 0;
+            background: #f5f7fa;
         }
 
         /* ===== HERO SECTION ===== */
@@ -467,6 +463,7 @@
             font-size: 14px;
             margin-bottom: 12px;
         }
+
 
         /* ===== COUNTER SECTION ===== */
         .counter-section {
@@ -1112,6 +1109,7 @@
         .partners-section .container {
             position: relative;
             z-index: 1;
+            padding: 10px 0;
         }
 
         .partners-header {
@@ -1375,7 +1373,9 @@
             }
 
             .builder-slide {
+                flex: 0 0 100%;
                 width: 100%;
+                box-sizing: border-box;
             }
 
             .builder-card {
@@ -1464,189 +1464,312 @@
             animation: float 2s infinite ease-in-out;
         }
 
-        .phone-button i,
-        .whatsapp-icon {
-            color: #fff;
-            font-size: 24px;
-            margin: 0;
-        }
+
 
         .theme-switcher {
             display: none !important;
         }
 
-        .back-to-top.open {
-            bottom: 100px;
+
+
+        /* === unified color palette from target site === */
+        .btn,
+        .project-action-btn,
+        .partners-cta,
+        .hero-tab,
+        .carousel-nav-btn,
+        {
+        border-radius: 8px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
         }
+
+        .btn:hover,
+        .project-action-btn:hover,
+        .partners-cta:hover,
+        .hero-tab:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.05);
+            box-shadow: 0 12px 18px rgba(0, 0, 0, 0.16);
+        }
+
+        .section-title h1,
+        .section-title h2 {
+            color: #0f172a;
+            font-weight: 900;
+        }
+
+        .section-title p,
+        .project-location,
+        .hero-stat-label {
+            color: #64748b;
+        }
+
+        .project-card,
+        .builder-card,
+        .video-card,
+        .faq .accordion-item {
+            border-radius: 16px;
+            box-shadow: 0 12px 30px rgba(15, 23, 42, 0.10);
+        }
+
+        .project-card:hover,
+        .builder-card:hover,
+        .video-card:hover {
+            box-shadow: 0 18px 38px rgba(15, 23, 42, 0.15);
+        }
+
 
         /* ===== RESPONSIVE DESIGN ===== */
         @media only screen and (max-width: 768px) {
+
+
+
+            .swiper-button-next,
+            .swiper-button-prev {
+                display: none !important;
+            }
+
+
             .mbst {
-                width: 95%;
+                width: 99%;
                 max-width: 100%;
                 margin-top: 0;
             }
 
             .hero-foreground {
-                padding-top: 92px;
-                padding-bottom: 24px;
+                padding-top: 36px;
+                padding-bottom: 10px;
+            }
+
+            .hero-content-wrap {
+                padding-left: 6px;
+                padding-right: 6px;
             }
 
             .hero-badge {
-                font-size: 0.82rem;
-                margin-bottom: 1rem;
+                font-size: 0.62rem;
+                margin-bottom: 0.4rem;
+                padding: 0.18rem 0.5rem;
+                max-width: 90vw;
+                white-space: normal;
+            }
+
+            .title-heading h1 {
+                font-size: 1.25rem !important;
+                margin-bottom: 0.4rem;
+                line-height: 1.05;
+                word-break: break-word;
+                max-width: 90vw;
+            }
+
+            .title-heading .accent-line {
+                font-size: 0.85rem;
+                margin-top: 0.03rem;
+            }
+
+            .title-heading p {
+                font-size: 0.78rem;
+                max-width: 92vw;
+                line-height: 1.3;
+                margin-bottom: 0.5rem;
             }
 
             .hero-search-tabs {
-                gap: 8px;
-                padding: 7px;
+                gap: 4px;
+                padding: 3px;
             }
 
             .hero-tab {
-                font-size: 0.88rem;
-                padding: 9px 6px;
+                font-size: 0.7rem;
+                padding: 5px 2px;
             }
 
             .hero-search-row {
                 grid-template-columns: 1fr;
+                gap: 5px;
             }
 
             .hero-stats {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-                gap: 14px;
-                margin-top: 28px;
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: flex-end;
+                gap: 32px;
+                width: min(920px, 100%);
+                margin: 24px auto 0;
+                flex-wrap: wrap;
+            }
+
+            .hero-stat {
+                text-align: center;
+                color: #fff;
+                min-width: 80px;
+                background: none;
+                border-radius: 0;
+                padding: 0;
+                box-shadow: none;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .hero-stat-value {
+                display: block;
+                color: var(--primary-color);
+                font-size: 2.1rem;
+                font-weight: 900;
+                line-height: 1.1;
+                margin-bottom: 0.2rem;
+                letter-spacing: 0.01em;
+            }
+
+            .hero-stat-value .hero-stat-plus {
+                font-size: 1.1em;
+                line-height: 1;
+            }
+
+            .hero-stat-label {
+                display: block;
+                color: #fff;
+                font-size: 1rem;
+                font-weight: 600;
+                letter-spacing: 0.01em;
+                margin-top: 0.1rem;
             }
 
             .searchform .form-control,
             .searchform .form-select,
             #search {
-                height: 52px;
-            }
-
-            .d-show {
-                display: block !important;
-            }
-
-            .d-off {
-                display: none !important;
+                height: 32px;
+                font-size: 0.7rem;
+                padding: 4px 5px;
             }
 
             #costom {
-                width: 95% !important;
+                width: 99% !important;
                 max-width: 100%;
             }
 
             .section-title h1 {
-                font-size: 2rem;
+                font-size: 1rem;
             }
 
-            .whatsapp_float {
-                width: 48px;
-                height: 48px;
-                bottom: 70px;
-                right: 25px;
-                font-size: 20px;
-            }
 
-            .phone-button {
-                width: 48px;
-                height: 48px;
-                bottom: 70px;
-                right: 25px;
-                font-size: 20px;
-            }
-
-            .phone-button i,
-            .whatsapp-icon {
-                font-size: 20px;
-            }
 
             .section {
-                padding: 60px 0;
+                padding: 18px 0;
             }
 
             .py-100 {
-                padding: 60px 0;
+                padding: 18px 0;
             }
         }
 
         @media only screen and (max-width: 426px) {
             .mbst {
-                width: 95%;
+                width: 100%;
                 max-width: 100%;
                 margin-top: 0;
             }
 
+            .hero-content-wrap {
+                padding-left: 2px;
+                padding-right: 2px;
+            }
+
             .section-title h1 {
-                font-size: 1.7rem;
+                font-size: 0.8rem;
             }
 
             .title-heading h1 {
-                font-size: 3rem !important;
+                font-size: 0.85rem !important;
+                margin-bottom: 0.3rem;
+                line-height: 1.02;
+                max-width: 98vw;
+            }
+
+            .title-heading .accent-line {
+                font-size: 2.7rem;
             }
 
             .title-heading p {
-                font-size: 1rem;
+                font-size: 0.65rem;
+                max-width: 98vw;
+                line-height: 1.15;
+            }
+
+            .hero-badge {
+                font-size: 0.5rem;
+                margin-bottom: 0.3rem;
+                padding: 0.12rem 0.3rem;
+                max-width: 98vw;
             }
 
             .hero-stats {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-                gap: 12px;
-                margin-top: 24px;
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: flex-end;
+                gap: 18px;
+                width: 100%;
+                margin-top: 10px;
+                padding: 0 1vw;
+                flex-wrap: wrap;
+            }
+
+            .hero-stat {
+                min-width: 60px;
+                background: none;
+                border-radius: 0;
+                padding: 0;
+                box-shadow: none;
+            }
+
+            .hero-stat-value {
+                font-size: 1.1rem;
+                margin-bottom: 0.08rem;
+                color: var(--primary-color);
             }
 
             .hero-stat-label {
-                font-size: 0.82rem;
+                font-size: 0.8rem;
+                color: #fff;
             }
 
-            .whatsapp_float,
-            .phone-button {
-                width: 48px;
-                height: 48px;
-                bottom: 25px;
-                right: 15px;
-                font-size: 20px;
+            .searchform .form-control,
+            .searchform .form-select,
+            #search {
+                height: 24px;
+                font-size: 0.6rem;
+                padding: 2px 3px;
+            }
+
+            #costom {
+                width: 100% !important;
+                max-width: 100%;
+            }
+
+
+
+            .section {
+                padding: 8px 0;
+            }
+
+            .py-100 {
+                padding: 8px 0;
             }
         }
     </style>
 
-</head>
-
-
-<body>
-
-    <a href="https://api.WhatsApp.com/send?phone=+8801715175856&text=Hello! " style="padding-top: 1px;margin-top: 9px;"
-        class="phone-button bounce"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="70"
-            viewBox="0 0 48 48">
-            <path fill="#fff"
-                d="M4.868,43.303l2.694-9.835C5.9,30.59,5.026,27.324,5.027,23.979C5.032,13.514,13.548,5,24.014,5c5.079,0.002,9.845,1.979,13.43,5.566c3.584,3.588,5.558,8.356,5.556,13.428c-0.004,10.465-8.522,18.98-18.986,18.98c-0.001,0,0,0,0,0h-0.008c-3.177-0.001-6.3-0.798-9.073-2.311L4.868,43.303z">
-            </path>
-            <path fill="#fff"
-                d="M4.868,43.803c-0.132,0-0.26-0.052-0.355-0.148c-0.125-0.127-0.174-0.312-0.127-0.483l2.639-9.636c-1.636-2.906-2.499-6.206-2.497-9.556C4.532,13.238,13.273,4.5,24.014,4.5c5.21,0.002,10.105,2.031,13.784,5.713c3.679,3.683,5.704,8.577,5.702,13.781c-0.004,10.741-8.746,19.48-19.486,19.48c-3.189-0.001-6.344-0.788-9.144-2.277l-9.875,2.589C4.953,43.798,4.911,43.803,4.868,43.803z">
-            </path>
-            <path fill="#cfd8dc"
-                d="M24.014,5c5.079,0.002,9.845,1.979,13.43,5.566c3.584,3.588,5.558,8.356,5.556,13.428c-0.004,10.465-8.522,18.98-18.986,18.98h-0.008c-3.177-0.001-6.3-0.798-9.073-2.311L4.868,43.303l2.694-9.835C5.9,30.59,5.026,27.324,5.027,23.979C5.032,13.514,13.548,5,24.014,5 M24.014,42.974C24.014,42.974,24.014,42.974,24.014,42.974C24.014,42.974,24.014,42.974,24.014,42.974 M24.014,42.974C24.014,42.974,24.014,42.974,24.014,42.974C24.014,42.974,24.014,42.974,24.014,42.974 M24.014,4C24.014,4,24.014,4,24.014,4C12.998,4,4.032,12.962,4.027,23.979c-0.001,3.367,0.849,6.685,2.461,9.622l-2.585,9.439c-0.094,0.345,0.002,0.713,0.254,0.967c0.19,0.192,0.447,0.297,0.711,0.297c0.085,0,0.17-0.011,0.254-0.033l9.687-2.54c2.828,1.468,5.998,2.243,9.197,2.244c11.024,0,19.99-8.963,19.995-19.98c0.002-5.339-2.075-10.359-5.848-14.135C34.378,6.083,29.357,4.002,24.014,4L24.014,4z">
-            </path>
-            <path fill="#40c351"
-                d="M35.176,12.832c-2.98-2.982-6.941-4.625-11.157-4.626c-8.704,0-15.783,7.076-15.787,15.774c-0.001,2.981,0.833,5.883,2.413,8.396l0.376,0.597l-1.595,5.821l5.973-1.566l0.577,0.342c2.422,1.438,5.2,2.198,8.032,2.199h0.006c8.698,0,15.777-7.077,15.78-15.776C39.795,19.778,38.156,15.814,35.176,12.832z">
-            </path>
-            <path fill="#fff" fill-rule="evenodd"
-                d="M19.268,16.045c-0.355-0.79-0.729-0.806-1.068-0.82c-0.277-0.012-0.593-0.011-0.909-0.011c-0.316,0-0.83,0.119-1.265,0.594c-0.435,0.475-1.661,1.622-1.661,3.956c0,2.334,1.7,4.59,1.937,4.906c0.237,0.316,3.282,5.259,8.104,7.161c4.007,1.58,4.823,1.266,5.693,1.187c0.87-0.079,2.807-1.147,3.202-2.255c0.395-1.108,0.395-2.057,0.277-2.255c-0.119-0.198-0.435-0.316-0.909-0.554s-2.807-1.385-3.242-1.543c-0.435-0.158-0.751-0.237-1.068,0.238c-0.316,0.474-1.225,1.543-1.502,1.859c-0.277,0.317-0.554,0.357-1.028,0.119c-0.474-0.238-2.002-0.738-3.815-2.354c-1.41-1.257-2.362-2.81-2.639-3.285c-0.277-0.474-0.03-0.731,0.208-0.968c0.213-0.213,0.474-0.554,0.712-0.831c0.237-0.277,0.316-0.475,0.474-0.791c0.158-0.317,0.079-0.594-0.04-0.831C20.612,19.329,19.69,16.983,19.268,16.045z"
-                clip-rule="evenodd"></path>
-        </svg></a>
-    <!-- Navbar STart -->
-    @include('frontend.includes.header')
-    <!-- Navbar End -->
 
     <!-- Hero Start -->
-
     <section class="swiper-slider-hero position-relative d-block" id="home">
         <div class="swiper-container">
             <div class="swiper-wrapper">
                 @foreach ($slider as $item)
                     <div class="swiper-slide d-flex align-items-center overflow-hidden">
-                        <div class="slide-inner slide-bg-image d-flex align-items-center"
-                            style="background: center center;" data-background="{{ asset($item->image) }}">
+                        <div class="slide-inner slide-bg-image d-flex align-items-center" style="background: center center;"
+                            data-background="{{ asset($item->image) }}">
                             <div class="bg-overlay"></div>
                         </div>
                         <!-- end slide-inner -->
@@ -1673,8 +1796,7 @@
                 </div>
 
                 <div class="title-heading text-center">
-                    <h1 class="heading fw-bold title-dark mb-3"
-                        style="font-size: 72px !important; line-height: 1; margin-bottom: 1rem;">
+                    <h1 class="heading fw-bold title-dark mb-3 hero-title-responsive">
                         Build Your Dream
                         <span class="accent-line">With Trust</span>
                     </h1>
@@ -1746,7 +1868,7 @@
                                         data-target="{{ (int) ($heroCounter['value'] ?? 0) }}">0</span><span
                                         class="hero-stat-plus">+</span>
                                 </span>
-                                <span class="hero-stat-label">{{ $heroCounter['label'] }}</span>
+                                <span class="hero-stat-label" style="color: #ecdddd;">{{ $heroCounter['label'] }}</span>
                             </div>
                         @endif
                     @endforeach
@@ -1756,29 +1878,6 @@
     </section>
     <!--end section-->
     {{-- Heros end  --}}
-
-
-    <!-- main body section Start -->
-    {{-- <section class="section py-100">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 col-md-12 mt-sm-0 pt-sm-0">
-                    <div class="section-title">
-                        <span>{{ $about->title_english }}</span>
-                        <h1>{{ $about->short_title_english }}</h1>
-                        <div class="divider"></div>
-                        <div class="py-4" style="color: var(--text-muted); line-height: 1.8; font-size: 15px;">
-                            {!! $about->details_1_eng !!}
-                        </div>
-                        <div class="mt-5">
-                            <a href="{{ route('about.details') }}" class="btn-modern">Explore About Us
-                                <i class="mdi mdi-arrow-right align-middle ms-2"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section> --}}
 
     <section class="project-zones-section">
         <div class="container">
@@ -1889,6 +1988,16 @@
                                                                 class="project-title-link">{{ $item->property_name }}</a>
                                                         </h5>
 
+                                                        <h5 class="project-title">
+                                                            {{ $item->project_code }}
+                                                            <button type="button" class="copy-code-btn"
+                                                                data-code="{{ $item->project_code }}"
+                                                                style="background:none;border:none;color:var(--project-primary);font-size:1.1rem;cursor:pointer;"
+                                                                title="Copy Project Code">
+                                                                <i class="mdi mdi-content-copy"></i>
+                                                            </button>
+                                                        </h5>
+
                                                         <p class="project-location">
                                                             <i class="fa-solid fa-location-dot"></i>
                                                             <span>{{ $item->location_eng }}</span>
@@ -1903,8 +2012,7 @@
                                                             </div>
                                                             <div class="metric-box">
                                                                 <i class="mdi mdi-bed"></i>
-                                                                <span
-                                                                    class="metric-value">{{ $item->rooms ?? 0 }}</span>
+                                                                <span class="metric-value">{{ $item->rooms ?? 0 }}</span>
                                                                 <span class="metric-unit">Beds</span>
                                                             </div>
                                                             <div class="metric-box">
@@ -1972,7 +2080,7 @@
             <div class="col-12">
                 <div class="text-center">
                     <a href="{{ route('all.project.list') }}"
-                        style="color: var(--primary-color); font-weight: 600; font-size: 1.1rem; text-decoration: none; transition: all 0.3s ease; display: inline-block;"
+                        style="color: var(--primary-color); font-weight: 600; font-size: 1.1rem; text-decoration: none; transition: all 0.3s ease; display: inline-block; margin-bottom: 10px;"
                         onmouseover="this.style.letterSpacing='1px'" onmouseout="this.style.letterSpacing='0'">
                         View All Properties
                         <i class="mdi mdi-arrow-right align-middle ms-2"></i>
@@ -2067,15 +2175,16 @@
 
         function showSlide(groupIndex) {
             const carousel = document.getElementById('projectsCarousel');
+            const track = document.querySelector('.projects-carousel-track');
 
-            if (!carousel) {
+            if (!carousel || !track) {
                 return;
             }
 
             refreshCarouselState();
 
             if (totalSlides === 0) {
-                carousel.style.transform = 'translateX(0%)';
+                carousel.style.transform = 'translateX(0px)';
                 updateIndicators();
                 return;
             }
@@ -2088,8 +2197,14 @@
                 currentGroup = groupIndex;
             }
 
-            const offset = -currentGroup * 100;
-            carousel.style.transform = `translateX(${offset}%)`;
+            const firstSlide = carousel.querySelector('.carousel-slide');
+            const slideGap = parseFloat(getComputedStyle(carousel).gap) || 0;
+            const slideWidth = firstSlide ? firstSlide.offsetWidth : 0;
+            const slideStep = (slideWidth + slideGap) * slidesPerView;
+
+            const maxOffset = Math.max(0, carousel.scrollWidth - track.clientWidth);
+            const desiredOffset = Math.min(currentGroup * slideStep, maxOffset);
+            carousel.style.transform = `translateX(-${desiredOffset}px)`;
 
             updateIndicators();
         }
@@ -2191,9 +2306,41 @@
     </script>
 
     <style>
+        /* Responsive hero title for all breakpoints */
+        .hero-title-responsive {
+            font-size: 4.5rem;
+            line-height: 1.05;
+            margin-bottom: 1rem;
+            word-break: break-word;
+            max-width: 90vw;
+            font-weight: 800;
+        }
+
+        @media (max-width: 1024px) {
+            .hero-title-responsive {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-title-responsive {
+                font-size: 1.25rem;
+                margin-bottom: 0.4rem;
+                max-width: 90vw;
+            }
+        }
+
+        @media (max-width: 426px) {
+            .hero-title-responsive {
+                font-size: 0.85rem;
+                margin-bottom: 0.3rem;
+                max-width: 98vw;
+            }
+        }
+
         .project-zones-section {
             background: #f3f5f8;
-            padding: 90px 0 40px;
+            padding: 20px 0 40px;
         }
 
         .project-zones-section .section-title h1 {
@@ -2242,6 +2389,13 @@
         .zone-card:hover {
             transform: translateY(-4px);
             box-shadow: 0 22px 38px rgba(15, 23, 42, 0.2);
+            color: var(--primary-color);
+        }
+
+        .zone-card:hover h4,
+        .zone-card:hover p,
+        .zone-card:hover .zone-meta {
+            color: var(--primary-color);
         }
 
         .zone-icon {
@@ -2287,7 +2441,7 @@
 
         .projects-carousel-wrapper {
             position: relative;
-            padding: 0 60px;
+            padding: 0 2px;
         }
 
         .projects-carousel-shell {
@@ -2305,6 +2459,7 @@
         }
 
         #projectsCarousel {
+            box-sizing: border-box;
             width: 100%;
             display: flex;
             gap: 18px;
@@ -2464,7 +2619,7 @@
             padding: 1rem 0;
             border-top: 1px solid #e4e7ec;
             border-bottom: 1px solid #e4e7ec;
-            margin-bottom: 1.05rem;
+            /* margin-bottom: 1.05rem; */
         }
 
         .metric-box {
@@ -2521,7 +2676,7 @@
 
         .project-price {
             color: var(--primary-color);
-            font-size: 2rem;
+            font-size: 1rem;
             font-weight: 900;
             letter-spacing: -0.02em;
             text-shadow: 0 2px 4px rgba(178, 1, 1, 0.2);
@@ -2700,7 +2855,7 @@
             }
 
             .projects-carousel-wrapper {
-                padding: 0 46px;
+                padding: 0 2px;
             }
 
             .project-media {
@@ -3149,15 +3304,16 @@
 
         function showBuilderSlide(groupIndex) {
             const carousel = document.getElementById('buildersCarousel');
+            const track = carousel ? carousel.parentElement : null;
 
-            if (!carousel) {
+            if (!carousel || !track) {
                 return;
             }
 
             refreshBuilderCarouselState();
 
             if (buildersTotalSlides === 0) {
-                carousel.style.transform = 'translateX(0%)';
+                carousel.style.transform = 'translateX(0px)';
                 updateBuilderIndicators();
                 return;
             }
@@ -3170,8 +3326,14 @@
                 buildersCurrentGroup = groupIndex;
             }
 
-            const offset = -buildersCurrentGroup * 100;
-            carousel.style.transform = `translateX(${offset}%)`;
+            const firstSlide = carousel.querySelector('.builder-slide');
+            const slideGap = parseFloat(getComputedStyle(carousel).gap) || 0;
+            const slideWidth = firstSlide ? firstSlide.offsetWidth : track.clientWidth;
+            const slideStep = slideWidth + slideGap;
+            const maxOffset = Math.max(0, carousel.scrollWidth - track.clientWidth);
+            const desiredOffset = Math.min(buildersCurrentGroup * slideStep, maxOffset);
+
+            carousel.style.transform = `translateX(-${desiredOffset}px)`;
 
             updateBuilderIndicators();
         }
@@ -3263,7 +3425,7 @@
 
 
     <section class="video-showcase-section"
-        style="background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%); padding: 100px 0;">
+        style="background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%); padding: 10px 0;">
         <div class="container">
             <div class="video-showcase-header"
                 style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 60px; flex-wrap: wrap; gap: 40px;">
@@ -3464,8 +3626,7 @@
 
     <section class="why-choose-section" style="background: #f8fafc; padding: 80px 0;">
         <div class="container">
-            <div
-                style="text-align: center; margin-bottom: 60px; max-width: 600px; margin-left: auto; margin-right: auto;">
+            <div style="text-align: center; margin-bottom: 60px; max-width: 600px; margin-left: auto; margin-right: auto;">
                 <h2
                     style="font-size: 2.8rem; font-weight: 800; color: var(--dark-color); margin-bottom: 16px; line-height: 1.2;">
                     Why Choose EstateBrokerage?</h2>
@@ -3547,6 +3708,15 @@
     </section>
 
 
+    <style>
+        .tns-nav {
+            display: none !important;
+        }
+    </style>
+
+
+
+
 
     {{-- testimonial start --}}
     <div class="container-fluid  mt-60 py-5">
@@ -3607,8 +3777,6 @@
 
 
 
-
-
     <section
         style="background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%); color: white; padding: 80px 20px;">
         <div class="container" style="max-width: 900px;">
@@ -3655,15 +3823,10 @@
     <!-- End -->
 
     <!-- Footer Start -->
-    @include('frontend.includes.footer')
+    {{-- @include('frontend.includes.footer') --}}
     <!-- Footer End -->
 
-    <!-- Back to top -->
-    <a href="#" onclick="topFunction()" id="back-to-top" class="back-to-top rounded-pill fs-5"
-        style="background: var(--primary-color); border: 1px solid var(--primary-color); color: #fff;">
-        <i data-feather="arrow-up" class="fea icon-sm align-middle" style="color: #fff;"></i>
-    </a>
-    <!-- Back to top -->
+
 
     <script>
         (function() {
@@ -3715,12 +3878,57 @@
                 counters.forEach(animateCounter);
             }
         })();
+
+        function topFunction() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.body.addEventListener('click', async (event) => {
+                const button = event.target.closest('.copy-code-btn');
+                if (!button) {
+                    return;
+                }
+
+                const code = button.dataset.code;
+                if (!code) {
+                    return;
+                }
+
+                try {
+                    await navigator.clipboard.writeText(code);
+                } catch (error) {
+                    const textarea = document.createElement('textarea');
+                    textarea.value = code;
+                    textarea.style.position = 'fixed';
+                    textarea.style.left = '-9999px';
+                    document.body.appendChild(textarea);
+                    textarea.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(textarea);
+                }
+
+                const previousTitle = button.title;
+                button.title = 'Copied!';
+                button.classList.add('copied');
+
+                setTimeout(() => {
+                    button.title = previousTitle;
+                    button.classList.remove('copied');
+                }, 1400);
+            });
+        });
     </script>
 
     <!-- JAVASCRIPTS -->
     @include('frontend.includes.script')
-</body>
+    </body>
 
-<!-- Mirrored from shreethemes.in/towntor/layouts/index-three.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 21 Nov 2023 05:10:06 GMT -->
+    <!-- Mirrored from shreethemes.in/towntor/layouts/index-three.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 21 Nov 2023 05:10:06 GMT -->
 
-</html>
+    </html>
