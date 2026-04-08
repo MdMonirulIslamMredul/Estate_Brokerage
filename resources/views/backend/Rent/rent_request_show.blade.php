@@ -1,6 +1,6 @@
 @extends('admin_dashboard')
 @section('title')
-    Rent Request Details
+    Sell Request Details
 @endsection
 @section('admin')
     <div class="content">
@@ -9,7 +9,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box">
-                        <h4 class="page-title">Rent Request Details</h4>
+                        <h4 class="page-title">Sell Request Details</h4>
                     </div>
                 </div>
             </div>
@@ -45,7 +45,7 @@
                             <td>{{ $rentRequest->property_type }}</td>
                         </tr>
                         <tr>
-                            <th>Monthly Rent</th>
+                            <th>Sell Price </th>
                             <td>{{ number_format($rentRequest->monthly_rent, 2) }}</td>
                         </tr>
                         <tr>

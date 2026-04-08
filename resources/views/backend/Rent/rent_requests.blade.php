@@ -1,6 +1,6 @@
 @extends('admin_dashboard')
 @section('title')
-    Rent Requests
+    Sell Requests
 @endsection
 @section('admin')
     <div class="content">
@@ -9,7 +9,7 @@
             <div class="row mb-3">
                 <div class="col-sm-6">
                     <div class="page-title-box">
-                        <h4 class="page-title">Rent Requests</h4>
+                        <h4 class="page-title">Sell Requests</h4>
                     </div>
                 </div>
                 <div class="col-sm-6 text-sm-end">
@@ -36,7 +36,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="header-title">All Rent Property Requests</h4>
+                            <h4 class="header-title">All Sell Property Requests</h4>
 
                             <table id="rent-requests-table" class="table table-striped dt-responsive nowrap w-100">
                                 <thead>
@@ -46,7 +46,7 @@
                                         <th>Email</th>
                                         <th>Phone</th>
                                         <th>Type</th>
-                                        <th>Rent</th>
+                                        <th>Sell Price</th>
                                         <th>Submitted</th>
                                         <th>Status</th>
                                         <th>Actions</th>
